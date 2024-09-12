@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 265159889}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.999725, y: 2.5058775, z: 21.5}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -166,8 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3404ba9e8477f54e9a568a75788e6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetPrefab: {fileID: 7045748703054362919, guid: 3273c802ab42b3141a695db411c190ac, type: 3}
   rotationSpeed: 1
+  centerObject: {fileID: 0}
+  planetPrefab: {fileID: 7045748703054362919, guid: 3273c802ab42b3141a695db411c190ac, type: 3}
+  spawnPosition: {x: 100, y: 100, z: 100}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
