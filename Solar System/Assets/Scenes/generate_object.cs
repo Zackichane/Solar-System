@@ -8,11 +8,16 @@ public class YellowDwarfGenerator : MonoBehaviour
     // Minimum and maximum sizes in kilometers (scaled to Unity units)
     private const float minSizeKm = 5f; // 1.253 million km
     private const float maxSizeKm = 40f; // 1.671 million km
-
+    public float rotationSpeed = 1f;
 
     void Start()
     {
         GenerateYellowDwarf();
+    }
+
+    void Update()
+    {
+        RotateYellowDwarf();
     }
 
     void GenerateYellowDwarf()
@@ -36,7 +41,7 @@ public class YellowDwarfGenerator : MonoBehaviour
 
             // Enable emission on the material to make it glow
             starRenderer.material.EnableKeyword("_EMISSION");
-            starRenderer.material.SetColor("_EmissionColor", Color.yellow * 0.8f); // Adjust intensity with * 2f
+            starRenderer.material.SetColor("_EmissionColor", Color.yellow * 0.5f); // Adjust intensity with * 2f
         }
 
         // Optional: Add a Light component to simulate real light emission
@@ -44,5 +49,13 @@ public class YellowDwarfGenerator : MonoBehaviour
         starLight.color = Color.white;
         starLight.intensity = 10f; // Adjust intensity for the glow
         starLight.range = randomSizeUnity * 10f; // Adjust light range based on size
+    }
+    void RotateYellowDwarf()
+    {
+        if (generatedStar != null)
+        {
+            // Rotate the star around its Y-axis
+            generatedStar.transform.Rotate(Vector3.up, rotationSpeed);
+        }
     }
 }
