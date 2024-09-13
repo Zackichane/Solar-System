@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlanetGenerate : MonoBehaviour
@@ -29,6 +31,7 @@ public class PlanetGenerate : MonoBehaviour
     void Update()
     {
         RotatePlanet();
+        RotatePlanetOnAxis();
     }
 
     void GeneratePlanet()
@@ -46,10 +49,20 @@ public class PlanetGenerate : MonoBehaviour
 
     void RotatePlanet()
     {
-        if (generatedPlanet != null && centerObject != null)
+        if (centerObject != null)
         {
             // Rotate the planet around the centerObject's position
             generatedPlanet.transform.RotateAround(centerObject.position, Vector3.up, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    // rotate the planet on its own axis
+    void RotatePlanetOnAxis()
+    {
+        if (generatedPlanet != null)
+        {
+            // Rotate the planet around its Y-axis
+            generatedPlanet.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
         }
     }
 }
