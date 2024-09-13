@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class YellowDwarfGenerator : MonoBehaviour
 {
-    public GameObject starPrefab;  // Prefab of the star
+    public GameObject yellow;  // Prefab of the star
+    public GameObject white;
+    public GameObject red;
+    public GameObject blue;
     private GameObject generatedStar;
+    private GameObject starPrefab;
 
     // Minimum and maximum sizes in kilometers (scaled to Unity units)
     private const float minSizeKm = 5f; // 1.253 million km
@@ -12,6 +16,25 @@ public class YellowDwarfGenerator : MonoBehaviour
 
     void Start()
     {
+        
+        // select random star type
+        int starType = Random.Range(1, 5);
+        if (starType == 1)
+        {
+            starPrefab = yellow;
+        }
+        else if (starType == 2)
+        {
+            starPrefab = white;
+        }
+        else if (starType == 3)
+        {
+            starPrefab = red;
+        }
+        else
+        {
+            starPrefab = blue;
+        }
         GenerateYellowDwarf();
     }
 

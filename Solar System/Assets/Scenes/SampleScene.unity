@@ -329,7 +329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7607e6bd4f07543bdbbb3e66ccae3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starPrefab: {fileID: 2628317742342478185, guid: 9fa0af8d24860224187446b80a2a20d5, type: 3}
+  yellow: {fileID: 6256128626658735256, guid: ba51160602380ae49920a40a164f15ab, type: 3}
+  white: {fileID: 965887463116197849, guid: 37e0c7f32700de64aa52140d285e454e, type: 3}
+  red: {fileID: 8640399136900963992, guid: 5904330281e445d47bb2d6331fee956c, type: 3}
+  blue: {fileID: 6261964674198312568, guid: f86b11a0bbf4b804b90339c2c97e83b0, type: 3}
   rotationSpeed: 0.5
 --- !u!4 &1831653902
 Transform:
