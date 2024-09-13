@@ -329,11 +329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7607e6bd4f07543bdbbb3e66ccae3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yellow: {fileID: 6256128626658735256, guid: ba51160602380ae49920a40a164f15ab, type: 3}
-  white: {fileID: 965887463116197849, guid: 37e0c7f32700de64aa52140d285e454e, type: 3}
-  red: {fileID: 8640399136900963992, guid: 5904330281e445d47bb2d6331fee956c, type: 3}
-  blue: {fileID: 6261964674198312568, guid: f86b11a0bbf4b804b90339c2c97e83b0, type: 3}
-  rotationSpeed: 0.5
+  yellow: {fileID: 6455381146809751659, guid: 07a0eaa9d1f66a6448edf8ca79a54e9c, type: 3}
+  white: {fileID: 2951996512996849068, guid: 8acedbf79a93ea941a79bf059f096776, type: 3}
+  red: {fileID: 447678872616417870, guid: b9a7cd4af62aa674ba1948a80abae988, type: 3}
+  blue: {fileID: 974575123707857853, guid: cb37a7418012f6a46a082d16adb1f614, type: 3}
+  rotationSpeed: 0.1
 --- !u!4 &1831653902
 Transform:
   m_ObjectHideFlags: 0
