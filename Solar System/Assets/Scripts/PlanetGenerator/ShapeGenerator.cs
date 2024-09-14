@@ -1,18 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShapeGenerator
-{
+public class ShapeGenerator {
+
     ShapeSettings settings;
     INoiseFilter[] noiseFilters;
     public MinMax elevationMinMax;
-
-    // Constructor that takes ShapeSettings
-    public ShapeGenerator(ShapeSettings settings)
-    {
-        UpdateSettings(settings);
-    }
 
     public void UpdateSettings(ShapeSettings settings)
     {
@@ -52,3 +46,4 @@ public class ShapeGenerator
         return pointOnUnitSphere * elevation;
     }
 }
+ 
