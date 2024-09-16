@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlanetGenerate : MonoBehaviour
 {
-    // Minimum and maximum sizes in kilometers (scaled to Unity units)
-    private const float minSizeKm = 5f; // Example minimum size
-    private const float maxSizeKm = 40f; // Example maximum size
+    private const float scale = 15000f;
+
+    private const float minRocheuse = 22578 / scale;
+    private const float maxRocheuse = 15868 / scale;
+    private const float minGazeuse = 44254 / scale;
+    private const float maxGazeuse = 482386 / scale;
+
 
     // Rotation speed in degrees per second
     public float rotationSpeed = 10f;
@@ -36,15 +40,23 @@ public class PlanetGenerate : MonoBehaviour
 
     void GeneratePlanet()
     {
-        // Generate a random size in kilometers and convert to Unity units
-        float randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
-        float randomSizeUnity = randomSizeKm;
+        // choose random between rocheuse and gazeuse
+        float randomType = Random.Range(0, 2);
+        float randomSizeKm;
+        if (randomType == 1)
+        {
+            randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
+        }
+        else
+        {
+            randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
+        }
 
         // Instantiate the planet at the specified spawn position with random size
         generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
 
         // Apply the size (localScale) based on the random size
-        generatedPlanet.transform.localScale = new Vector3(randomSizeUnity, randomSizeUnity, randomSizeUnity);
+        generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
     }
 
     void RotatePlanet()

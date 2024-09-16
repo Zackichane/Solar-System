@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class YellowDwarfGenerator : MonoBehaviour
 {
-    public GameObject yellow;  // Prefab of the star
-    public GameObject white;
-    public GameObject red;
-    public GameObject blue;
+    public GameObject YellowDwarf;  // Prefab of the star
+    public GameObject WhiteDwarf;
+    public GameObject RedGiant;
+    public GameObject BlueGiant;
     private GameObject generatedStar;
     private GameObject starPrefab;
 
-    // Minimum and maximum sizes in kilometers (scaled to Unity units)
-    private const float minSizeKm = 5f; // 1.253 million km
-    private const float maxSizeKm = 40f; // 1.671 million km
+    // Minimum and maximum sizes in kilometers (scale : 1 unit = 10 000 km)
+    private float minSizeKm;
+    private float maxSizeKm;
+    private const float scale = 15000f;
     public float rotationSpeed = 1f;
 
     void Start()
@@ -21,19 +22,32 @@ public class YellowDwarfGenerator : MonoBehaviour
         int starType = Random.Range(1, 5);
         if (starType == 1)
         {
-            starPrefab = yellow;
+            starPrefab = WhiteDwarf;
+            // 7000 km to 14000 km
+            minSizeKm = 7000/ scale;
+            maxSizeKm = 14000/ scale;
         }
         else if (starType == 2)
         {
-            starPrefab = white;
+            starPrefab = YellowDwarf;
+            // 1 120 000 km to 1 680 000 km
+            minSizeKm = 1120 / scale;
+            maxSizeKm = 1680 / scale;
         }
         else if (starType == 3)
         {
-            starPrefab = red;
+            starPrefab = RedGiant;
+            // 99 779 000 km to 997 790 000 km
+            minSizeKm = 99779 / scale;
+            maxSizeKm = 997790 / scale;
         }
         else
         {
-            starPrefab = blue;
+            starPrefab = BlueGiant;
+            // 14 000 000 km to 140 000 000 km
+            minSizeKm = 14000000 / scale;
+            maxSizeKm = 140000000 / scale;
+
         }
         GenerateYellowDwarf();
     }

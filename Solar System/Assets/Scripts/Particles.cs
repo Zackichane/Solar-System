@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ParticleFollower : MonoBehaviour
 {
-    public ParticleSystem particleSystem;  // Reference to the particle system you want to follow the object
+    public new ParticleSystem particleSystem;  // Reference to the particle system you want to follow the object
 
     private Transform particleSystemTransform;
 

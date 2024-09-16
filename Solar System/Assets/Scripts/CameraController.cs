@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float movementSpeed = 10f;  // Vitesse de déplacement
+    public float movementSpeed = 100f;  // Vitesse de déplacement
     public float mouseSensitivity = 100f;  // Sensibilité de la souris
 
     private float rotationX = 0f;  // Rotation autour de l'axe X (haut-bas)
