@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6717570745485970886}
   - component: {fileID: 1733858230594096705}
   - component: {fileID: 4900671161142053455}
+  - component: {fileID: -4139639158706887493}
   m_Layer: 0
   m_Name: WhiteDwarf
   m_TagString: Untagged
@@ -120,6 +121,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystem: {fileID: 4988582950699007309, guid: 692d8c6edd6314a4c8ab5325cbe49dbb, type: 3}
+--- !u!54 &-4139639158706887493
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951996512996849068}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &7414314244361869750
 PrefabInstance:
   m_ObjectHideFlags: 0
