@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171295a055c10d441a6f5d09ae7fba4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSystem: {fileID: 0}
+  particleSystem: {fileID: 5633794824291111055, guid: d1a24ea84c63b2949893d35615d4da13, type: 3}
 --- !u!54 &9150226246923919744
 Rigidbody:
   m_ObjectHideFlags: 0
