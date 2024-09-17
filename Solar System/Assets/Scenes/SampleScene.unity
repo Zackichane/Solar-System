@@ -169,7 +169,7 @@ MonoBehaviour:
   rotationSpeed: 1
   centerObject: {fileID: 1831653902}
   planetPrefab: {fileID: 7480272255908540563, guid: 2f9157f8ab845154eb4876f5f0c152a3, type: 3}
-  spawnPosition: {x: 100, y: 0, z: 0}
+  spawnPosition: {x: 1000, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
