@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlanetGenerate : MonoBehaviour
 {
-    private const float scale = 15000f;
+    private const float scale = 10000f;
 
     private const float minRocheuse = 22578 / scale;
     private const float maxRocheuse = 15868 / scale;
