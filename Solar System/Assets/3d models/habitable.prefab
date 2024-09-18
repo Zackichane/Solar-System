@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7849695846398522769}
   - component: {fileID: 1876805467291997679}
   m_Layer: 0
-  m_Name: HabitableP1
+  m_Name: habitable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

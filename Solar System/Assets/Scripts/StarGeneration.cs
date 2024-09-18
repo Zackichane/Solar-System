@@ -18,17 +18,24 @@ public class YellowDwarfGenerator : MonoBehaviour
     private const float scale = 10000f;
     public float rotationSpeed = 1f;
 
+    private float minDist;
+    private float maxDist;
+    private float radiusStar;
+
     void Start()
     {
         
         // select random star type
         int starType = Random.Range(1, 5);
+        starType = 1;
         if (starType == 1)
         {
             starPrefab = WhiteDwarf;
             // 7000 km to 14000 km
             minSizeKm = 7000/ scale;
             maxSizeKm = 14000/ scale;
+            minDist = 5;
+            maxDist = 10;
         }
         else if (starType == 2)
         {
@@ -36,6 +43,9 @@ public class YellowDwarfGenerator : MonoBehaviour
             // 1 120 000 km to 1 680 000 km
             minSizeKm = 1120000 / scale;
             maxSizeKm = 1680000 / scale;
+            minDist = 50;
+            maxDist = 100;
+
         }
         else if (starType == 3)
         {
@@ -43,6 +53,8 @@ public class YellowDwarfGenerator : MonoBehaviour
             // 99 779 000 km to 997 790 000 km
             minSizeKm = 99779000 / scale;
             maxSizeKm = 997790000 / scale;
+            minDist = 1000;
+            maxDist = 3000;
         }
         else
         {
@@ -50,6 +62,8 @@ public class YellowDwarfGenerator : MonoBehaviour
             // 14 000 000 km to 140 000 000 km
             minSizeKm = 14000000 / scale;
             maxSizeKm = 140000000 / scale;
+            minDist = 10000;
+            maxDist = 20000;
 
         }
         GenerateYellowDwarf();
@@ -66,6 +80,9 @@ public class YellowDwarfGenerator : MonoBehaviour
         float randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
         float randomSizeUnity = randomSizeKm;
 
+        radiusStar = randomSizeKm/2f;
+
+        float randomDist = Random.Range(minDist, maxDist);
 
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         generatedStar = Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
@@ -94,6 +111,21 @@ public class YellowDwarfGenerator : MonoBehaviour
 
         // adjust camera position
         mainCamera.transform.position = new Vector3(randomSizeKm, 0, 0);
+
+        // move the planet empty object
+        GameObject planetEmpty = GameObject.Find("habitable(Clone)");
+        float radiusPlanet = planetEmpty.transform.localScale.x / 2f;
+        if (radiusPlanet > radiusStar)
+        {
+            float toAdd = radiusPlanet - radiusStar;
+            planetEmpty.transform.position = new Vector3(0, planetEmpty.transform.position.x + toAdd, 0);
+        }
+        // random distance between 100 and 2000
+
+        float dist = randomSizeKm / 2f + randomDist + radiusStar;
+        // round to 2 decimal places
+        dist = (float)Round(dist * 100f) / 100f;
+        planetEmpty.transform.position = new Vector3(dist, 0, 0);
     }
     void RotateYellowDwarf()
     {

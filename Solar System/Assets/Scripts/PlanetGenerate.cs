@@ -13,7 +13,7 @@ public class PlanetGenerate : MonoBehaviour
 
 
     // Rotation speed in degrees per second
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 1f;
 
     // Reference to the object around which the planet will rotate
     public Transform centerObject;
@@ -21,14 +21,22 @@ public class PlanetGenerate : MonoBehaviour
     // Prefab for the planet
     public GameObject planetPrefab;
 
-    // Position to spawn the planet
-    public Vector3 spawnPosition;
+    // get the position of the Planet object
+    GameObject planetEmpty;
+    float PlanetPos;
+    private Vector3 spawnPosition;
 
     // Reference to the generated planet
     private GameObject generatedPlanet;
 
     void Start()
     {
+        planetEmpty = GameObject.Find("Planet");
+        PlanetPos = planetEmpty.transform.position.x;
+        Debug.Log(PlanetPos);
+        spawnPosition = new Vector3(PlanetPos, 0, 0);
+        // print the spawn position
+        Debug.Log(spawnPosition);
         GeneratePlanet();
     }
 
