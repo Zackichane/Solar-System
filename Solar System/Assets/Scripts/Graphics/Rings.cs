@@ -17,8 +17,9 @@ public class SimpleRingGenerator : MonoBehaviour
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         Mesh ringMesh = new Mesh();
 
-        Vector3[] vertices = new Vector3[segments * 2];
-        int[] triangles = new int[segments * 6];
+        Vector3[] vertices = new Vector3[segments * 4]; // 4 vertices per segment (front & back)
+        int[] triangles = new int[segments * 12]; // 6 triangles per segment (front & back)
+        Vector2[] uvs = new Vector2[vertices.Length]; // UV mapping array
 
         float angleStep = 2 * Mathf.PI / segments;
 
@@ -28,28 +29,35 @@ public class SimpleRingGenerator : MonoBehaviour
             float x = Mathf.Cos(angle);
             float z = Mathf.Sin(angle);
 
-            // Outer vertex
+            // Outer vertex (front)
             vertices[i * 2] = new Vector3(x * outerRadius, 0f, z * outerRadius);
+            uvs[i * 2] = new Vector2(i / (float)segments, 1);  // UVs for outer front
 
-            // Inner vertex
+            // Inner vertex (front)
             vertices[i * 2 + 1] = new Vector3(x * innerRadius, 0f, z * innerRadius);
+            uvs[i * 2 + 1] = new Vector2(i / (float)segments, 0);  // UVs for inner front
 
-            // Set triangles (2 triangles per segment)
+            // Outer vertex (back)
+            vertices[(segments * 2) + i * 2] = new Vector3(x * outerRadius, 0f, z * outerRadius);
+            uvs[(segments * 2) + i * 2] = new Vector2(i / (float)segments, 1);  // UVs for outer back
+
+            // Inner vertex (back)
+            vertices[(segments * 2) + i * 2 + 1] = new Vector3(x * innerRadius, 0f, z * innerRadius);
+            uvs[(segments * 2) + i * 2 + 1] = new Vector2(i / (float)segments, 0);  // UVs for inner back
+
+            // Front face triangles
             if (i < segments - 1)
             {
-                // First triangle
                 triangles[i * 6] = i * 2;
                 triangles[i * 6 + 1] = i * 2 + 1;
                 triangles[i * 6 + 2] = i * 2 + 2;
 
-                // Second triangle
                 triangles[i * 6 + 3] = i * 2 + 1;
                 triangles[i * 6 + 4] = i * 2 + 3;
                 triangles[i * 6 + 5] = i * 2 + 2;
             }
             else
             {
-                // Wrap last segment back to the first vertices
                 triangles[i * 6] = i * 2;
                 triangles[i * 6 + 1] = i * 2 + 1;
                 triangles[i * 6 + 2] = 0;
@@ -58,11 +66,35 @@ public class SimpleRingGenerator : MonoBehaviour
                 triangles[i * 6 + 4] = 1;
                 triangles[i * 6 + 5] = 0;
             }
+
+            // Back face triangles (inverted winding)
+            if (i < segments - 1)
+            {
+                triangles[segments * 6 + i * 6] = (segments * 2) + i * 2;
+                triangles[segments * 6 + i * 6 + 1] = (segments * 2) + i * 2 + 2;
+                triangles[segments * 6 + i * 6 + 2] = (segments * 2) + i * 2 + 1;
+
+                triangles[segments * 6 + i * 6 + 3] = (segments * 2) + i * 2 + 1;
+                triangles[segments * 6 + i * 6 + 4] = (segments * 2) + i * 2 + 2;
+                triangles[segments * 6 + i * 6 + 5] = (segments * 2) + i * 2 + 3;
+            }
+            else
+            {
+                triangles[segments * 6 + i * 6] = (segments * 2) + i * 2;
+                triangles[segments * 6 + i * 6 + 1] = (segments * 2) + 0;
+                triangles[segments * 6 + i * 6 + 2] = (segments * 2) + i * 2 + 1;
+
+                triangles[segments * 6 + i * 6 + 3] = (segments * 2) + i * 2 + 1;
+                triangles[segments * 6 + i * 6 + 4] = (segments * 2) + 0;
+                triangles[segments * 6 + i * 6 + 5] = (segments * 2) + 1;
+            }
         }
 
         ringMesh.vertices = vertices;
         ringMesh.triangles = triangles;
-        ringMesh.RecalculateNormals();
+        ringMesh.uv = uvs;  // Assign UVs
+
+        ringMesh.RecalculateNormals(); // Ensure normals are calculated for proper lighting
 
         meshFilter.mesh = ringMesh;
 
