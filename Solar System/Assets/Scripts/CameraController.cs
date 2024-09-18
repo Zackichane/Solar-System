@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
     public float mouseSensitivity = 500f;  // Sensibilité de la souris
     public float verticalSpeed = 100f;  // Vitesse de déplacement vertical (Q et E)
     public float speedMultiplier = 3f;  // Multiplicateur de vitesse lorsque la barre d'espace est enfoncée
+    public GameObject objectToSpawn;  // Objet à faire apparaître
+    public float spawnDistance = 2f;  // Distance à laquelle l'objet apparaît devant la caméra
 
     private float rotationX = 0f;  // Rotation autour de l'axe X (haut-bas)
 
@@ -40,5 +42,26 @@ public class CameraController : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);  // Limite l'angle vertical de la caméra
 
         transform.localRotation = Quaternion.Euler(rotationX, transform.localRotation.eulerAngles.y + mouseX, 0f);
+
+        // Spawn object when C is pressed
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SpawnObject();
+        }
+    }
+
+    void SpawnObject()
+    {
+        // Vérifier si l'objet à faire apparaître est assigné
+        if (objectToSpawn != null)
+        {
+            // Calculer la position d'apparition de l'objet (devant la caméra)
+            Vector3 spawnPosition = transform.position + transform.forward * spawnDistance;
+            Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Aucun objet assigné à 'objectToSpawn'!");
+        }
     }
 }
