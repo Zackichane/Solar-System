@@ -34,8 +34,8 @@ public class YellowDwarfGenerator : MonoBehaviour
             // 7000 km to 14000 km
             minSizeKm = 7000/ scale;
             maxSizeKm = 14000/ scale;
-            minDist = 5;
-            maxDist = 10;
+            minDist = 10;
+            maxDist = 50;
         }
         else if (starType == 2)
         {
@@ -111,6 +111,7 @@ public class YellowDwarfGenerator : MonoBehaviour
 
         // adjust camera position
         mainCamera.transform.position = new Vector3(randomSizeKm, 0, 0);
+        float dist = 0f;
 
         // move the planet empty object
         GameObject planetEmpty = GameObject.Find("habitable(Clone)");
@@ -119,10 +120,11 @@ public class YellowDwarfGenerator : MonoBehaviour
         {
             float toAdd = radiusPlanet - radiusStar;
             planetEmpty.transform.position = new Vector3(0, planetEmpty.transform.position.x + toAdd, 0);
+            dist = dist + radiusPlanet;
         }
         // random distance between 100 and 2000
 
-        float dist = randomSizeKm / 2f + randomDist + radiusStar;
+        dist = dist + (randomSizeKm / 2f + randomDist + radiusStar);
         // round to 2 decimal places
         dist = (float)Round(dist * 100f) / 100f;
         planetEmpty.transform.position = new Vector3(dist, 0, 0);
