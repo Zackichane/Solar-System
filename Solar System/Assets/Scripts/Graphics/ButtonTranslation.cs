@@ -11,34 +11,72 @@ public class MoveCamera : MonoBehaviour
     public float transitionSpeed = 2f;
 
     private bool moveCamera = false;  // To trigger the movement
+    private bool moveBack = false;    // To trigger moving back
+
+    // Store initial camera position and rotation
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    // Thresholds for snapping to final position/rotation to avoid lag
+    private float positionThreshold = 0.05f;
+    private float rotationThreshold = 2.0f;
+
+    void Start()
+    {
+        // Save the initial position and rotation of the camera
+        initialPosition = mainCamera.transform.position;
+        initialRotation = mainCamera.transform.rotation;
+    }
 
     void Update()
     {
         if (moveCamera)
         {
-            // Interpolate position and rotation smoothly
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, Time.deltaTime * transitionSpeed);
-            mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionSpeed);
-
-            // Check if the camera has reached the target position and rotation
-            if (Vector3.Distance(mainCamera.transform.position, targetPosition) < 0.01f &&
-                Quaternion.Angle(mainCamera.transform.rotation, Quaternion.Euler(targetRotation)) < 0.01f)
-            {
-                moveCamera = false;  // Stop moving once close enough
-            }
+            MoveToPosition(targetPosition, Quaternion.Euler(targetRotation));
+        }
+        else if (moveBack)
+        {
+            MoveToPosition(initialPosition, initialRotation);
         }
     }
 
-    // This method will be called when the button is clicked to move the camera
+    // Function to handle the camera movement and snapping to position
+    private void MoveToPosition(Vector3 position, Quaternion rotation)
+    {
+        // Interpolate position and rotation smoothly
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, position, Time.deltaTime * transitionSpeed);
+        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * transitionSpeed);
+
+        // Check if the camera is within the snapping threshold for position and rotation
+        if (Vector3.Distance(mainCamera.transform.position, position) < positionThreshold &&
+            Quaternion.Angle(mainCamera.transform.rotation, rotation) < rotationThreshold)
+        {
+            // Snap to exact position/rotation and stop moving
+            mainCamera.transform.position = position;
+            mainCamera.transform.rotation = rotation;
+
+            moveCamera = false;
+            moveBack = false;
+        }
+    }
+
+    // This method will be called when the button is clicked to move the camera forward
     public void OnButtonClick()
     {
-        moveCamera = true;  // Start moving the camera
+        moveCamera = true;  // Start moving the camera forward
+        moveBack = false;   // Reset move back flag
+    }
+
+    // This method will be called when the button is clicked to move the camera back
+    public void OnMoveBackClick()
+    {
+        moveBack = true;  // Start moving the camera back
+        moveCamera = false;  // Reset move forward flag
     }
 
     // This method will be called when the quit button is clicked to quit the game
     public void QuitGame()
     {
-        // Log a message in the Unity Editor, but quit the application in a built game
         #if UNITY_EDITOR
             Debug.Log("Quit Game option selected.");
         #else
