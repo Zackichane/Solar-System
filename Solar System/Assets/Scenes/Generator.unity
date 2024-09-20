@@ -465,6 +465,68 @@ MonoBehaviour:
   speedMultiplier: 3
   objectToSpawn: {fileID: 1667859905}
   spawnDistance: 2
+--- !u!1 &1246437751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246437752}
+  - component: {fileID: 1246437753}
+  m_Layer: 0
+  m_Name: Satellite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1246437752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246437751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1246437753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246437751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ddb4d133e06ce45a3530d2fa76689c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  S1: {fileID: 4688349805820603875, guid: abfc5d3cbba8ca74aa1ebad6681c0bea, type: 3}
+  S2: {fileID: 2763105157033949082, guid: df2934d0f6144da4b9c79b4374a055d3, type: 3}
+  S3: {fileID: 5861214918393281362, guid: b2047a78f673988438539982faf76a6f, type: 3}
+  S4: {fileID: 0}
+  S5: {fileID: 0}
+  S6: {fileID: 0}
+  S7: {fileID: 0}
+  S8: {fileID: 0}
+  S9: {fileID: 0}
+  S10: {fileID: 0}
+  S11: {fileID: 0}
+  S12: {fileID: 0}
+  S13: {fileID: 0}
+  S14: {fileID: 0}
+  S15: {fileID: 0}
+  S16: {fileID: 0}
+  orbiteSpeed: 100
+  rotationSpeed: 50
 --- !u!1001 &1667859904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -869,5 +931,6 @@ SceneRoots:
   - {fileID: 1694868731}
   - {fileID: 1831653902}
   - {fileID: 265159891}
+  - {fileID: 1246437752}
   - {fileID: 1667859904}
   - {fileID: 490691827}

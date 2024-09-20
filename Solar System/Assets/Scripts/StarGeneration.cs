@@ -27,7 +27,6 @@ public class YellowDwarfGenerator : MonoBehaviour
         
         // select random star type
         int starType = Random.Range(1, 5);
-        starType = 1;
         if (starType == 1)
         {
             starPrefab = WhiteDwarf;
