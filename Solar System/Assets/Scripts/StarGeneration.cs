@@ -109,7 +109,7 @@ public class YellowDwarfGenerator : MonoBehaviour
 
 
         // adjust camera position
-        mainCamera.transform.position = new Vector3(randomSizeKm, 0, 0);
+        //mainCamera.transform.position = new Vector3(randomSizeKm, 0, 0);
         float dist = 0f;
 
         // move the planet empty object
