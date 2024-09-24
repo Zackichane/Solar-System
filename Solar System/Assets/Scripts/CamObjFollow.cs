@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamPlanetFollower : MonoBehaviour
+public class CamObjFollow : MonoBehaviour
 {
     private Transform target; // The target object to follow
     public Vector3 offset;    // Offset from the target
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
+    public string targetName;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find("habitable(Clone)").transform; // Find the target object by name
+        target = GameObject.Find(targetName).transform; // Find the target object by name
         if (target != null)
         {
             // Initialize the offset based on initial positions
@@ -37,7 +38,7 @@ public class CamPlanetFollower : MonoBehaviour
         else
         {
             // If the target is null, try to find it again
-            target = GameObject.Find("habitable(Clone)").transform;
+            target = GameObject.Find(targetName).transform;
             if (target != null)
             {
                 // Initialize the offset based on initial positions

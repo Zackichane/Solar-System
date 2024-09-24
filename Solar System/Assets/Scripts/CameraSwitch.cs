@@ -5,6 +5,8 @@ public class CameraSwitcher : MonoBehaviour
     public Camera camera1;
     public Camera camera2;
     public Camera camera3;
+    public Camera camera4;
+    public Camera camera5;
     public GameObject objectToSpawn;  // Object to spawn when C is pressed
     public float spawnDistance = 2f;  // Distance at which object spawns in front of the active camera
 
@@ -16,11 +18,15 @@ public class CameraSwitcher : MonoBehaviour
         camera1.enabled = true;
         camera2.enabled = false;
         camera3.enabled = false;
+        camera4.enabled = false;
+        camera5.enabled = false;
 
         // Ensure camera movement control for camera1 is active at the start
         camera1.GetComponent<CameraController>().enabled = true;
         camera2.GetComponent<CameraController>().enabled = false;
         camera3.GetComponent<CameraController>().enabled = false;
+        camera4.GetComponent<CameraController>().enabled = false;
+        camera5.GetComponent<CameraController>().enabled = false;
     }
 
     void Update()
@@ -43,18 +49,30 @@ public class CameraSwitcher : MonoBehaviour
                 camera2.enabled = false;
                 camera3.enabled = true;
             }
-            else
+            else if (camera3.enabled == true)
             {
                 camera3.enabled = false;
+                camera4.enabled = true;
+            }
+            else if (camera4.enabled == true)
+            {
+                camera4.enabled = false;
+                camera5.enabled = true;
+            }
+            else if (camera5.enabled == true)
+            {
+                camera5.enabled = false;
                 camera1.enabled = true;
             }
-            
+
 
 
             // Toggle movement control based on which camera is active
             camera1.GetComponent<CameraController>().enabled = camera1.enabled;
             camera2.GetComponent<CameraController>().enabled = camera2.enabled;
             camera3.GetComponent<CameraController>().enabled = camera3.enabled;
+            camera4.GetComponent<CameraController>().enabled = camera4.enabled;
+            camera5.GetComponent<CameraController>().enabled = camera5.enabled;
         }
 
         // Spawn object only with the active camera when C is pressed

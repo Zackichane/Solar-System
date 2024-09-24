@@ -65,6 +65,8 @@ public class PlanetGenerate : MonoBehaviour
 
         // Apply the size (localScale) based on the random size
         generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
+
+        generatedPlanet.name = "GeneratedPlanet";
     }
 
     void RotatePlanet()

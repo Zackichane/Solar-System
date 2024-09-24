@@ -21,6 +21,7 @@ public class YellowDwarfGenerator : MonoBehaviour
     private float minDist;
     private float maxDist;
     private float radiusStar;
+    private string planetName = "GeneratedPlanet";
 
     void Start()
     {
@@ -71,6 +72,7 @@ public class YellowDwarfGenerator : MonoBehaviour
     void Update()
     {
         RotateYellowDwarf();
+        if (generatedStar.name != "GeneratedStar") { generatedStar.name = "GeneratedStar"; }
     }
 
     void GenerateYellowDwarf()
@@ -113,7 +115,7 @@ public class YellowDwarfGenerator : MonoBehaviour
         float dist = 0f;
 
         // move the planet empty object
-        GameObject planetEmpty = GameObject.Find("habitable(Clone)");
+        GameObject planetEmpty = GameObject.Find(planetName);
         float radiusPlanet = planetEmpty.transform.localScale.x / 2f;
         if (radiusPlanet > radiusStar)
         {
@@ -127,6 +129,9 @@ public class YellowDwarfGenerator : MonoBehaviour
         // round to 2 decimal places
         dist = (float)Round(dist * 100f) / 100f;
         planetEmpty.transform.position = new Vector3(dist, 0, 0);
+
+        // rename the genereated star
+        generatedStar.name = "GeneratedStar";
     }
     void RotateYellowDwarf()
     {

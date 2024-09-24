@@ -26,10 +26,11 @@ public class SatelliteGenerate : MonoBehaviour
     private Transform centerObject;
     public float orbiteSpeed = 100f;
     public float rotationSpeed = 50f;
+    private string planetName = "GeneratedPlanet";
     void Start()
     {
         // Find the generated planet in the scene
-        generatedPlanet = GameObject.Find("habitable(Clone)");
+        generatedPlanet = GameObject.Find(planetName);
         if (generatedPlanet != null)
         {
             centerObject = generatedPlanet.transform;
@@ -46,7 +47,7 @@ public class SatelliteGenerate : MonoBehaviour
         // check if the planet was generated
         if (generatedPlanet == null)
         {
-            generatedPlanet = GameObject.Find("habitable(Clone)");
+            generatedPlanet = GameObject.Find(planetName);
             if (generatedPlanet != null)
             {
                 centerObject = generatedPlanet.transform;
@@ -77,6 +78,9 @@ public class SatelliteGenerate : MonoBehaviour
         // Instantiate the satellite
         generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
         generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
+
+        // how to rename the satellite
+        generatedSatellite.name = "GeneratedSatellite";
     }
 
     void OrbiteSatellite()
