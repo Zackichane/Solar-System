@@ -44,7 +44,7 @@ public class CamObjFollow : MonoBehaviour
                 // Initialize the offset based on initial positions
                 //get the scale of the target object
                 float scale = target.localScale.x;
-                offset = new Vector3(scale/2 + 10, 0, 0);
+                offset = new Vector3(scale, 0, 0);
             }
         }
     }

@@ -25,6 +25,7 @@ public class PlanetGenerate : MonoBehaviour
     GameObject planetEmpty;
     float PlanetPos;
     private Vector3 spawnPosition;
+    public Camera mainCamera;
 
     // Reference to the generated planet
     private GameObject generatedPlanet;
@@ -67,6 +68,9 @@ public class PlanetGenerate : MonoBehaviour
         generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
         generatedPlanet.name = "GeneratedPlanet";
+
+        // move the mainCamera
+        //mainCamera.transform.position = new Vector3(spawnPosition.x * 2, 0, 0);
     }
 
     void RotatePlanet()

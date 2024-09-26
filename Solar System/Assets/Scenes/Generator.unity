@@ -302,6 +302,7 @@ MonoBehaviour:
   rotationSpeed: 10
   centerObject: {fileID: 1831653902}
   planetPrefab: {fileID: 7480272255908540563, guid: 2f9157f8ab845154eb4876f5f0c152a3, type: 3}
+  mainCamera: {fileID: 963194227}
 --- !u!1 &293850197
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,7 +967,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 1000000
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -994,7 +995,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1074,15 +1075,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3206668dd1235dd49954501ebbaadd9b, type: 3}
+  m_Script: {fileID: 11500000, guid: ab3017b1cf832794997ed77eb81f1410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 100
-  mouseSensitivity: 500
-  verticalSpeed: 100
-  speedMultiplier: 3
-  objectToSpawn: {fileID: 919132149155446097, guid: 4eec7a5f46df6ca419d62a323b7eb4bc, type: 3}
-  spawnDistance: 2
 --- !u!1 &1077823033
 GameObject:
   m_ObjectHideFlags: 0
