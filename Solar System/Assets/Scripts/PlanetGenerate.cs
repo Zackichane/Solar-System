@@ -10,6 +10,7 @@ public class PlanetGenerate : MonoBehaviour
     private const float maxRocheuse = 15868 / scale;
     private const float minGazeuse = 44254 / scale;
     private const float maxGazeuse = 482386 / scale;
+    public bool stopOrbite = false;
 
 
     // Rotation speed in degrees per second
@@ -43,7 +44,22 @@ public class PlanetGenerate : MonoBehaviour
 
     void Update()
     {
-        RotatePlanet();
+        // if the satellite is inactive, stop the planet orbit
+        GameObject satelliteObject = GameObject.Find("GeneratedSatellite");
+        if (satelliteObject == null)
+        {
+            stopOrbite = true;
+        }
+        else
+        {
+            stopOrbite = false;
+        }
+
+        if (stopOrbite == false)
+        {
+            RotatePlanet();
+        }
+
         RotatePlanetOnAxis();
     }
 
@@ -91,4 +107,5 @@ public class PlanetGenerate : MonoBehaviour
             generatedPlanet.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
         }
     }
+
 }

@@ -31,6 +31,7 @@ public class AdjustMainCamera : MonoBehaviour
             print(planetZ);
             // use tan to calculate the distance between the planet and the star
             float dist = (planetZ) / 0.5773502692f;
+            dist = dist + planet.transform.localScale.x/2;
             // set the object position
             transform.position = new Vector3(0, 0, -dist);
             cameraAdjusted = true;

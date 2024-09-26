@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CamObjFollow : MonoBehaviour
@@ -16,7 +14,12 @@ public class CamObjFollow : MonoBehaviour
         if (target != null)
         {
             // Initialize the offset based on initial positions
-            offset = transform.position - target.position;
+            offset = new Vector3(target.transform.localScale.x, 0, 0);
+            // round the offset up with no decimal
+            if (offset.x < 1)
+            {
+                offset = new Vector3(5f, 0, 0);
+            }
         }
     }
 
@@ -42,9 +45,12 @@ public class CamObjFollow : MonoBehaviour
             if (target != null)
             {
                 // Initialize the offset based on initial positions
-                //get the scale of the target object
-                float scale = target.localScale.x;
-                offset = new Vector3(scale, 0, 0);
+                offset = new Vector3(target.transform.localScale.x, 0, 0);
+                // round the offset up with no decimal
+                if (offset.x < 1)
+                {
+                    offset = new Vector3(5f, 0, 0);
+                }
             }
         }
     }
