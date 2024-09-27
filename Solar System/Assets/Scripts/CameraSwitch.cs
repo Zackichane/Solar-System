@@ -6,6 +6,7 @@ public class CameraSwitch : MonoBehaviour
     public Camera camera2;
     public Camera camera3;
     public Camera camera4;
+    public Camera camera5;
 
     public GameObject objectToSpawn;  // Object to spawn when C is pressed
     public float spawnDistance = 2f;  // Distance at which object spawns in front of the active camera
@@ -25,12 +26,14 @@ public class CameraSwitch : MonoBehaviour
         camera2.enabled = false; // planet camera
         camera3.enabled = false; // satellite camera
         camera4.enabled = false; // star camera
+        camera5.enabled = false; // planet + satellite camera
 
         // Ensure camera movement control for camera1 is active at the start
         camera1.GetComponent<CameraController>().enabled = true;
         camera2.GetComponent<CameraController>().enabled = false;
         camera3.GetComponent<CameraController>().enabled = false;
         camera4.GetComponent<CameraController>().enabled = false;
+        camera5.GetComponent<CameraController>().enabled = false;
     }
 
     void Update()
@@ -79,9 +82,17 @@ public class CameraSwitch : MonoBehaviour
             else if (camera4.enabled == true)
             {
                 camera4.enabled = false;
-                camera1.enabled = true;
+                camera5.enabled = true;
+                Hide(star);
                 Show(satellite);
+                Show(planet);
+            }
+            else if (camera5.enabled == true)
+            {
+                camera5.enabled = false;
+                camera1.enabled = true;
                 Show(star);
+                Show(satellite);
                 Show(planet);
             }
 

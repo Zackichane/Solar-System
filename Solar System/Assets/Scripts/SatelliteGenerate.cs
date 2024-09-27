@@ -89,7 +89,7 @@ public class SatelliteGenerate : MonoBehaviour
 
         // Set the scale of the satellite
         satellitePrefab = S1;
-        float distance = 0f; // Set the desired distance from the planet
+        float distance = sizePlanet * 2f; // Set the desired distance from the planet based on the planet size
         Vector3 spawnPosition = generatedPlanet.transform.position + new Vector3(distance, 0, 0); // Adjust spawn position relative to the planet
 
         // Instantiate the satellite

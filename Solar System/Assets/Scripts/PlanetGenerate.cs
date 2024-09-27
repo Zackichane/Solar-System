@@ -45,7 +45,7 @@ public class PlanetGenerate : MonoBehaviour
     void Update()
     {
         // if the satellite is inactive, stop the planet orbit
-        GameObject satelliteObject = GameObject.Find("GeneratedSatellite");
+        GameObject satelliteObject = GameObject.Find("GeneratedStar");
         if (satelliteObject == null)
         {
             stopOrbite = true;
