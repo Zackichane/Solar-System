@@ -3,24 +3,16 @@ using UnityEngine;
 public class CamObjFollow : MonoBehaviour
 {
     private Transform target; // The target object to follow
+    private Transform secondTarget; // The second target object to follow
     public Vector3 offset;    // Offset from the target
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     public string targetName;
+    public string secondTargetName;
 
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find(targetName).transform; // Find the target object by name
-        if (target != null)
-        {
-            // Initialize the offset based on initial positions
-            offset = new Vector3(target.transform.localScale.x, 0, 0);
-            // round the offset up with no decimal
-            if (offset.x < 1)
-            {
-                offset = new Vector3(5f, 0, 0);
-            }
-        }
+        GetTarget(); // Get the target and the offset
     }
 
     // Update is called once per frame
@@ -40,17 +32,32 @@ public class CamObjFollow : MonoBehaviour
         }
         else
         {
-            // If the target is null, try to find it again
-            target = GameObject.Find(targetName).transform;
-            if (target != null)
+            GetTarget(); // Get the target and the offset
+        }
+    }
+
+    void GetTarget()
+    {
+        target = GameObject.Find(targetName).transform;
+        if (target != null)
+        {
+            // Initialize the offset based on initial positions
+            offset = new Vector3(target.transform.localScale.x, 0, 0);
+            // round the offset up with no decimal
+            if (offset.x < 1)
             {
-                // Initialize the offset based on initial positions
-                offset = new Vector3(target.transform.localScale.x, 0, 0);
+                offset = new Vector3(5f, 0, 0);
+            }
+        }
+
+        if (secondTargetName != null)
+        {
+            secondTarget = GameObject.Find(secondTargetName).transform;
+            if (secondTarget != null)
+            {
+                // add the distance between the two targets to the offset
+                offset += new Vector3(secondTarget.transform.localScale.x * 3, 0, 0);
                 // round the offset up with no decimal
-                if (offset.x < 1)
-                {
-                    offset = new Vector3(5f, 0, 0);
-                }
             }
         }
     }

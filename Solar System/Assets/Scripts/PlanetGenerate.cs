@@ -31,9 +31,12 @@ public class PlanetGenerate : MonoBehaviour
     // Reference to the generated planet
     private GameObject generatedPlanet;
 
+    private float maxInclination = 100f;
+    private float minInclination = 0f;
+
     void Start()
     {
-        planetEmpty = GameObject.Find("Planet");
+        planetEmpty = GameObject.Find("EMPTY Planet");
         PlanetPos = planetEmpty.transform.position.x;
         Debug.Log(PlanetPos);
         spawnPosition = new Vector3(PlanetPos, 0, 0);
@@ -85,8 +88,11 @@ public class PlanetGenerate : MonoBehaviour
 
         generatedPlanet.name = "GeneratedPlanet";
 
-        // move the mainCamera
-        //mainCamera.transform.position = new Vector3(spawnPosition.x * 2, 0, 0);
+        // set the planet inclination
+        float inclination = Random.Range(minInclination, maxInclination);
+        // tilt the planet
+        generatedPlanet.transform.Rotate(Vector3.forward, inclination);
+
     }
 
     void RotatePlanet()

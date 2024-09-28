@@ -18,6 +18,7 @@ public class CameraSwitch : MonoBehaviour
     private GameObject star;
     public bool stopPlanetOrbite = false;
     public bool stopSatelliteOrbite = false;
+    public Canvas canvas;
 
     void Start()
     {
@@ -62,6 +63,8 @@ public class CameraSwitch : MonoBehaviour
                 Hide(star);
                 Hide(satellite);
                 Show(planet);
+                // switch the camera in the canvas
+                canvas.worldCamera = camera2;
             }
             else if (camera2.enabled == true)
             {
@@ -70,6 +73,7 @@ public class CameraSwitch : MonoBehaviour
                 Hide(planet);
                 Hide(star);
                 Show(satellite);
+                canvas.worldCamera = camera3;
             }
             else if (camera3.enabled == true)
             {
@@ -78,6 +82,7 @@ public class CameraSwitch : MonoBehaviour
                 Hide(planet);
                 Hide(satellite);
                 Show(star);
+                canvas.worldCamera = camera4;
             }
             else if (camera4.enabled == true)
             {
@@ -86,6 +91,7 @@ public class CameraSwitch : MonoBehaviour
                 Hide(star);
                 Show(satellite);
                 Show(planet);
+                canvas.worldCamera = camera5;
             }
             else if (camera5.enabled == true)
             {
@@ -94,6 +100,7 @@ public class CameraSwitch : MonoBehaviour
                 Show(star);
                 Show(satellite);
                 Show(planet);
+                canvas.worldCamera = camera1;
             }
 
         }

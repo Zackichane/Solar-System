@@ -22,14 +22,49 @@ public class SatelliteGenerate : MonoBehaviour
     public GameObject S14;
     public GameObject S15;
     public GameObject S16;
+    public GameObject S17;
+    public GameObject S18;
+    public GameObject S19;
+    public GameObject S20;
+    public GameObject S21;
+    public GameObject S22;
     private GameObject generatedPlanet;
     private Transform centerObject;
     public float orbiteSpeed = 100f;
     public float rotationSpeed = 50f;
     private string planetName = "GeneratedPlanet";
     public bool stopOrbite = false;
+    public bool randomPrefab = false;
+
+    // add a list of satellites s1 to s22
+    public List<GameObject> satellites = new List<GameObject>();
+
     void Start()
     {
+        // Add satellites to the list
+        satellites.Add(S1);
+        satellites.Add(S2);
+        satellites.Add(S3);
+        satellites.Add(S4);
+        satellites.Add(S5);
+        satellites.Add(S6);
+        satellites.Add(S7);
+        satellites.Add(S8);
+        satellites.Add(S9);
+        satellites.Add(S10);
+        satellites.Add(S11);
+        satellites.Add(S12);
+        satellites.Add(S13);
+        satellites.Add(S14);
+        satellites.Add(S15);
+        satellites.Add(S16);
+        satellites.Add(S17);
+        satellites.Add(S18);
+        satellites.Add(S19);
+        satellites.Add(S20);
+        satellites.Add(S21);
+        satellites.Add(S22);
+
         // Find the generated planet in the scene
         generatedPlanet = GameObject.Find(planetName);
         if (generatedPlanet != null)
@@ -76,9 +111,23 @@ public class SatelliteGenerate : MonoBehaviour
 
     void GenerateSatellite()
     {
-        if (S1 == null)
+        if (randomPrefab)
         {
-            Debug.LogError("Satellite prefab is not assigned!");
+            // Randomly select a satellite prefab
+            int index = Random.Range(0, satellites.Count);
+            if (satellites[index] != null)
+            {
+                satellitePrefab = satellites[index];
+            }
+        }
+        else
+        {
+            // Select a specific satellite prefab
+            satellitePrefab = S1;
+        }
+        if (satellitePrefab == null)
+        {
+            Debug.LogError("Satellite prefab not found!");
             return;
         }
 
@@ -105,7 +154,7 @@ public class SatelliteGenerate : MonoBehaviour
     if (generatedSatellite != null && centerObject != null)
     {
         // Ensure the satellite is always at a fixed distance from the planet
-        float distance = generatedSatellite.transform.localScale.x; // Set the desired distance from the planet
+        float distance = generatedSatellite.transform.localScale.x + generatedPlanet.transform.localScale.x; // Set the desired distance from the planet
         Vector3 direction = (generatedSatellite.transform.position - generatedPlanet.transform.position).normalized;
         generatedSatellite.transform.position = generatedPlanet.transform.position + direction * distance;
 
