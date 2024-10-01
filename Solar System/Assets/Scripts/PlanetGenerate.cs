@@ -38,10 +38,7 @@ public class PlanetGenerate : MonoBehaviour
     {
         planetEmpty = GameObject.Find("EMPTY Planet");
         PlanetPos = planetEmpty.transform.position.x;
-        Debug.Log(PlanetPos);
         spawnPosition = new Vector3(PlanetPos, 0, 0);
-        // print the spawn position
-        Debug.Log(spawnPosition);
         GeneratePlanet();
     }
 

@@ -17,7 +17,6 @@ public class YellowDwarfGenerator : MonoBehaviour
     private float maxSizeKm;
     private const float scale = 10000f;
     public float rotationSpeed = 1f;
-
     private float minDist;
     private float maxDist;
     private float radiusStar;
@@ -25,9 +24,9 @@ public class YellowDwarfGenerator : MonoBehaviour
 
     void Start()
     {
-        
-        // select random star type
-        int starType = Random.Range(1, 5);
+        // get the starType in the playerprefs that is an int
+        int starType = PlayerPrefs.GetInt("starType");
+
         if (starType == 1)
         {
             starPrefab = WhiteDwarf;

@@ -1212,6 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 3
 --- !u!135 &263360329
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1893,6 +1894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 4
 --- !u!135 &540111730
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3578,6 +3580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 1
 --- !u!135 &1639089854
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3737,6 +3740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 2
 --- !u!135 &1687468892
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3930,6 +3934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Scene4
+  starType: 0
 --- !u!65 &1782278386
 BoxCollider:
   m_ObjectHideFlags: 0
