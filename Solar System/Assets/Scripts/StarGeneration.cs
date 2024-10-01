@@ -11,6 +11,7 @@ public class YellowDwarfGenerator : MonoBehaviour
     public Camera mainCamera;
     private GameObject generatedStar;
     private GameObject starPrefab;
+    private GameObject[] listOfPlanets;
 
     // Minimum and maximum sizes in kilometers (scale : 1 unit = 10 000 km)
     private float minSizeKm;
@@ -19,8 +20,9 @@ public class YellowDwarfGenerator : MonoBehaviour
     public float rotationSpeed = 1f;
     private float minDist;
     private float maxDist;
-    private float radiusStar;
     private string planetName = "GeneratedPlanet";
+    private bool planetMoved = false;
+    private float randomSizeKm;
 
     void Start()
     {
@@ -31,8 +33,8 @@ public class YellowDwarfGenerator : MonoBehaviour
         {
             starPrefab = WhiteDwarf;
             // 7000 km to 14000 km
-            minSizeKm = 7000/ scale;
-            maxSizeKm = 14000/ scale;
+            minSizeKm = 7000 / scale;
+            maxSizeKm = 14000 / scale;
             minDist = 10;
             maxDist = 50;
         }
@@ -72,23 +74,27 @@ public class YellowDwarfGenerator : MonoBehaviour
     {
         RotateYellowDwarf();
         if (generatedStar.name != "GeneratedStar") { generatedStar.name = "GeneratedStar"; }
+        if (planetMoved == false)
+        {
+            // add the object with the tag "GeneratedPlanet" to the list of planets
+            listOfPlanets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+            foreach (GameObject planet in listOfPlanets)
+            {
+                // move the planet
+                MovePlanet(planet);
+            }
+        }
     }
 
     void GenerateYellowDwarf()
     {
-        // Generate a random size in kilometers and convert to Unity units
-        float randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
-        float randomSizeUnity = randomSizeKm;
-
-        radiusStar = randomSizeKm/2f;
-
-        float randomDist = Random.Range(minDist, maxDist);
+        randomSizeKm = Random.Range(minSizeKm, maxSizeKm);    
 
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         generatedStar = Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
 
         // Apply the size (localScale) based on the random size
-        generatedStar.transform.localScale = new Vector3(randomSizeUnity, randomSizeUnity, randomSizeUnity);
+        generatedStar.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
         // Add a glow effect (emission) to the material of the star
         Renderer starRenderer = generatedStar.GetComponent<Renderer>();
@@ -106,28 +112,7 @@ public class YellowDwarfGenerator : MonoBehaviour
         Light starLight = generatedStar.AddComponent<Light>();
         starLight.color = Color.white;
         starLight.intensity = 10f; // Adjust intensity for the glow
-        starLight.range = randomSizeUnity * 10f; // Adjust light range based on size
-
-
-        // adjust camera position
-        //mainCamera.transform.position = new Vector3(randomSizeKm, 0, 0);
-        float dist = 0f;
-
-        // move the planet empty object
-        GameObject planetEmpty = GameObject.Find(planetName);
-        float radiusPlanet = planetEmpty.transform.localScale.x / 2f;
-        if (radiusPlanet > radiusStar)
-        {
-            float toAdd = radiusPlanet - radiusStar;
-            planetEmpty.transform.position = new Vector3(0, planetEmpty.transform.position.x + toAdd, 0);
-            dist = dist + radiusPlanet;
-        }
-        // random distance between 100 and 2000
-
-        dist = dist + (randomSizeKm / 2f + randomDist + radiusStar);
-        // round to 2 decimal places
-        dist = (float)Round(dist * 100f) / 100f;
-        planetEmpty.transform.position = new Vector3(dist, 0, 0);
+        starLight.range = randomSizeKm * 10f; // Adjust light range based on size
 
         // rename the genereated star
         generatedStar.name = "GeneratedStar";
@@ -139,5 +124,35 @@ public class YellowDwarfGenerator : MonoBehaviour
             // Rotate the star around its Y-axis
             generatedStar.transform.Rotate(Vector3.up, rotationSpeed);
         }
+    }
+
+    void MovePlanet(GameObject planet)
+    {
+        float dist = 0f;
+        float randomDist = Random.Range(minDist, maxDist);
+        float radiusStar = randomSizeKm / 2f;
+
+
+        float radiusPlanet = planet.transform.localScale.x / 2f;
+        if (radiusPlanet > radiusStar)
+        {
+            float toAdd = radiusPlanet + radiusStar;
+            dist = toAdd;
+        }
+        else
+        {
+            dist = radiusStar;
+        }
+
+        dist = dist + (randomSizeKm / 2f + randomDist);
+        // round to 2 decimal places
+        dist = (float)Round(dist * 100f) / 100f;
+        planet.transform.position = new Vector3(dist, 0, 0);
+        // check if the planet has been moved
+        if (planet != null)
+        {
+            planetMoved = true;
+        }
+        
     }
 }

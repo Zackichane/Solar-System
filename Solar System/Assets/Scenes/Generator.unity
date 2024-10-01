@@ -412,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &265159891
 Transform:
   m_ObjectHideFlags: 0
@@ -458,14 +458,13 @@ GameObject:
   - component: {fileID: 293850200}
   - component: {fileID: 293850199}
   - component: {fileID: 293850198}
-  - component: {fileID: 293850203}
   m_Layer: 0
   m_Name: CAM Satellite
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &293850198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,20 +599,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &293850203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 293850197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcf26718303c6c42b9b3bc2eb1da3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 963194227}
-  secondaryCamera: {fileID: 293850201}
 --- !u!1 &303365315
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +681,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 293850203}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraChangerButton, Assembly-CSharp
         m_MethodName: SwitchCamera
         m_Mode: 1
@@ -1155,7 +1140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &835988686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1376,7 +1361,6 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
-  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1535,20 +1519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3017b1cf832794997ed77eb81f1410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &963194233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcf26718303c6c42b9b3bc2eb1da3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 963194227}
-  secondaryCamera: {fileID: 835988688}
 --- !u!1 &1077823033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,7 +2010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1413736655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2540,14 +2510,13 @@ GameObject:
   - component: {fileID: 1547053649}
   - component: {fileID: 1547053648}
   - component: {fileID: 1547053653}
-  - component: {fileID: 1547053654}
   m_Layer: 0
   m_Name: CAM Planet+Satellite
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1547053648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2682,20 +2651,6 @@ MonoBehaviour:
   smoothSpeed: 0.125
   targetName: GeneratedPlanet
   secondTargetName: GeneratedSatellite
---- !u!114 &1547053654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547053647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fcf26718303c6c42b9b3bc2eb1da3da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 963194227}
-  secondaryCamera: {fileID: 1547053650}
 --- !u!1 &1549714915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2823,7 +2778,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194233}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraChangerButton, Assembly-CSharp
         m_MethodName: SwitchCamera
         m_Mode: 1
@@ -3376,7 +3331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1986025017
 Transform:
   m_ObjectHideFlags: 0
@@ -3414,6 +3369,59 @@ MonoBehaviour:
   stopPlanetOrbite: 0
   stopSatelliteOrbite: 0
   canvas: {fileID: 1077823036}
+--- !u!1 &2116769543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116769545}
+  - component: {fileID: 2116769544}
+  m_Layer: 0
+  m_Name: PlanetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2116769544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116769543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d45736edf5c7d4eb8d77f6f1691b2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  centerObject: {fileID: 1831653902}
+  rockyPlanets:
+  - {fileID: 6161999575350979298, guid: fe80185d308b24049bcf99e8eb0cbc46, type: 3}
+  - {fileID: 5700958517681903680, guid: 684dcdcad1bedda4ba94bb94dd1883fa, type: 3}
+  gasPlanets:
+  - {fileID: 8020566277409878106, guid: 5fee33facfd7e8448b0feb856cf11211, type: 3}
+  - {fileID: 6706144121521948818, guid: d40651d0d923c934bbf230e2339372df, type: 3}
+  numberOfPlanets: 5
+--- !u!4 &2116769545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116769543}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -106.52005, y: -1.6373024, z: 37.625835}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3434,3 +3442,4 @@ SceneRoots:
   - {fileID: 1667859904}
   - {fileID: 1549714917}
   - {fileID: 772673320}
+  - {fileID: 2116769545}
