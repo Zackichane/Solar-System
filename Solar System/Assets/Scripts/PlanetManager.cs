@@ -81,6 +81,18 @@ public class PlanetManager : MonoBehaviour
         }
         // add the planet tag to the generated planet
         generatedPlanet.tag = "GeneratedPlanet";
+        // generate a camera for the planet
+        GameObject camera = new GameObject();
+        camera.AddComponent<Camera>();
+        camera.AddComponent<CamObjFollow>();
+        // change a variable form the CamObjFollow script
+        camera.GetComponent<CamObjFollow>().targetName = generatedPlanet.name;
+        // rename the camera
+        camera.name = "Camera" + generatedPlanet.name;
+        // add the tag "MainCamera" to the camera
+        camera.tag = "MainCamera";
+        // deactivate the camera component
+        camera.GetComponent<Camera>().enabled = false;
 
         if (nGeneratedPlanets < numberOfPlanets)
         {

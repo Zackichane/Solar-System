@@ -464,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &293850198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772673320}
-  - component: {fileID: 772673319}
+  - component: {fileID: 772673323}
   - component: {fileID: 772673322}
   - component: {fileID: 772673321}
   m_Layer: 0
@@ -1052,24 +1052,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &772673319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772673318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 247ed5e71ba6f9d479b8a75f9fa5ee12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraToSwitch: {fileID: 1547053650}
-  forPlanet: 1
-  forSatellite: 0
-  forStar: 0
-  canvas: {fileID: 1077823036}
-  button: {fileID: 1495288891}
 --- !u!4 &772673320
 Transform:
   m_ObjectHideFlags: 0
@@ -1115,12 +1097,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247ed5e71ba6f9d479b8a75f9fa5ee12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraToSwitch: {fileID: 293850201}
+  cameraToSwitch: {fileID: 0}
   forPlanet: 0
   forSatellite: 1
   forStar: 0
   canvas: {fileID: 1077823036}
   button: {fileID: 303365315}
+--- !u!114 &772673323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772673318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbddfbde3f45c394e8a5b9dcfacf81ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 1077823036}
+  button: {fileID: 1495288891}
 --- !u!1 &835988685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &835988686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3331,7 +3327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1986025017
 Transform:
   m_ObjectHideFlags: 0
@@ -3398,7 +3394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d45736edf5c7d4eb8d77f6f1691b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
   centerObject: {fileID: 1831653902}
   rockyPlanets:
   - {fileID: 6161999575350979298, guid: fe80185d308b24049bcf99e8eb0cbc46, type: 3}

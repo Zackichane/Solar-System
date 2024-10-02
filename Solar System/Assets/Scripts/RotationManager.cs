@@ -19,8 +19,8 @@ public class RotationManager : MonoBehaviour
     void Update()
     {
         // if the satellite is inactive, stop the planet orbit
-        GameObject satelliteObject = GameObject.Find("GeneratedStar");
-        if (satelliteObject == null)
+        GameObject generatedStar = GameObject.Find("GeneratedStar");
+        if (generatedStar.GetComponent<MeshRenderer>().enabled == false)
         {
             stopOrbite = true;
         }

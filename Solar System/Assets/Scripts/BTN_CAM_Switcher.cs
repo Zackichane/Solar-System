@@ -1,6 +1,7 @@
 // SCRIPT FOR BUTTON TO CHANGE CAMERA TO PLANET + SATELLITE
 
 using UnityEngine;
+using System.Linq;
 
 public class BTN_CAM_Switcher : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class BTN_CAM_Switcher : MonoBehaviour
     private GameObject satellite;
     private GameObject star;
     private Camera currentCamera;
+    private GameObject[] planets;
+    private ParticleSystem[] particles;
+    
 
     void Start()
     {
@@ -25,9 +29,10 @@ public class BTN_CAM_Switcher : MonoBehaviour
 
     void Update()
     {
-        if (planet == null)
+        if (planets == null)
         {
-            planet = GameObject.Find("GeneratedPlanet");
+            // get all the objects with the tag "GeneratedPlanet"
+            planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         }
         if (satellite == null)
         {
@@ -36,6 +41,8 @@ public class BTN_CAM_Switcher : MonoBehaviour
         if (star == null)
         {
             star = GameObject.Find("GeneratedStar");
+            // get the the chlildren of the star that is particles
+            particles = star.GetComponentsInChildren<ParticleSystem>();
         }
     }
 
@@ -45,23 +52,19 @@ public class BTN_CAM_Switcher : MonoBehaviour
         currentCamera.enabled = false;
         cameraToSwitch.enabled = true;
 
-        if (forPlanet)
+        if (forSatellite)
         {
+            HideOtherPlanets();
             Hide(star);
-            Show(satellite);
-            Show(planet);
-        }
-        else if (forSatellite)
-        {
-            Hide(planet);
-            Hide(star);
+            particles[0].gameObject.SetActive(false);
             Show(satellite);
         }
         else if (forStar)
         {
-            Hide(planet);
+            HideOtherPlanets();
             Hide(satellite);
             Show(star);
+            particles[0].gameObject.SetActive(true);
         }
         canvas.worldCamera = cameraToSwitch;
     }
@@ -71,7 +74,8 @@ public class BTN_CAM_Switcher : MonoBehaviour
         GameObject gameObjectToHide = objectToHide as GameObject;
         if (gameObjectToHide != null)
         {
-            gameObjectToHide.SetActive(false);
+            //gameObjectToHide.SetActive(false);
+            gameObjectToHide.GetComponent<MeshRenderer>().enabled = false;
         }
         else
         {
@@ -84,11 +88,22 @@ public class BTN_CAM_Switcher : MonoBehaviour
         GameObject gameObjectToShow = objectToShow as GameObject;
         if (gameObjectToShow != null)
         {
-            gameObjectToShow.SetActive(true);
+            //gameObjectToShow.SetActive(true);
+            gameObjectToShow.GetComponent<MeshRenderer>().enabled = true;
         }
         else
         {
             Debug.LogWarning("The object to show is not a GameObject!");
+        }
+    }
+
+    public void HideOtherPlanets()
+    {
+        planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+        // check the game objects, if it's not the planet, hide it
+        foreach (GameObject p in planets)
+        {
+            Hide(p);
         }
     }
 }
