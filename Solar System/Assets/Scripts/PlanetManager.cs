@@ -87,6 +87,7 @@ public class PlanetManager : MonoBehaviour
         camera.AddComponent<CamObjFollow>();
         // change a variable form the CamObjFollow script
         camera.GetComponent<CamObjFollow>().targetName = generatedPlanet.name;
+        camera.GetComponent<CamObjFollow>().secondTargetName = "GeneratedSatellite" + nGeneratedPlanets.ToString();
         // rename the camera
         camera.name = "Camera" + generatedPlanet.name;
         // add the tag "MainCamera" to the camera

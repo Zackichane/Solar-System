@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Linq;
 
-public class PlanetCAMSwitcher : MonoBehaviour
+public class SatelliteCAMSwitcher : MonoBehaviour
 {
     public Canvas canvas;
     public GameObject button;
@@ -32,7 +32,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
         {
             planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         }
-        if (satellite == null)
+        if (satellites == null)
         {
             satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
         }
@@ -41,30 +41,20 @@ public class PlanetCAMSwitcher : MonoBehaviour
             star = GameObject.Find("GeneratedStar");
             particles = star.GetComponentsInChildren<ParticleSystem>();
         }
-        if (cameraObjects == null)
-        {
-            // get all the objects with the MainCamera tag
-            cameraObjects = GameObject.FindGameObjectsWithTag("MainCamera");
-            Debug.Log("Number of camera objects found: " + cameraObjects.Length);
 
-            camerasDraft = new Camera[cameraObjects.Length];
-            for (int i = 0; i < cameraObjects.Length; i++)
-            {
-                camerasDraft[i] = cameraObjects[i].GetComponent<Camera>();
-                if (camerasDraft[i] != null)
-                {
-                    Debug.Log("Camera found: " + camerasDraft[i].name);
-                }
-                else
-                {
-                    Debug.LogWarning("No Camera component found on: " + cameraObjects[i].name);
-                }
-            }
+        // get all the objects with the MainCamera tag
+        cameraObjects = GameObject.FindGameObjectsWithTag("MainCamera");
+
+        camerasDraft = new Camera[cameraObjects.Length];
+        for (int i = 0; i < cameraObjects.Length; i++)
+        {
+            camerasDraft[i] = cameraObjects[i].GetComponent<Camera>();
         }
+        
 
         for (int i = 0; i < camerasDraft.Length; i++)
         {
-            if (camerasDraft[i] != null && camerasDraft[i].name.Contains("CameraGeneratedPlanet"))
+            if (camerasDraft[i] != null && camerasDraft[i].name.Contains("CameraGeneratedSatellite"))
             {
                 // add camerasDraft[i] to the cameras array
                 if (cameras == null)
@@ -84,7 +74,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
     {
         currentCamera = Camera.main;
         // if the camera is a planet camera then switch to the next camera
-        if (currentCamera.name.Contains("CameraGeneratedPlanet"))
+        if (currentCamera.name.Contains("CameraGeneratedSatellite"))
         {
             // get the index of the current camera
             for (int i = 0; i < cameras.Length; i++)
@@ -119,12 +109,11 @@ public class PlanetCAMSwitcher : MonoBehaviour
         string satelliteName = "GeneratedSatellite" + cameraNumber;
         satellite = GameObject.Find(satelliteName);
 
-        HideOtherPlanets(nextCamera.name);
+        HideOtherPlanets(); // hide all the planets
         Hide(star);
         particles[0].gameObject.SetActive(false);
         Show(satellite);
         HideOtherSatellites(satellite);
-        Show(planet);
         canvas.worldCamera = nextCamera;
     }
 
@@ -154,18 +143,12 @@ public class PlanetCAMSwitcher : MonoBehaviour
         }
     }
 
-    public void HideOtherPlanets(string nextCameraName)
+    public void HideOtherPlanets()
     {
-        string cameraNumber = nextCameraName.Substring(nextCameraName.Length - 1);
-        string planetName = "GeneratedPlanet" + cameraNumber;
-        planet = GameObject.Find(planetName);
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         foreach (GameObject p in planets)
         {
-            if (p != planet)
-            {
-                Hide(p);
-            }
+            Hide(p);
         }
     }
 

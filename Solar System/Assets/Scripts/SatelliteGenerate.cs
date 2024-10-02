@@ -28,7 +28,7 @@ public class SatelliteGenerate : MonoBehaviour
     public GameObject S20;
     public GameObject S21;
     public GameObject S22;
-    private GameObject generatedPlanet;
+    private GameObject[] generatedPlanet;
     private Transform centerObject;
     public float orbiteSpeed = 100f;
     public float rotationSpeed = 50f;
@@ -64,18 +64,6 @@ public class SatelliteGenerate : MonoBehaviour
         satellites.Add(S20);
         satellites.Add(S21);
         satellites.Add(S22);
-
-        // Find the generated planet in the scene
-        generatedPlanet = GameObject.Find(planetName);
-        if (generatedPlanet != null)
-        {
-            centerObject = generatedPlanet.transform;
-            GenerateSatellite();
-        }
-        else
-        {
-            Debug.LogError("Generated planet not found!");
-        }
     }
 
     void Update()
@@ -83,33 +71,38 @@ public class SatelliteGenerate : MonoBehaviour
         // check if the planet was generated
         if (generatedPlanet == null)
         {
-            generatedPlanet = GameObject.Find(planetName);
-            if (generatedPlanet != null)
+            generatedPlanet = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+
+            if (generatedPlanet != null && generatedPlanet.Length > 0)
             {
-                centerObject = generatedPlanet.transform;
-                GenerateSatellite();
+                // generate a satellite for each planet
+                for (int i = 0; i < generatedPlanet.Length; i++)
+                {
+                    centerObject = generatedPlanet[i].transform;
+                    GenerateSatellite(centerObject.gameObject);
+                }
             }
         }
 
 
-        GameObject planetObject = GameObject.Find("GeneratedPlanet");
-        if (planetObject == null)
-        {
-            stopOrbite = true;
-        }
-        else
-        {
-            stopOrbite = false;
-        }
-
-        if (stopOrbite == false)
-        {
-            OrbiteSatellite();
-        }
-        RotateSatellite();
+        //GameObject planetObject = GameObject.Find("GeneratedPlanet");
+        //if (planetObject == null)
+        //{
+        //    stopOrbite = true;
+        //}
+        //else
+        //{
+        //    stopOrbite = false;
+        //}
+//
+        //if (stopOrbite == false)
+        //{
+        //    OrbiteSatellite();
+        //}
+        //RotateSatellite();
     }
 
-    void GenerateSatellite()
+    void GenerateSatellite(GameObject planetObject)
     {
         if (randomPrefab)
         {
@@ -132,43 +125,34 @@ public class SatelliteGenerate : MonoBehaviour
         }
 
         // Calculate the size and spawn position of the satellite
-        float sizePlanet = generatedPlanet.transform.localScale.x;
+        float sizePlanet = planetObject.transform.localScale.x;
         float ratio = 4; // Adjust the ratio as needed
         float sizeSatellite = sizePlanet / ratio;
 
         // Set the scale of the satellite
         satellitePrefab = S1;
         float distance = sizePlanet * 2f; // Set the desired distance from the planet based on the planet size
-        Vector3 spawnPosition = generatedPlanet.transform.position + new Vector3(distance, 0, 0); // Adjust spawn position relative to the planet
+        Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance, 0, 0); // Adjust spawn position relative to the planet
 
         // Instantiate the satellite
         generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
         generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
 
         // Rename the satellite
-        generatedSatellite.name = "GeneratedSatellite";
+        generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15);
+        // add a tag
+        generatedSatellite.tag = "GeneratedSatellite";
+        generatedSatellite.AddComponent<SatelliteRotationManager>();
+
+        // generate a camera for the satellite
+        GameObject camera = new GameObject();
+        camera.AddComponent<Camera>();
+        camera.AddComponent<CamObjFollow>();
+        camera.GetComponent<CamObjFollow>().targetName = generatedSatellite.name;
+        camera.name = "Camera" + generatedSatellite.name;
+        camera.tag = "MainCamera";
+        camera.GetComponent<Camera>().enabled = false;
     }
 
-    void OrbiteSatellite()
-{
-    if (generatedSatellite != null && centerObject != null)
-    {
-        // Ensure the satellite is always at a fixed distance from the planet
-        float distance = generatedSatellite.transform.localScale.x + generatedPlanet.transform.localScale.x; // Set the desired distance from the planet
-        Vector3 direction = (generatedSatellite.transform.position - generatedPlanet.transform.position).normalized;
-        generatedSatellite.transform.position = generatedPlanet.transform.position + direction * distance;
-
-        // Rotate around the Y axis
-        generatedSatellite.transform.RotateAround(centerObject.position, Vector3.up, orbiteSpeed * Time.deltaTime);
-    }
-}
-
-    void RotateSatellite()
-    {
-        if (generatedSatellite != null)
-        {
-            // Implementation for rotating the satellite
-            generatedSatellite.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        }
-    }
+    
 }

@@ -34,13 +34,18 @@ public class CamObjFollow : MonoBehaviour
         {
             GetTarget(); // Get the target and the offset
         }
+        if (secondTarget == null)
+        {
+            GetTarget(); // Get the target and the offset
+        }
     }
 
     void GetTarget()
     {
-        target = GameObject.Find(targetName).transform;
-        if (target != null)
+        GameObject targetObject = GameObject.Find(targetName);
+        if (targetObject != null)
         {
+            target = targetObject.transform;
             // Initialize the offset based on initial positions
             offset = new Vector3(target.transform.localScale.x, 0, 0);
             // round the offset up with no decimal
@@ -49,15 +54,24 @@ public class CamObjFollow : MonoBehaviour
                 offset = new Vector3(5f, 0, 0);
             }
         }
-
-        if (secondTargetName != null)
+        else
         {
-            secondTarget = GameObject.Find(secondTargetName).transform;
-            if (secondTarget != null)
+            Debug.LogWarning($"Target with name {targetName} not found.");
+        }
+
+        if (!string.IsNullOrEmpty(secondTargetName))
+        {
+            GameObject secondTargetObject = GameObject.Find(secondTargetName);
+            if (secondTargetObject != null)
             {
+                secondTarget = secondTargetObject.transform;
                 // add the distance between the two targets to the offset
                 offset += new Vector3(secondTarget.transform.localScale.x * 3, 0, 0);
                 // round the offset up with no decimal
+            }
+            else
+            {
+                Debug.LogWarning($"Second target with name {secondTargetName} not found.");
             }
         }
     }
