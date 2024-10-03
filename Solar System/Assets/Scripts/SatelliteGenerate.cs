@@ -149,6 +149,7 @@ public class SatelliteGenerate : MonoBehaviour
         camera.AddComponent<Camera>();
         camera.AddComponent<CamObjFollow>();
         camera.GetComponent<CamObjFollow>().targetName = generatedSatellite.name;
+        camera.GetComponent<CamObjFollow>().secondTargetName = planetObject.name;
         camera.name = "Camera" + generatedSatellite.name;
         camera.tag = "MainCamera";
         camera.GetComponent<Camera>().enabled = false;

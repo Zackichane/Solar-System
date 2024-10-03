@@ -11,7 +11,7 @@ public class PlanetManager : MonoBehaviour
     private const float maxGazeuse = 482386 / scale;
     private bool stopOrbite = false;
     private Vector3 spawnPosition;
-    private float maxInclination = 100f;
+    private float maxInclination = 40f;
     private float minInclination = 0f;
     private GameObject generatedPlanet;
     private GameObject[] listOfPlanets;

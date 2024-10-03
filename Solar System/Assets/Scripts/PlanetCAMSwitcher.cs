@@ -120,7 +120,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
         satellite = GameObject.Find(satelliteName);
 
         HideOtherPlanets(nextCamera.name);
-        Hide(star);
+        Show(star);
         particles[0].gameObject.SetActive(false);
         Show(satellite);
         HideOtherSatellites(satellite);

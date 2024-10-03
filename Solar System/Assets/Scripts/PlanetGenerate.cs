@@ -31,7 +31,7 @@ public class PlanetGenerate : MonoBehaviour
     // Reference to the generated planet
     private GameObject generatedPlanet;
 
-    private float maxInclination = 100f;
+    private float maxInclination = 25f;
     private float minInclination = 0f;
 
     void Start()

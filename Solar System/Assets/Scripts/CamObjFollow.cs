@@ -51,7 +51,7 @@ public class CamObjFollow : MonoBehaviour
             // round the offset up with no decimal
             if (offset.x < 1)
             {
-                offset = new Vector3(5f, 0, 0);
+                offset = new Vector3(1f, 0, 0);
             }
         }
         else
