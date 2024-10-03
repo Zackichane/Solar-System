@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 136387317}
   - component: {fileID: 136387316}
   m_Layer: 5
-  m_Name: Button
+  m_Name: GenerateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1212,6 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 3
 --- !u!135 &263360329
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1739,7 +1740,7 @@ GameObject:
   - component: {fileID: 490495099}
   - component: {fileID: 490495098}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1893,6 +1894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 4
 --- !u!135 &540111730
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3578,6 +3580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 1
 --- !u!135 &1639089854
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3737,6 +3740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Generator
+  starType: 2
 --- !u!135 &1687468892
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3930,6 +3934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Scene4
+  starType: 0
 --- !u!65 &1782278386
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3977,7 +3982,7 @@ GameObject:
   - component: {fileID: 1788534085}
   - component: {fileID: 1788534084}
   m_Layer: 5
-  m_Name: Button
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

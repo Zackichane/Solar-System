@@ -31,17 +31,14 @@ public class PlanetGenerate : MonoBehaviour
     // Reference to the generated planet
     private GameObject generatedPlanet;
 
-    private float maxInclination = 100f;
+    private float maxInclination = 25f;
     private float minInclination = 0f;
 
     void Start()
     {
         planetEmpty = GameObject.Find("EMPTY Planet");
         PlanetPos = planetEmpty.transform.position.x;
-        Debug.Log(PlanetPos);
         spawnPosition = new Vector3(PlanetPos, 0, 0);
-        // print the spawn position
-        Debug.Log(spawnPosition);
         GeneratePlanet();
     }
 

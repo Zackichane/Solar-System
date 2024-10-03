@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MoveCamera : MonoBehaviour
+public class ButtonTranslation : MonoBehaviour
 {
     // Public variables to assign the camera, target position, and rotation in the Inspector
     public Camera mainCamera;  // Reference to the camera to move
