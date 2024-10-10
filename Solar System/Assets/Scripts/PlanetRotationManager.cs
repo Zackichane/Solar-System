@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotationManager : MonoBehaviour
+public class PlanetRotationManager : MonoBehaviour
 {
     // set the centerobject position to 0,0,0
     private Vector3 centerCoordonates = new Vector3(0, 0, 0);

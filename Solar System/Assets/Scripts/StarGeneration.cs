@@ -2,7 +2,7 @@ using UnityEngine;
 using static System.Math;
 
 
-public class YellowDwarfGenerator : MonoBehaviour
+public class StarGeneration : MonoBehaviour
 {
     public GameObject YellowDwarf;  // Prefab of the star
     public GameObject WhiteDwarf;

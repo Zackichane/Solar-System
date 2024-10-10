@@ -73,7 +73,7 @@ public class PlanetManager : MonoBehaviour
         // add the planet to the list of generated planets
         generatedPlanets = new GameObject[] { generatedPlanet };
         // add the rotation manager script to orbit the planet and rotate on its axis
-        generatedPlanet.AddComponent<RotationManager>();
+        generatedPlanet.AddComponent<PlanetRotationManager>();
         // print the list
         foreach (GameObject planet in generatedPlanets)
         {
