@@ -88,7 +88,7 @@ public class StarGeneration : MonoBehaviour
 
     void GenerateYellowDwarf()
     {
-        randomSizeKm = Random.Range(minSizeKm, maxSizeKm);    
+        randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
 
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         generatedStar = Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
