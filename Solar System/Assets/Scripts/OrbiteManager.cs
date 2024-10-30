@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class OrbitManager : MonoBehaviour
 {
-    public float minRocheuse;
-    public float maxRocheuse;
-    public float minGazeuse;
-    public float maxGazeuse;
+    private float minRocheuse;
+    private float maxRocheuse;
+    private float minGazeuse;
+    private float maxGazeuse;
+    private float orbitSpacing = 50f;  // General increment between each orbit
+    private float rockyGasGapMultiplier = 10f;  // Large gap multiplier between rocky and gas planets
+    private float orbitDistanceMultiplier = 5f;  // Initial distance multiplier for rocky planets
 
     private List<GameObject> rockyPlanets = new List<GameObject>();
     private List<GameObject> gasPlanets = new List<GameObject>();
@@ -15,7 +18,6 @@ public class OrbitManager : MonoBehaviour
 
     void Start()
     {
-        // Initialize min and max sizes
         float scale = 10000f;
         minRocheuse = 22578 / scale;
         maxRocheuse = 15868 / scale;
@@ -25,7 +27,7 @@ public class OrbitManager : MonoBehaviour
 
     void Update()
     {
-        if (typeGet == false)
+        if (!typeGet)
         {
             GetAllPlanets();
         }
@@ -34,12 +36,9 @@ public class OrbitManager : MonoBehaviour
     void GetAllPlanets()
     {
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-        print("Planets: " + planets);
-        int nPlanets = planets.Length;
-        if (nPlanets > 0)
+        if (planets.Length > 0)
         {
             typeGet = true;
-            print("going to generate the orbits");
             GetPlanetsType();
         }
     }
@@ -48,18 +47,19 @@ public class OrbitManager : MonoBehaviour
     {
         foreach (GameObject planet in planets)
         {
-            // get the planet type with the scale
             float size = planet.transform.localScale.x;
 
             if (size >= minRocheuse && size <= maxRocheuse)
             {
-                // is a rocky planet
                 rockyPlanets.Add(planet);
             }
             else if (size >= minGazeuse && size <= maxGazeuse)
             {
-                // is a gas planet
                 gasPlanets.Add(planet);
+            }
+            else
+            {
+                rockyPlanets.Add(planet);
             }
         }
 
@@ -75,34 +75,40 @@ public class OrbitManager : MonoBehaviour
             return;
         }
 
-        print("Star: " + star.name);
         float starSize = star.transform.localScale.x;
-        float distance = starSize;
+        float rockyDistance = starSize * orbitDistanceMultiplier;  // Starting distance for rocky planets
+        float gasDistance = rockyDistance * rockyGasGapMultiplier;  // Starting distance for gas planets
 
-        // create the orbits for rocky planets
+        // Create orbits for rocky planets
         foreach (GameObject rockyPlanet in rockyPlanets)
         {
-            print("Rocky planet orbit: " + rockyPlanet.name);
-            distance += rockyPlanet.transform.localScale.x * 2;
+            rockyDistance += rockyPlanet.transform.localScale.x * orbitSpacing;
+
+            // Create an orbit GameObject and set it up
             GameObject orbit = new GameObject("Orbit" + rockyPlanet.name);
-            print("Orbit: " + orbit.name);
             orbit.transform.parent = star.transform;
-            orbit.transform.localScale = new Vector3(distance, distance, distance);
+            orbit.transform.localScale = new Vector3(rockyDistance, rockyDistance, rockyDistance);
             orbit.transform.position = star.transform.position;
+
+            // Set the planet's position along the x-axis within the orbit
             rockyPlanet.transform.parent = orbit.transform;
+            rockyPlanet.transform.localPosition = new Vector3(rockyDistance / 2, 0, 0);  // Move the planet to the edge of the orbit
         }
 
-        // create the orbits for gas planets
+        // Create orbits for gas planets with a large initial distance
         foreach (GameObject gasPlanet in gasPlanets)
         {
-            print("Gas planet orbit: " + gasPlanet.name);
-            distance += gasPlanet.transform.localScale.x * 10;
+            gasDistance += gasPlanet.transform.localScale.x * orbitSpacing;
+
+            // Create an orbit GameObject and set it up
             GameObject orbit = new GameObject("Orbit" + gasPlanet.name);
-            print("Orbit: " + orbit.name);
             orbit.transform.parent = star.transform;
-            orbit.transform.localScale = new Vector3(distance, distance, distance);
+            orbit.transform.localScale = new Vector3(gasDistance, gasDistance, gasDistance);
             orbit.transform.position = star.transform.position;
+
+            // Set the planet's position along the x-axis within the orbit
             gasPlanet.transform.parent = orbit.transform;
+            gasPlanet.transform.localPosition = new Vector3(gasDistance / 2, 0, 0);  // Move the planet to the edge of the orbit
         }
     }
 }

@@ -2507,6 +2507,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691330523}
   - component: {fileID: 1691330522}
+  - component: {fileID: 1691330524}
   m_Layer: 0
   m_Name: OrbitManager
   m_TagString: Untagged
@@ -2521,7 +2522,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691330521}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b5a7c5ac2330674395ee89a275b860f, type: 3}
   m_Name: 
@@ -2541,6 +2542,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1691330524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691330521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14d28bc04773234ab6e2e0790f12a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitSpeed: 10
+  scale: 10000
 --- !u!1 &1697776933
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,7 +2973,6 @@ MonoBehaviour:
   - {fileID: 2146044883756047252, guid: 4c7ed2ff84860f841aece5c8364095d8, type: 3}
   - {fileID: 183829310901665321, guid: 9e3a59b3ef68dc1419a97c71c8595727, type: 3}
   - {fileID: 5910078797836069390, guid: 1b487a60b3718af458251925a3c0651a, type: 3}
-  numberOfPlanets: 5
 --- !u!4 &2116769545
 Transform:
   m_ObjectHideFlags: 0

@@ -22,12 +22,21 @@ public class PlanetManager : MonoBehaviour
     public Transform centerObject;
     public GameObject[] rockyPlanets;
     public GameObject[] gasPlanets;
-    public float numberOfPlanets;
+    private float numberOfPlanets;
+    private float minPlanet;
+    private float maxPlanet;
 
 
     void Start()
     {
         spawnPosition = new Vector3(0, 0, 0);
+        minPlanet = PlayerPrefs.GetInt("minPlanet");
+        maxPlanet = PlayerPrefs.GetInt("maxPlanet");
+        // get a random int between minPlanet and maxPlanet
+        numberOfPlanets = Random.Range(minPlanet, maxPlanet);
+        // round the number of planets
+        numberOfPlanets = Mathf.Round(numberOfPlanets);
+        print("Number of planets: " + numberOfPlanets);
         GeneratePlanet();
     }
 

@@ -19,7 +19,12 @@ public class FreeMovementDeactivation : MonoBehaviour
         if (mainCamera.activeSelf)
         {
             // deactivate the toggle object
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
+        }
+        else
+        {
+            // activate the toggle object
+            gameObject.SetActive(true);
         }
     }
 }

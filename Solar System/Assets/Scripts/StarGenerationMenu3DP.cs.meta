@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 446097a304d61054cba3667a0bdd2fe3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - YellowDwarf: {instanceID: 0}
+  - WhiteDwarf: {instanceID: 0}
+  - RedGiant: {instanceID: 0}
+  - BlueGiant: {instanceID: 0}
+  - mainCamera: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

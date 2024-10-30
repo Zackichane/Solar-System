@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 341155613}
   - component: {fileID: 341155612}
   m_Layer: 5
-  m_Name: Small
+  m_Name: ButtonMinimalist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1580,6 +1580,85 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &991148595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 991148597}
+  - component: {fileID: 991148596}
+  - component: {fileID: 991148599}
+  - component: {fileID: 991148598}
+  m_Layer: 0
+  m_Name: ButtonHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &991148596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991148595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b06d9e4112250478ff43cc8f4b2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPlanet: 1
+  maxPlanet: 2
+  button: {fileID: 341155610}
+--- !u!4 &991148597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991148595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &991148598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991148595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b06d9e4112250478ff43cc8f4b2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPlanet: 7
+  maxPlanet: 10
+  button: {fileID: 1246069053}
+--- !u!114 &991148599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991148595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b06d9e4112250478ff43cc8f4b2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minPlanet: 3
+  maxPlanet: 6
+  button: {fileID: 1152267323}
 --- !u!1 &1064127156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,22 +1822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac9b1c4ea56698499760730addf4e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YellowDwarf: {fileID: 0}
-  WhiteDwarf: {fileID: 0}
-  RedGiant: {fileID: 0}
-  BlueGiant: {fileID: 0}
-  mainCamera: {fileID: 0}
-  generatedStar: {fileID: 0}
-  starPrefab: {fileID: 0}
-  listOfPlanets: []
-  minSizeKm: 0
-  maxSizeKm: 0
-  rotationSpeed: 1
-  minDist: 0
-  maxDist: 0
-  planetName: GeneratedPlanet
-  planetMoved: 0
-  randomSizeKm: 0
 --- !u!4 &1143582886
 Transform:
   m_ObjectHideFlags: 0
@@ -1787,7 +1850,7 @@ GameObject:
   - component: {fileID: 1152267326}
   - component: {fileID: 1152267325}
   m_Layer: 5
-  m_Name: Small
+  m_Name: ButtonSparse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1857,7 +1920,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1152267326}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510273043}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: 
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1152267326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1984,7 +2059,7 @@ GameObject:
   - component: {fileID: 1246069056}
   - component: {fileID: 1246069055}
   m_Layer: 5
-  m_Name: Small (1)
+  m_Name: ButtonSwarming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2585,6 +2660,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 20
+--- !u!1 &1843217674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1843217676}
+  - component: {fileID: 1843217675}
+  m_Layer: 0
+  m_Name: StarGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1843217675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843217674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446097a304d61054cba3667a0bdd2fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YellowDwarf: {fileID: 6455381146809751659, guid: 07a0eaa9d1f66a6448edf8ca79a54e9c, type: 3}
+  WhiteDwarf: {fileID: 2951996512996849068, guid: 8acedbf79a93ea941a79bf059f096776, type: 3}
+  RedGiant: {fileID: 447678872616417870, guid: b9a7cd4af62aa674ba1948a80abae988, type: 3}
+  BlueGiant: {fileID: 974575123707857853, guid: cb37a7418012f6a46a082d16adb1f614, type: 3}
+  rotationSpeed: 0.05
+  x: 0
+  y: 13
+  z: 17
+--- !u!4 &1843217676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843217674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.866244, y: 14.01864, z: -57.12569}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1849282553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3030,3 +3157,5 @@ SceneRoots:
   - {fileID: 510273047}
   - {fileID: 1734137949}
   - {fileID: 1143582886}
+  - {fileID: 991148597}
+  - {fileID: 1843217676}
