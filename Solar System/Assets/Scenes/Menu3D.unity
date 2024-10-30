@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bfe0d973752284e9da67f45ded1b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Menu 3D (2)
+  sceneToLoad: Menu3DP
   starType: 3
 --- !u!135 &263360329
 SphereCollider:
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bfe0d973752284e9da67f45ded1b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Menu 3D (2)
+  sceneToLoad: Menu3DP
   starType: 4
 --- !u!135 &540111730
 SphereCollider:
@@ -3488,7 +3488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bfe0d973752284e9da67f45ded1b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Menu 3D (2)
+  sceneToLoad: Menu3DP
   starType: 1
 --- !u!135 &1639089854
 SphereCollider:
@@ -3661,7 +3661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bfe0d973752284e9da67f45ded1b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Menu 3D (2)
+  sceneToLoad: Menu3DP
   starType: 2
 --- !u!135 &1687468892
 SphereCollider:

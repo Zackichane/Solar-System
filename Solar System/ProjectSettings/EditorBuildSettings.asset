@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Images/Canvas/VincentDimension.unity
     guid: 03be8ba94b2fda14aad628f9b3f65fa3
+  - enabled: 1
+    path: Assets/Scenes/Menu3DP.unity
+    guid: 5c0b425fd05e0914499524233338a1b6
   m_configObjects: {}
