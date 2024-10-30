@@ -4,3 +4,6 @@
 [1001/191342.768:ERROR:crashpad_client_win.cc(810)] not connected
 [1001/191348.882:ERROR:crashpad_client_win.cc(810)] not connected
 [1001/191349.098:ERROR:crashpad_client_win.cc(810)] not connected
+[1024/103506.470:ERROR:crashpad_client_win.cc(810)] not connected
+[1024/103509.103:ERROR:crashpad_client_win.cc(810)] not connected
+[1024/103509.180:ERROR:crashpad_client_win.cc(810)] not connected

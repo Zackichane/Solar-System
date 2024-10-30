@@ -116,6 +116,7 @@ public class StarGeneration : MonoBehaviour
 
         // rename the genereated star
         generatedStar.name = "GeneratedStar";
+        generatedStar.tag = "GeneratedStar";
     }
     void RotateYellowDwarf()
     {

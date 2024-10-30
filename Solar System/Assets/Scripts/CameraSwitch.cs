@@ -52,73 +52,73 @@ public class CameraSwitch : MonoBehaviour
             star = GameObject.Find("GeneratedStar");
         }
         // Switch cameras when R is pressed
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            // Enable the active camera, disable the other one
-
-            if (camera1.enabled == true)
-            {
-                camera1.enabled = false;
-                camera2.enabled = true;
-                Hide(star);
-                Hide(satellite);
-                Show(planet);
-                // switch the camera in the canvas
-                canvas.worldCamera = camera2;
-            }
-            else if (camera2.enabled == true)
-            {
-                camera2.enabled = false;
-                camera3.enabled = true;
-                Hide(planet);
-                Hide(star);
-                Show(satellite);
-                canvas.worldCamera = camera3;
-            }
-            else if (camera3.enabled == true)
-            {
-                camera3.enabled = false;
-                camera4.enabled = true;
-                Hide(planet);
-                Hide(satellite);
-                Show(star);
-                canvas.worldCamera = camera4;
-            }
-            else if (camera4.enabled == true)
-            {
-                camera4.enabled = false;
-                camera5.enabled = true;
-                Hide(star);
-                Show(satellite);
-                Show(planet);
-                canvas.worldCamera = camera5;
-            }
-            else if (camera5.enabled == true)
-            {
-                camera5.enabled = false;
-                camera1.enabled = true;
-                Show(star);
-                Show(satellite);
-                Show(planet);
-                canvas.worldCamera = camera1;
-            }
-
-        }
-
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    // Enable the active camera, disable the other one
+//
+        //    if (camera1.enabled == true)
+        //    {
+        //        camera1.enabled = false;
+        //        camera2.enabled = true;
+        //        Hide(star);
+        //        Hide(satellite);
+        //        Show(planet);
+        //        // switch the camera in the canvas
+        //        canvas.worldCamera = camera2;
+        //    }
+        //    else if (camera2.enabled == true)
+        //    {
+        //        camera2.enabled = false;
+        //        camera3.enabled = true;
+        //        Hide(planet);
+        //        Hide(star);
+        //        Show(satellite);
+        //        canvas.worldCamera = camera3;
+        //    }
+        //    else if (camera3.enabled == true)
+        //    {
+        //        camera3.enabled = false;
+        //        camera4.enabled = true;
+        //        Hide(planet);
+        //        Hide(satellite);
+        //        Show(star);
+        //        canvas.worldCamera = camera4;
+        //    }
+        //    else if (camera4.enabled == true)
+        //    {
+        //        camera4.enabled = false;
+        //        camera5.enabled = true;
+        //        Hide(star);
+        //        Show(satellite);
+        //        Show(planet);
+        //        canvas.worldCamera = camera5;
+        //    }
+        //    else if (camera5.enabled == true)
+        //    {
+        //        camera5.enabled = false;
+        //        camera1.enabled = true;
+        //        Show(star);
+        //        Show(satellite);
+        //        Show(planet);
+        //        canvas.worldCamera = camera1;
+        //    }
+//
+        //}
+//
         // Spawn object only with the active camera when C is pressed
-        if (Application.isPlaying && Input.GetKeyDown(KeyCode.C))
-        {
-            if (isCamera1Active)
-            {
-                // Spawn object in front of camera1
-                SpawnObject(camera1);
-            }
-            else
-            {
-                // Spawn object in front of camera2
-                SpawnObject(camera2);
-            }
-        }
+        //if (Application.isPlaying && Input.GetKeyDown(KeyCode.C))
+        //{
+        //    if (isCamera1Active)
+        //    {
+        //        // Spawn object in front of camera1
+        //        SpawnObject(camera1);
+        //    }
+        //    else
+        //    {
+        //        // Spawn object in front of camera2
+        //        SpawnObject(camera2);
+        //    }
+        //}
     }
 
     void SpawnObject(Camera activeCamera)

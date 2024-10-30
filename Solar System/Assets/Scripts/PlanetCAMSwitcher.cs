@@ -22,12 +22,28 @@ public class PlanetCAMSwitcher : MonoBehaviour
     void Start()
     {
         button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SwitchCamera);
+
+        string togglebtn = PlayerPrefs.GetString("togglebtn");
+        // get the object
+        GameObject toggleButton = GameObject.Find(togglebtn);
+        // activate the object
+        toggleButton.SetActive(true);
+
     }
 
 
 
     void Update()
     {
+        button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SwitchCamera);
+
+        string togglebtn = PlayerPrefs.GetString("togglebtn");
+        // get the object
+        GameObject toggleButton = GameObject.Find(togglebtn);
+        // activate the object
+        toggleButton.SetActive(true);
+
+
         if (planets == null)
         {
             planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");

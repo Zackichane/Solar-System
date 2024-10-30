@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static System.Math;
 
+
 public class PlaneteGenerator : MonoBehaviour
 {
     private const float scale = 10000f;
@@ -13,6 +14,7 @@ public class PlaneteGenerator : MonoBehaviour
     private float distanceFromStar;
     private float randomDist;
     private GameObject generatedPlanet;
+    private int starType;
     public GameObject[] EarthLikePlanets;
     public GameObject[] GazGiantPlanets;
     public GameObject[] MarsLikePlanets;
@@ -20,10 +22,17 @@ public class PlaneteGenerator : MonoBehaviour
     public GameObject[] VenusLikePlanets;
     void Start()
     {
-        GeneratePlanet();
-        if (GameObject.FindGameObjectsWithTag("GeneratedStar").Length == 1)
+        starType = PlayerPrefs.GetInt("starType");
+        int nPlanets = 1;
+        // set as playerprefs
+        PlayerPrefs.SetInt("nPlanets", nPlanets);
+        for (int i = 0; i < nPlanets; i++)
         {
-            GetDistanceFromStar();
+            GeneratePlanet();
+            if (GameObject.FindGameObjectsWithTag("GeneratedStar").Length == 1)
+            {
+                GetDistanceFromStar();
+            }
         }
     }
 
@@ -42,7 +51,7 @@ public class PlaneteGenerator : MonoBehaviour
         int t = 1;
         float randomSize = 0f;
         GameObject[] planetList = null;
-        if (t == 1)
+        if (t == 1) // replace this with a future condition
         {
             planetList = EarthLikePlanets;
             randomSize = Random.Range(minRocheuse, maxRocheuse);
@@ -72,16 +81,43 @@ public class PlaneteGenerator : MonoBehaviour
         generatedPlanet = Instantiate(planetPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         generatedPlanet.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-        MovePlanet();
+        //MovePlanet();
 
         // rename the planet
         generatedPlanet.name = "GeneratedPlanet";
+        // add the tag to the planet
+        generatedPlanet.tag = "GeneratedPlanet";
+
+        // add the component OrbiteHandler to the OrbiteHandler object 
+        //GameObject orbiteHandlerObject = GameObject.Find("OrbiteHandler");
+        //orbiteHandlerObject.AddComponent<OrbiteHandlerScript>();
+        //orbiteHandler.planet = generatedPlanet;
+        //OrbiteHandlerScript orbiteHandler = orbiteHandlerObject.GetComponent<OrbiteHandlerScript>();
+        //orbiteHandler.orbiteNumber = 1;
+        //if (planetList == EarthLikePlanets)
+        //{
+        //    orbiteHandler.EarthLikePlanets = true;
+        //}
+        //else if (planetList == MarsLikePlanets)
+        //{
+        //    orbiteHandler.MarsLikePlanets = true;
+        //}
+        //else if (planetList == VenusLikePlanets)
+        //{
+        //    orbiteHandler.VenusLikePlanets = true;
+        //}
+        //else if (planetList == GazGiantPlanets)
+        //{
+        //    orbiteHandler.GazGiantPlanets = true;
+        //}
+        //else if (planetList == MercuryLikePlanets)
+        //{
+        //    orbiteHandler.MercuryLikePlanets = true;
+        //}
     }
 
     void GetDistanceFromStar()
     {
-        // get the star type with the PlayerPrefs
-        int starType = PlayerPrefs.GetInt("starType");
         if (starType == 1)
         {
             randomDist = Random.Range(10, 50);
