@@ -129,6 +129,7 @@ public class StarGeneration : MonoBehaviour
 
     void MovePlanet(GameObject planet)
     {
+        return;
         float dist = 0f;
         float randomDist = Random.Range(minDist, maxDist);
         float radiusStar = randomSizeKm / 2f;

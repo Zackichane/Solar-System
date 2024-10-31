@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlanetManager : MonoBehaviour
 {
     private const float scale = 10000f;
-    private const float minRocheuse = 22578 / scale;
-    private const float maxRocheuse = 15868 / scale;
+    private const float minRocheuse = 15868 / scale;
+    private const float maxRocheuse = 22578 / scale;
     private const float minGazeuse = 44254 / scale;
     private const float maxGazeuse = 482386 / scale;
     private bool stopOrbite = false;
@@ -17,6 +17,10 @@ public class PlanetManager : MonoBehaviour
     private GameObject[] listOfPlanets;
     private float nGeneratedPlanets = 0;
     private GameObject[] generatedPlanets;
+    private List<float> planetSizes = new List<float>();
+    private List<GameObject> generatedPlanetsList = new List<GameObject>(); // Use a list to store generated planets
+    public float starSize; // Example star size, adjust as needed
+    public float orbitBuffer = 100f; // Base buffer distance to avoid collisions
 
 
     public Transform centerObject;
@@ -37,7 +41,21 @@ public class PlanetManager : MonoBehaviour
         // round the number of planets
         numberOfPlanets = Mathf.Round(numberOfPlanets);
         print("Number of planets: " + numberOfPlanets);
+
+        // Get the star with the tag "GeneratedStar" and its size
+        GameObject star = GameObject.FindGameObjectWithTag("GeneratedStar");
+        if (star != null)
+        {
+            starSize = star.transform.localScale.x; // Assuming uniform scale
+            print("Star size: " + starSize);
+        }
+        else
+        {
+            Debug.LogError("Star with tag 'GeneratedStar' not found!");
+        }
+
         GeneratePlanet();
+        ArrangePlanetsInOrbits();
     }
 
     void Update()
@@ -72,6 +90,8 @@ public class PlanetManager : MonoBehaviour
         // Apply the size (localScale) based on the random size
         generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
+        // Store the size of the planet
+        planetSizes.Add(randomSizeKm);
 
         // set the planet inclination
         float inclination = Random.Range(minInclination, maxInclination);
@@ -80,11 +100,11 @@ public class PlanetManager : MonoBehaviour
         nGeneratedPlanets++;
         generatedPlanet.name = "GeneratedPlanet" + nGeneratedPlanets.ToString();
         // add the planet to the list of generated planets
-        generatedPlanets = new GameObject[] { generatedPlanet };
+        generatedPlanetsList.Add(generatedPlanet);
         // add the rotation manager script to orbit the planet and rotate on its axis
         generatedPlanet.AddComponent<PlanetRotationManager>();
         // print the list
-        foreach (GameObject planet in generatedPlanets)
+        foreach (GameObject planet in generatedPlanetsList)
         {
             Debug.Log(planet.name);
         }
@@ -108,8 +128,44 @@ public class PlanetManager : MonoBehaviour
         {
             GeneratePlanet();
         }
+        else
+        {
+            // Convert the list to an array once all planets are generated
+            generatedPlanets = generatedPlanetsList.ToArray();
+        }
     }
 
-    
+    void ArrangePlanetsInOrbits()
+    {
+        float currentOrbitDistance = starSize * 2; // Start orbit distance based on star size
+        float largestPlanetSize = 0f;
+
+        // Find the largest planet size
+        foreach (float size in planetSizes)
+        {
+            if (size > largestPlanetSize)
+            {
+                largestPlanetSize = size;
+            }
+        }
+
+        for (int i = 0; i < generatedPlanets.Length; i++)
+        {
+            GameObject planet = generatedPlanets[i];
+            float planetSize = planetSizes[i];
+
+            // Calculate orbit distance based on the largest planet size with buffer
+            currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;
+
+            // Set the planet's position on its orbit
+            planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
+
+            // Print the orbit coordinates
+            print($"Planet {planet.name} orbit coordinates: {planet.transform.position}");
+
+            // Increase orbit distance for the next planet
+            currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;
+        }
+    }
 
 }

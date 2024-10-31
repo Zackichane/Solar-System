@@ -16,7 +16,7 @@ public class StarGenerationMenu3DP : MonoBehaviour
     public int y = 13;
     public int z = 17;
 
-    private float starSize;
+    public int starSize;
 
     void Start()
     {
@@ -49,7 +49,6 @@ public class StarGenerationMenu3DP : MonoBehaviour
 
     void GenerateYellowDwarf()
     {
-        int starSize = 5;
 
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         

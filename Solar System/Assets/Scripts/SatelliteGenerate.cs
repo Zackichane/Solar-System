@@ -5,6 +5,7 @@ using UnityEngine;
 public class SatelliteGenerate : MonoBehaviour
 {
     private GameObject satellitePrefab;
+    private const float scale = 10000f;
     private GameObject generatedSatellite;
     public GameObject S1;
     public GameObject S2;
@@ -28,13 +29,31 @@ public class SatelliteGenerate : MonoBehaviour
     public GameObject S20;
     public GameObject S21;
     public GameObject S22;
+    public GameObject S23;
+    public GameObject S24;
+    public GameObject S25;
+    public GameObject S26;
+    public GameObject S27;
+    public GameObject S28;
+    public GameObject S29;
+    public GameObject S30;
+    public GameObject S31;
+    public GameObject S32;
+    public GameObject S33;
+    public GameObject S34;
+    public GameObject S35;
+    public GameObject S36;
+    public GameObject S37;
+    public GameObject S38;
+    public GameObject S39;
+    public GameObject S40;
     private GameObject[] generatedPlanet;
     private Transform centerObject;
     public float orbiteSpeed = 100f;
     public float rotationSpeed = 50f;
     private string planetName = "GeneratedPlanet";
     public bool stopOrbite = false;
-    public bool randomPrefab = false;
+    public bool randomPrefab = true;
 
     // add a list of satellites s1 to s22
     public List<GameObject> satellites = new List<GameObject>();
@@ -64,6 +83,25 @@ public class SatelliteGenerate : MonoBehaviour
         satellites.Add(S20);
         satellites.Add(S21);
         satellites.Add(S22);
+        satellites.Add(S23);
+        satellites.Add(S24);
+        satellites.Add(S25);
+        satellites.Add(S26);
+        satellites.Add(S27);
+        satellites.Add(S28);
+        satellites.Add(S29);
+        satellites.Add(S30);
+        satellites.Add(S31);
+        satellites.Add(S32);
+        satellites.Add(S33);
+        satellites.Add(S34);
+        satellites.Add(S35);
+        satellites.Add(S36);
+        satellites.Add(S37);
+        satellites.Add(S38);
+        satellites.Add(S39);
+        satellites.Add(S40);
+    
     }
 
     void Update()
@@ -79,7 +117,13 @@ public class SatelliteGenerate : MonoBehaviour
                 for (int i = 0; i < generatedPlanet.Length; i++)
                 {
                     centerObject = generatedPlanet[i].transform;
-                    GenerateSatellite(centerObject.gameObject);
+                    int minSatellites = 1;
+                    int maxSatellites = 5;
+                    int numSatellites = Random.Range(minSatellites, maxSatellites + 1);
+                    for (int j = 0; j < numSatellites; j++)
+                    {
+                        GenerateSatellite(centerObject.gameObject);
+                    }
                 }
             }
         }
@@ -126,8 +170,9 @@ public class SatelliteGenerate : MonoBehaviour
 
         // Calculate the size and spawn position of the satellite
         float sizePlanet = planetObject.transform.localScale.x;
-        float ratio = 4; // Adjust the ratio as needed
-        float sizeSatellite = sizePlanet / ratio;
+        float minSize = 10000/scale;
+        float maxSize = 15868/scale;
+        float sizeSatellite = Random.Range(minSize, maxSize);
 
         // Set the scale of the satellite
         satellitePrefab = S1;

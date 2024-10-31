@@ -86,13 +86,10 @@ public class OrbitManager : MonoBehaviour
 
             // Create an orbit GameObject and set it up
             GameObject orbit = new GameObject("Orbit" + rockyPlanet.name);
-            orbit.transform.parent = star.transform;
-            orbit.transform.localScale = new Vector3(rockyDistance, rockyDistance, rockyDistance);
-            orbit.transform.position = star.transform.position;
+            orbit.transform.position = new Vector3(rockyDistance, 0, 0);
 
             // Set the planet's position along the x-axis within the orbit
-            rockyPlanet.transform.parent = orbit.transform;
-            rockyPlanet.transform.localPosition = new Vector3(rockyDistance / 2, 0, 0);  // Move the planet to the edge of the orbit
+            rockyPlanet.transform.localPosition = orbit.transform.position;
         }
 
         // Create orbits for gas planets with a large initial distance
