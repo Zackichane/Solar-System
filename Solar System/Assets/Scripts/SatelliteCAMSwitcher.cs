@@ -113,8 +113,8 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         Show(planet); // show the planet
         Hide(star);
         particles[0].gameObject.SetActive(false);
-        Show(satellite);
-        HideOtherSatellites(satellite);
+        //Show(satellite);
+        //HideOtherSatellites(satellite);
         canvas.worldCamera = nextCamera;
     }
 
