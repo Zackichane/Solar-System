@@ -61,20 +61,13 @@ public class PlanetCAMSwitcher : MonoBehaviour
         {
             // get all the objects with the MainCamera tag
             cameraObjects = GameObject.FindGameObjectsWithTag("MainCamera");
-            Debug.Log("Number of camera objects found: " + cameraObjects.Length);
+
 
             camerasDraft = new Camera[cameraObjects.Length];
             for (int i = 0; i < cameraObjects.Length; i++)
             {
                 camerasDraft[i] = cameraObjects[i].GetComponent<Camera>();
-                if (camerasDraft[i] != null)
-                {
-                    Debug.Log("Camera found: " + camerasDraft[i].name);
-                }
-                else
-                {
-                    Debug.LogWarning("No Camera component found on: " + cameraObjects[i].name);
-                }
+
             }
         }
 
@@ -151,10 +144,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
         {
             gameObjectToHide.GetComponent<MeshRenderer>().enabled = false;
         }
-        else
-        {
-            Debug.LogWarning("The object to hide is not a GameObject!");
-        }
+
     }
 
     public void Show(object objectToShow)
@@ -164,10 +154,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
         {
             gameObjectToShow.GetComponent<MeshRenderer>().enabled = true;
         }
-        else
-        {
-            Debug.LogWarning("The object to show is not a GameObject!");
-        }
+
     }
 
     public void HideOtherPlanets(string nextCameraName)

@@ -71,7 +71,6 @@ public class OrbitManager : MonoBehaviour
         GameObject star = GameObject.FindGameObjectWithTag("GeneratedStar");
         if (star == null)
         {
-            Debug.LogError("Star not found!");
             return;
         }
 

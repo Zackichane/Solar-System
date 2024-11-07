@@ -12,10 +12,7 @@ public class ParticleFollower : MonoBehaviour
         {
             particleSystemTransform = particleSystem.transform;
         }
-        else
-        {
-            Debug.LogError("Particle system is not assigned!");
-        }
+
     }
 
     void Update()

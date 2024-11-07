@@ -113,7 +113,7 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         Show(planet); // show the planet
         Hide(star);
         particles[0].gameObject.SetActive(false);
-        //Show(satellite);
+        Show(satellite);
         //HideOtherSatellites(satellite);
         canvas.worldCamera = nextCamera;
     }
@@ -125,10 +125,7 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         {
             gameObjectToHide.GetComponent<MeshRenderer>().enabled = false;
         }
-        else
-        {
-            Debug.LogWarning("The object to hide is not a GameObject!");
-        }
+
     }
 
     public void Show(object objectToShow)
@@ -138,10 +135,7 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         {
             gameObjectToShow.GetComponent<MeshRenderer>().enabled = true;
         }
-        else
-        {
-            Debug.LogWarning("The object to show is not a GameObject!");
-        }
+
     }
 
     public void HideOtherPlanets()

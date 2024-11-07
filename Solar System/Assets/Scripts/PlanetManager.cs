@@ -40,18 +40,12 @@ public class PlanetManager : MonoBehaviour
         numberOfPlanets = Random.Range(minPlanet, maxPlanet);
         // round the number of planets
         numberOfPlanets = Mathf.Round(numberOfPlanets);
-        print("Number of planets: " + numberOfPlanets);
 
         // Get the star with the tag "GeneratedStar" and its size
         GameObject star = GameObject.FindGameObjectWithTag("GeneratedStar");
         if (star != null)
         {
             starSize = star.transform.localScale.x; // Assuming uniform scale
-            print("Star size: " + starSize);
-        }
-        else
-        {
-            Debug.LogError("Star with tag 'GeneratedStar' not found!");
         }
 
         GeneratePlanet();
@@ -103,11 +97,7 @@ public class PlanetManager : MonoBehaviour
         generatedPlanetsList.Add(generatedPlanet);
         // add the rotation manager script to orbit the planet and rotate on its axis
         generatedPlanet.AddComponent<PlanetRotationManager>();
-        // print the list
-        foreach (GameObject planet in generatedPlanetsList)
-        {
-            Debug.Log(planet.name);
-        }
+
         // add the planet tag to the generated planet
         generatedPlanet.tag = "GeneratedPlanet";
         // generate a camera for the planet
@@ -159,9 +149,6 @@ public class PlanetManager : MonoBehaviour
 
             // Set the planet's position on its orbit
             planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
-
-            // Print the orbit coordinates
-            print($"Planet {planet.name} orbit coordinates: {planet.transform.position}");
 
             // Increase orbit distance for the next planet
             currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;

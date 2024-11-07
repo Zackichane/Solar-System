@@ -59,9 +59,6 @@ public class CameraController : MonoBehaviour
             Vector3 spawnPosition = transform.position + transform.forward * spawnDistance;
             Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
         }
-        else
-        {
-            Debug.LogWarning("Aucun objet assigné à 'objectToSpawn'!");
-        }
+
     }
 }

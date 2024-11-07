@@ -54,10 +54,6 @@ public class CamObjFollow : MonoBehaviour
                 offset = new Vector3(1f, 0, 0);
             }
         }
-        else
-        {
-            Debug.LogWarning($"Target with name {targetName} not found.");
-        }
 
         if (!string.IsNullOrEmpty(secondTargetName))
         {
@@ -69,10 +65,7 @@ public class CamObjFollow : MonoBehaviour
                 offset += new Vector3(secondTarget.transform.localScale.x * 3, 0, 0);
                 // round the offset up with no decimal
             }
-            else
-            {
-                Debug.LogWarning($"Second target with name {secondTargetName} not found.");
-            }
+
         }
     }
 }

@@ -77,10 +77,7 @@ public class BTN_CAM_Switcher : MonoBehaviour
             //gameObjectToHide.SetActive(false);
             gameObjectToHide.GetComponent<MeshRenderer>().enabled = false;
         }
-        else
-        {
-            Debug.LogWarning("The object to hide is not a GameObject!");
-        }
+
     }
 
     public void Show(object objectToShow)
@@ -91,10 +88,7 @@ public class BTN_CAM_Switcher : MonoBehaviour
             //gameObjectToShow.SetActive(true);
             gameObjectToShow.GetComponent<MeshRenderer>().enabled = true;
         }
-        else
-        {
-            Debug.LogWarning("The object to show is not a GameObject!");
-        }
+
     }
 
     public void HideOtherPlanets()

@@ -14,13 +14,17 @@ public class SatelliteGenerate : MonoBehaviour
     private string planetName = "GeneratedPlanet";
     public bool stopOrbite = false;
     public bool randomPrefab = false;
+    public float orbitBuffer = 100f; // Base buffer distance to avoid collisions
+    private int satelliteCounter = 0; // Add a counter for unique satellite names
+
 
     // add a list of satellites s1 to s22
     public List<GameObject> satellites = new List<GameObject>();
 
     void Start()
     {
-            
+        // Shuffle the list of satellites to ensure randomness
+        ShuffleSatellites();
     }
 
     void Update()
@@ -69,16 +73,21 @@ public class SatelliteGenerate : MonoBehaviour
     {
         if (randomPrefab)
         {
-            // Randomly select a satellite prefab
-            int index = Random.Range(0, satellites.Count);
-            if (satellites[index] != null)
+            // Randomly select a satellite prefab and remove it from the list
+            if (satellites.Count > 0)
             {
+                int index = Random.Range(0, satellites.Count);
                 satellitePrefab = satellites[index];
+                satellites.RemoveAt(index);
+            }
+            else
+            {
+                // No prefabs left to generate satellites
+                return;
             }
         }
         if (satellitePrefab == null)
         {
-            Debug.LogError("Satellite prefab not found!");
             return;
         }
 
@@ -90,14 +99,15 @@ public class SatelliteGenerate : MonoBehaviour
 
         // Set the scale of the satellite
         float distance = sizePlanet * 2f; // Set the desired distance from the planet based on the planet size
-        Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance, 0, 0); // Adjust spawn position relative to the planet
+        float angle = satelliteCounter * 30f; // Calculate angle for unique position
+        Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance * Mathf.Cos(angle), 0, distance * Mathf.Sin(angle)); // Adjust spawn position relative to the planet
 
         // Instantiate the satellite
         generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
         generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
 
-        // Rename the satellite
-        generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15);
+        // Rename the satellite with a unique identifier
+        generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
         // add a tag
         generatedSatellite.tag = "GeneratedSatellite";
         generatedSatellite.AddComponent<SatelliteRotationManager>();
@@ -113,5 +123,47 @@ public class SatelliteGenerate : MonoBehaviour
         camera.GetComponent<Camera>().enabled = false;
     }
 
+    void ArrangeSatellitesInOrbits(GameObject planetObject, List<GameObject> satellites)
+    {
+        float currentOrbitDistance = planetObject.transform.localScale.x * 2; // Start orbit distance based on planet size
+        float largestSatelliteSize = 0f;
+
+        // Find the largest satellite size
+        foreach (GameObject satellite in satellites)
+        {
+            float satelliteSize = satellite.transform.localScale.x;
+            if (satelliteSize > largestSatelliteSize)
+            {
+                largestSatelliteSize = satelliteSize;
+            }
+        }
+
+        for (int i = 0; i < satellites.Count; i++)
+        {
+            GameObject satellite = satellites[i];
+            float satelliteSize = satellite.transform.localScale.x;
+
+            // Calculate orbit distance based on the largest satellite size with buffer
+            currentOrbitDistance += largestSatelliteSize * 2 + orbitBuffer;
+
+            // Set the satellite's position on its orbit
+            satellite.transform.position = planetObject.transform.position + new Vector3(currentOrbitDistance, 0, 0);
+
+
+            // Increase orbit distance for the next satellite
+            currentOrbitDistance += largestSatelliteSize * 2 + orbitBuffer;
+        }
+    }
+
+    void ShuffleSatellites()
+    {
+        for (int i = 0; i < satellites.Count; i++)
+        {
+            GameObject temp = satellites[i];
+            int randomIndex = Random.Range(i, satellites.Count);
+            satellites[i] = satellites[randomIndex];
+            satellites[randomIndex] = temp;
+        }
+    }
     
 }
