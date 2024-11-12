@@ -112,15 +112,9 @@ public class SatelliteGenerate : MonoBehaviour
         generatedSatellite.tag = "GeneratedSatellite";
         generatedSatellite.AddComponent<SatelliteRotationManager>();
 
-        // generate a camera for the satellite
-        GameObject camera = new GameObject();
-        camera.AddComponent<Camera>();
-        camera.AddComponent<CamObjFollow>();
-        camera.GetComponent<CamObjFollow>().targetName = generatedSatellite.name;
-        camera.GetComponent<CamObjFollow>().secondTargetName = planetObject.name;
-        camera.name = "Camera" + generatedSatellite.name;
-        camera.tag = "MainCamera";
-        camera.GetComponent<Camera>().enabled = false;
+
+        generatedSatellite.AddComponent<planetTracker>();
+        generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
     }
 
     void ArrangeSatellitesInOrbits(GameObject planetObject, List<GameObject> satellites)

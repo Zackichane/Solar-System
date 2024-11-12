@@ -6,7 +6,7 @@ public class SatelliteRotationManager : MonoBehaviour
 {
     // set the centerobject position to 0,0,0
     private Transform centerObject;
-    private float rotationSpeed = 0f;
+    private float rotationSpeed = 1f;
     private bool stopOrbite = false;
     private string name;
     private string number;
@@ -16,40 +16,20 @@ public class SatelliteRotationManager : MonoBehaviour
     void Start()
     {
         rotationSpeed = Random.Range(1f, 20f);
-        // get the name of the GameObject with the script
-        name = gameObject.name;
-        // get the number at the end of the name GeneratedSatellite1
-        number = name.Substring(name.Length - 1);
-        // get the generated planet
-        generatedPlanet = GameObject.Find("GeneratedPlanet" + number);
-        centerObject = generatedPlanet.transform;
+        centerObject = GetComponent<planetTracker>().planet.transform;
+        generatedPlanet = centerObject.gameObject; // Ensure generatedPlanet is assigned
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if the satellite is inactive, stop the planet orbit
-        GameObject generatedStar = GameObject.Find("GeneratedPlanet" + number);
-        //if (generatedStar.GetComponent<MeshRenderer>().enabled == false)
-        //{
-        //    stopOrbite = true;
-        //}
-        //else
-        //{
-        //    stopOrbite = false;
-        //}
-
-        if (stopOrbite != false)
-        {
-            OrbiteSatellite();
-        }
-
+        OrbiteSatellite();
         RotateSatellite();
     }
 
     void OrbiteSatellite()
     {
-        if (centerObject != null)
+        if (centerObject != null && generatedPlanet != null)
         {
             // Ensure the satellite is always at a fixed distance from the planet
             float distance = transform.localScale.x + generatedPlanet.transform.localScale.x; // Set the desired distance from the planet

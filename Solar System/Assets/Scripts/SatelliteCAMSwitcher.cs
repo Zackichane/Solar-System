@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 public class SatelliteCAMSwitcher : MonoBehaviour
 {
@@ -10,112 +11,113 @@ public class SatelliteCAMSwitcher : MonoBehaviour
     private GameObject planet;
     private GameObject satellite;
     private GameObject star;
-    private Camera currentCamera;
     private GameObject[] planets;
-    private GameObject[] cameraObjects;
-    private Camera[] cameras;
     private Camera[] camerasDraft;
-    private Camera nextCamera;
     private ParticleSystem[] particles;
     private GameObject[] satellites;
+    public Camera satelliteCam;
+    private Camera[] cameras;
+    private int currentIndex = 0;
+    public Vector3 offset;    // Offset from the target
+    public float smoothSpeed = 0.125f; // Smoothness factor for movement
+    private Transform planetToTrack; // Change type to Transform
+    private Transform satelliteToTrack; // Add this line
 
     void Start()
     {
         button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SwitchCamera);
     }
 
-
-
     void Update()
     {
-        if (planets == null)
-        {
-            planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-        }
-        if (satellites == null)
-        {
-            satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
-        }
         if (star == null)
         {
             star = GameObject.Find("GeneratedStar");
             particles = star.GetComponentsInChildren<ParticleSystem>();
         }
 
-        // get all the objects with the MainCamera tag
-        cameraObjects = GameObject.FindGameObjectsWithTag("MainCamera");
-
-        camerasDraft = new Camera[cameraObjects.Length];
-        for (int i = 0; i < cameraObjects.Length; i++)
+        if (planetToTrack != null)
         {
-            camerasDraft[i] = cameraObjects[i].GetComponent<Camera>();
-        }
-        
+            // Desired position
+            Vector3 desiredPosition = planetToTrack.position + offset;
+            // Smoothly interpolate to the desired position
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothedPosition;
 
-        for (int i = 0; i < camerasDraft.Length; i++)
-        {
-            if (camerasDraft[i] != null && camerasDraft[i].name.Contains("CameraGeneratedSatellite"))
-            {
-                // add camerasDraft[i] to the cameras array
-                if (cameras == null)
-                {
-                    cameras = new Camera[1];
-                    cameras[0] = camerasDraft[i];
-                }
-                else
-                {
-                    cameras = cameras.Concat(new Camera[] { camerasDraft[i] }).ToArray();
-                }
-            }
+            // Smoothly rotate to look at the target
+            Quaternion targetRotation = Quaternion.LookRotation(planetToTrack.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothSpeed);
         }
     }
 
     void SwitchCamera()
     {
-        currentCamera = Camera.main;
-        // if the camera is a planet camera then switch to the next camera
-        if (currentCamera.name.Contains("CameraGeneratedSatellite"))
+        // desactiver toutes les cameras
+        cameras = GameObject.FindObjectsOfType<Camera>();
+        foreach (Camera c in cameras)
         {
-            // get the index of the current camera
-            for (int i = 0; i < cameras.Length; i++)
-            {
-                if (cameras[i] == currentCamera)
-                {
-                    i++;
-                    if (i >= cameras.Length)
-                    {
-                        i = 0; // Reset to the first camera if we reach the end of the array
-                    }
-                    nextCamera = cameras[i];
-                    break;
-                }
-            }
-            
+            c.enabled = false;
         }
-        // if the camera is not a planet camera then switch to the first planet camera
-        else
-        {
-            int n = 0;
-            nextCamera = cameras[0];
-        }
-        currentCamera.enabled = false;
-        nextCamera.enabled = true;
+        // activer la camera satelliteCam
+        satelliteCam.enabled = true;
 
-        string cameraNumber = nextCamera.name.Substring(nextCamera.name.Length - 1);
-        string planetName = "GeneratedPlanet" + cameraNumber;
-        planet = GameObject.Find(planetName);
+        // obtenir une liste de toutes les planetes
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+        // mettre les planetes en ordre croissant par rapport a leur numero (GeneratedPlanet1, GeneratedPlanet2, etc.)
+        planets = planets.OrderBy(p => p.name).ToArray();
+        
+        // obtenir le nombre de planetes
+        int planetCount = planets.Length;
 
-        string satelliteName = "GeneratedSatellite" + cameraNumber;
-        satellite = GameObject.Find(satelliteName);
+        // obtenir une liste de tous les satellites
+        satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
 
-        HideOtherPlanets(); // hide all the planets
-        Show(planet); // show the planet
+        // obtenir la planete actuelle
+        GameObject currentPlanet = planets[currentIndex % planetCount];
+        // obtenir les satellites de la planete actuelle
+        GameObject[] satellitesOfCurrentPlanet = satellites.Where(s => s.GetComponent<planetTracker>().planet == currentPlanet).ToArray();
+
+        // cacher toutes les planetes sauf la planete actuelle
+        foreach (GameObject p in planets)
+        {
+            if (p != currentPlanet)
+            {
+                Hide(p);
+            }
+        }
+        // cacher tous les satellites
+        foreach (GameObject s in satellites)
+        {
+            if (!satellitesOfCurrentPlanet.Contains(s))
+            {
+                Hide(s);
+            }
+        }
+        // afficher la planete actuelle
+        Show(currentPlanet);
+
+        // obtenir le satellite actuel de la planete actuelle
+        satelliteToTrack = satellitesOfCurrentPlanet[currentIndex / planetCount % satellitesOfCurrentPlanet.Length].transform;
+
+        // afficher le satellite actuel
+        Show(satelliteToTrack.gameObject);
+
+        // desactiver l'etoile et ses particules
         Hide(star);
         particles[0].gameObject.SetActive(false);
-        Show(satellite);
-        //HideOtherSatellites(satellite);
-        canvas.worldCamera = nextCamera;
+
+        canvas.worldCamera = satelliteCam;
+
+        // change the satelliteCam object follower to the current satellite
+        satelliteCam.GetComponent<CamObjFollow>().targetName = satelliteToTrack.name;
+        // ajouter le nom de la planete a suivre
+        satelliteCam.GetComponent<CamObjFollow>().secondTargetNames = new List<string> { currentPlanet.name };
+
+        currentIndex++;
+        if (currentIndex >= planetCount)
+        {
+            currentIndex = 0;
+        }
     }
 
     public void Hide(object objectToHide)
@@ -133,17 +135,19 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         GameObject gameObjectToShow = objectToShow as GameObject;
         if (gameObjectToShow != null)
         {
-            gameObjectToShow.GetComponent<MeshRenderer>().enabled = true;
+            gameObjectToShow.GetComponent<MeshRenderer>().enabled = true; // Ensure MeshRenderer is enabled
         }
 
     }
 
     public void HideOtherPlanets()
     {
-        planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         foreach (GameObject p in planets)
         {
-            Hide(p);
+            if (p != planet)
+            {
+                Hide(p);
+            }
         }
     }
 

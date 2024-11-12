@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CamObjFollow : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class CamObjFollow : MonoBehaviour
     public Vector3 offset;    // Offset from the target
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     public string targetName;
-    public string secondTargetName;
+    public List<string> secondTargetNames; // List of second target names
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class CamObjFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetTarget();
         if (target != null)
         {
             // Desired position
@@ -29,14 +31,6 @@ public class CamObjFollow : MonoBehaviour
             // Smoothly rotate to look at the target
             Quaternion targetRotation = Quaternion.LookRotation(target.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothSpeed);
-        }
-        else
-        {
-            GetTarget(); // Get the target and the offset
-        }
-        if (secondTarget == null)
-        {
-            GetTarget(); // Get the target and the offset
         }
     }
 
@@ -55,17 +49,28 @@ public class CamObjFollow : MonoBehaviour
             }
         }
 
-        if (!string.IsNullOrEmpty(secondTargetName))
+        if (secondTargetNames != null && secondTargetNames.Count > 0)
         {
-            GameObject secondTargetObject = GameObject.Find(secondTargetName);
-            if (secondTargetObject != null)
+            float maxDistance = 0;
+            foreach (string secondTargetName in secondTargetNames)
             {
-                secondTarget = secondTargetObject.transform;
+                GameObject secondTargetObject = GameObject.Find(secondTargetName);
+                if (secondTargetObject != null)
+                {
+                    float distance = Vector3.Distance(target.position, secondTargetObject.transform.position);
+                    if (distance > maxDistance)
+                    {
+                        maxDistance = distance;
+                        secondTarget = secondTargetObject.transform;
+                    }
+                }
+            }
+            if (secondTarget != null)
+            {
                 // add the distance between the two targets to the offset
                 offset += new Vector3(secondTarget.transform.localScale.x * 3, 0, 0);
                 // round the offset up with no decimal
             }
-
         }
     }
 }
