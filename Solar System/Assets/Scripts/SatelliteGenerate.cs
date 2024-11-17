@@ -69,53 +69,82 @@ public class SatelliteGenerate : MonoBehaviour
         //RotateSatellite();
     }
 
-    void GenerateSatellite(GameObject planetObject)
+void GenerateSatellite(GameObject planetObject)
+{
+    if (randomPrefab)
     {
-        if (randomPrefab)
+        // Randomly select a satellite prefab and remove it from the list
+        if (satellites.Count > 0)
         {
-            // Randomly select a satellite prefab and remove it from the list
-            if (satellites.Count > 0)
-            {
-                int index = Random.Range(0, satellites.Count);
-                satellitePrefab = satellites[index];
-                satellites.RemoveAt(index);
-            }
-            else
-            {
-                // No prefabs left to generate satellites
-                return;
-            }
+            int index = Random.Range(0, satellites.Count);
+            satellitePrefab = satellites[index];
+            satellites.RemoveAt(index);
         }
-        if (satellitePrefab == null)
+        else
         {
+            // No prefabs left to generate satellites
             return;
         }
-
-        // Calculate the size and spawn position of the satellite
-        float sizePlanet = planetObject.transform.localScale.x;
-        float minSize = 10000/scale;
-        float maxSize = 15868/scale;
-        float sizeSatellite = Random.Range(minSize, maxSize);
-
-        // Set the scale of the satellite
-        float distance = sizePlanet * 2f; // Set the desired distance from the planet based on the planet size
-        float angle = satelliteCounter * 30f; // Calculate angle for unique position
-        Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance * Mathf.Cos(angle), 0, distance * Mathf.Sin(angle)); // Adjust spawn position relative to the planet
-
-        // Instantiate the satellite
-        generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
-        generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
-
-        // Rename the satellite with a unique identifier
-        generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
-        // add a tag
-        generatedSatellite.tag = "GeneratedSatellite";
-        generatedSatellite.AddComponent<SatelliteRotationManager>();
-
-
-        generatedSatellite.AddComponent<planetTracker>();
-        generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
     }
+    if (satellitePrefab == null)
+    {
+        return;
+    }
+
+    // Determine satellite size range based on planet type
+    float minSize, maxSize;
+    string planetTag = planetObject.tag;
+
+    switch (planetTag)
+    {
+        case "MercuryPlanets":
+            minSize = 100 / scale;
+            maxSize = 500 / scale;
+            break;
+        case "VenusPlanets":
+            minSize = 500 / scale;
+            maxSize = 1000 / scale;
+            break;
+        case "MarsPlanets":
+            minSize = 300 / scale;
+            maxSize = 1000 / scale;
+            break;
+        case "RockyPlanets":
+            minSize = 400 / scale;
+            maxSize = 1000 / scale;
+            break;
+        case "GasPlanets":
+            minSize = 2000 / scale;
+            maxSize = 7000 / scale;
+            break;
+        default:
+            minSize = 1000 / scale;
+            maxSize = 5000 / scale;
+            break;
+    }
+
+    // Calculate the size and spawn position of the satellite
+    float sizePlanet = planetObject.transform.localScale.x;
+    float sizeSatellite = Random.Range(minSize, maxSize);
+
+    // Set the spawn position of the satellite
+    float distance = sizePlanet * 2f; // Set the desired distance from the planet based on the planet size
+    float angle = satelliteCounter * 30f; // Calculate angle for unique position
+    Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance * Mathf.Cos(angle), 0, distance * Mathf.Sin(angle)); // Adjust spawn position relative to the planet
+
+    // Instantiate the satellite
+    generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
+    generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
+
+    // Rename the satellite with a unique identifier
+    generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
+    generatedSatellite.tag = "GeneratedSatellite";
+    generatedSatellite.AddComponent<SatelliteRotationManager>();
+
+    // Attach planet reference
+    generatedSatellite.AddComponent<planetTracker>();
+    generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
+}
 
     void ArrangeSatellitesInOrbits(GameObject planetObject, List<GameObject> satellites)
     {

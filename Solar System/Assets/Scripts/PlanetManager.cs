@@ -5,10 +5,16 @@ using UnityEngine;
 public class PlanetManager : MonoBehaviour
 {
     private const float scale = 10000f;
-    private const float minRocheuse = 15868 / scale;
-    private const float maxRocheuse = 22578 / scale;
-    private const float minGazeuse = 44254 / scale;
-    private const float maxGazeuse = 482386 / scale;
+    private const float minVenus = 14000 / scale;
+    private const float maxVenus = 21000 / scale;
+    private const float minMercure = 6000 / scale;
+    private const float maxMercure = 10000 / scale;
+    private const float minMars = 9000 / scale;
+    private const float maxMars = 16000 / scale;
+    private const float minRocheuse = 15800 / scale;
+    private const float maxRocheuse = 22500 / scale;
+    private const float minGazeuse = 44200 / scale;
+    private const float maxGazeuse = 482000 / scale;
     private bool stopOrbite = false;
     private Vector3 spawnPosition;
     private float maxInclination = 40f;
@@ -24,6 +30,9 @@ public class PlanetManager : MonoBehaviour
 
 
     public Transform centerObject;
+    public GameObject[] MercuryPlanets;
+    public GameObject[] VenusPlanets;
+    public GameObject[] MarsPlanets;
     public GameObject[] rockyPlanets;
     public GameObject[] gasPlanets;
     private float numberOfPlanets;
@@ -60,9 +69,27 @@ public class PlanetManager : MonoBehaviour
     void GeneratePlanet()
     {
         // choose random between rocheuse and gazeuse
-        float randomType = Random.Range(0, 2);
+        float randomType = Random.Range(0, 5);
         float randomSizeKm;
-        if (randomType == 1)
+        if (randomType == 0)
+        {
+            randomSizeKm = Random.Range(minMercure, maxMercure);
+            // the list is the rocky planets
+            listOfPlanets = MercuryPlanets;
+        }
+        else if (randomType == 1)
+        {
+            randomSizeKm = Random.Range(minVenus, maxVenus);
+            // the list is the rocky planets
+            listOfPlanets = VenusPlanets;
+        }
+        else if (randomType == 2)
+        {
+            randomSizeKm = Random.Range(minMars, maxMars);
+            // the list is the rocky planets
+            listOfPlanets = MarsPlanets;
+        }
+        else if (randomType == 3)
         {
             randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
             // the list is the rocky planets
@@ -113,34 +140,41 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    void ArrangePlanetsInOrbits()
+void ArrangePlanetsInOrbits()
+{
+    float currentOrbitDistance = starSize * 2; // Start orbit distance based on star size
+    float largestPlanetSize = 0f;
+
+    // Find the largest planet size
+    foreach (float size in planetSizes)
     {
-        float currentOrbitDistance = starSize * 2; // Start orbit distance based on star size
-        float largestPlanetSize = 0f;
-
-        // Find the largest planet size
-        foreach (float size in planetSizes)
+        if (size > largestPlanetSize)
         {
-            if (size > largestPlanetSize)
-            {
-                largestPlanetSize = size;
-            }
-        }
-
-        for (int i = 0; i < generatedPlanets.Length; i++)
-        {
-            GameObject planet = generatedPlanets[i];
-            float planetSize = planetSizes[i];
-
-            // Calculate orbit distance based on the largest planet size with buffer
-            currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;
-
-            // Set the planet's position on its orbit
-            planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
-
-            // Increase orbit distance for the next planet
-            currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;
+            largestPlanetSize = size;
         }
     }
+
+    for (int i = 0; i < generatedPlanets.Length; i++)
+    {
+        GameObject planet = generatedPlanets[i];
+        float planetSize = planetSizes[i];
+
+        // Calculate orbit distance with extra buffer for gas planets
+        if (planet.CompareTag("GasPlanet")) // Assuming gas planets have this tag
+        {
+            currentOrbitDistance += (largestPlanetSize * 3) + (orbitBuffer * 2); // Extra buffer for gas planets
+        }
+        else
+        {
+            currentOrbitDistance += (largestPlanetSize * 2) + orbitBuffer; // Normal buffer for other planets
+        }
+
+        // Set the planet's position on its orbit
+        planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
+
+        // Increase orbit distance for the next planet
+        currentOrbitDistance += largestPlanetSize * 2 + orbitBuffer;
+    }
+}
 
 }

@@ -780,7 +780,6 @@ MonoBehaviour:
   canvas: {fileID: 1077823036}
   button: {fileID: 1495288891}
   planetCam: {fileID: 1698858079}
-  offset: {x: 0, y: 0, z: 0}
   smoothSpeed: 0.125
 --- !u!114 &772673324
 MonoBehaviour:
@@ -797,7 +796,7 @@ MonoBehaviour:
   canvas: {fileID: 1077823036}
   button: {fileID: 303365315}
   satelliteCam: {fileID: 1274287749}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: -20, z: 50}
   smoothSpeed: 0.125
 --- !u!114 &772673325
 MonoBehaviour:
@@ -3156,6 +3155,36 @@ MonoBehaviour:
   starSize: 100
   orbitBuffer: 50
   centerObject: {fileID: 1831653902}
+  MercuryPlanets:
+  - {fileID: 5585180989215226240, guid: 7e99bb4f81bdfe64eb487b3c6711955f, type: 3}
+  - {fileID: 8249046572511357689, guid: 0262faad40254944d9397bb36f27498a, type: 3}
+  - {fileID: 6547566394112850069, guid: feafba27210c97343a5f576859134a2d, type: 3}
+  - {fileID: 8809229380894765985, guid: 097916ce4bff0ee41aac69f6b2cb23a6, type: 3}
+  - {fileID: 7446632690284602602, guid: 5218992818710d448969837de1de1f1f, type: 3}
+  - {fileID: 5758085515794123430, guid: 505fc4275da35ec419f4e944a52bc94c, type: 3}
+  - {fileID: 1883932010246201222, guid: fc2a5f2179cfa4441bdef7cbbf3ac082, type: 3}
+  - {fileID: 3217719500623267843, guid: fa866f98f4708e045be0dbe730908a3c, type: 3}
+  - {fileID: 2486450720572590527, guid: acb08f33fed1e8b4083da4ca4b886986, type: 3}
+  VenusPlanets:
+  - {fileID: 328795886223627971, guid: 6d4510af464bda542845ec9fd8816747, type: 3}
+  - {fileID: 6832597918249492127, guid: e3ddcff339c9e444c8e048fe07c89efa, type: 3}
+  - {fileID: 5757062000944214896, guid: 2f93a2f9184b2be41b40a123815ba494, type: 3}
+  - {fileID: 1886616242336689226, guid: e900cf19078f5b144994d58d593fcb47, type: 3}
+  - {fileID: 1782832747239748941, guid: 8eda50d74c4a49942a67264723e90a5d, type: 3}
+  - {fileID: 2206502257018454167, guid: de063d2753e43f644af907672d2d6774, type: 3}
+  - {fileID: 2182570907564241384, guid: f4ec89ffa9b40324b89cadbe64dac463, type: 3}
+  - {fileID: 8497180063603680621, guid: b01e3328e0153e949b75a212f7c94501, type: 3}
+  - {fileID: 6684876369693034699, guid: b705f8dc1bed8494fb0b63a4ae06ebb4, type: 3}
+  MarsPlanets:
+  - {fileID: 3596786674501510500, guid: d3a41c2e68029484282cfaf87514c06f, type: 3}
+  - {fileID: 47621244137848820, guid: 5cd7e2664db71ac4d8770367bec8c3d7, type: 3}
+  - {fileID: 5424510644074499412, guid: 15c2574d5e6fa7048b640c97591ebf25, type: 3}
+  - {fileID: 2148921191060300549, guid: e9822095cf300374e866a89009252f70, type: 3}
+  - {fileID: 3407122825967459194, guid: 91079d84af9444f4bbddd31ee271b340, type: 3}
+  - {fileID: 3746793955616189340, guid: bd8a293c6a549b246b6b6ee557cbfcad, type: 3}
+  - {fileID: 979962592350067044, guid: 652d44ae408269e4dbce57b49a14ebfd, type: 3}
+  - {fileID: 8610648102802377296, guid: ccd7e4fb4febf1747b3fb6f2cc9ca2cf, type: 3}
+  - {fileID: 6023835533018608249, guid: f9baebae8d83b4b41b4967d430eaf9ec, type: 3}
   rockyPlanets:
   - {fileID: 6161999575350979298, guid: fe80185d308b24049bcf99e8eb0cbc46, type: 3}
   - {fileID: 5700958517681903680, guid: 684dcdcad1bedda4ba94bb94dd1883fa, type: 3}

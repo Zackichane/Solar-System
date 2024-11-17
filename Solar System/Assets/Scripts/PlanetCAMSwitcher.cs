@@ -17,9 +17,10 @@ public class PlanetCAMSwitcher : MonoBehaviour
     public Camera planetCam;
     private Camera[] cameras;
     private int currentIndex = 0;
-    public Vector3 offset;    // Offset from the target
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     private Transform planetToTrack; // Change type to Transform
+    private Vector3 offset;
+
 
     void Start()
     {
