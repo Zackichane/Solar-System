@@ -91,11 +91,12 @@ void GenerateSatellite(GameObject planetObject)
         return;
     }
 
-    // Determine satellite size range based on planet type
+    // Determine satellite size range based on planet type(
     float minSize, maxSize;
-    string planetTag = planetObject.tag;
+    string planetTypeValue = planetObject.GetComponent<planetType>().planet_type;
 
-    switch (planetTag)
+
+    switch (planetTypeValue)
     {
         case "MercuryPlanets":
             minSize = 100 / scale;

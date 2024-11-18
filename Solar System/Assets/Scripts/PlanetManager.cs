@@ -38,6 +38,7 @@ public class PlanetManager : MonoBehaviour
     private float numberOfPlanets;
     private float minPlanet;
     private float maxPlanet;
+    private string randomPlanetType;
 
 
     void Start()
@@ -76,30 +77,35 @@ public class PlanetManager : MonoBehaviour
             randomSizeKm = Random.Range(minMercure, maxMercure);
             // the list is the rocky planets
             listOfPlanets = MercuryPlanets;
+            randomPlanetType = "MercuryPlanets";
         }
         else if (randomType == 1)
         {
             randomSizeKm = Random.Range(minVenus, maxVenus);
             // the list is the rocky planets
             listOfPlanets = VenusPlanets;
+            randomPlanetType = "VenusPlanets";
         }
         else if (randomType == 2)
         {
             randomSizeKm = Random.Range(minMars, maxMars);
             // the list is the rocky planets
             listOfPlanets = MarsPlanets;
+            randomPlanetType = "MarsPlanets";
         }
         else if (randomType == 3)
         {
             randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
             // the list is the rocky planets
             listOfPlanets = rockyPlanets;
+            randomPlanetType = "RockyPlanets";
         }
         else
         {
             randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
             // the list is the gas planets
             listOfPlanets = gasPlanets;
+            randomPlanetType = "GasPlanets";
         }
 
         // Choose a random planet from the list
@@ -127,6 +133,9 @@ public class PlanetManager : MonoBehaviour
 
         // add the planet tag to the generated planet
         generatedPlanet.tag = "GeneratedPlanet";
+
+        var planet_component = generatedPlanet.AddComponent<planetType>();
+        planet_component.planet_type = randomPlanetType;
         
 
         if (nGeneratedPlanets < numberOfPlanets)
@@ -160,7 +169,7 @@ void ArrangePlanetsInOrbits()
         float planetSize = planetSizes[i];
 
         // Calculate orbit distance with extra buffer for gas planets
-        if (planet.CompareTag("GasPlanet")) // Assuming gas planets have this tag
+        if (planet.GetComponent<planetType>().planet_type == "GasPlanet") // Assuming gas planets have this type
         {
             currentOrbitDistance += (largestPlanetSize * 3) + (orbitBuffer * 2); // Extra buffer for gas planets
         }
