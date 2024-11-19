@@ -9,6 +9,7 @@ public class CamObjFollow : MonoBehaviour
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     public string targetName;
     public List<string> secondTargetNames; // List of second target names
+    public Vector3 uiOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,7 @@ public class CamObjFollow : MonoBehaviour
         if (target != null)
         {
             // Desired position
-            Vector3 desiredPosition = target.position + offset;
+            Vector3 desiredPosition = target.position + offset + uiOffset;
             // Smoothly interpolate to the desired position
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;

@@ -20,9 +20,13 @@ public class StarGeneration : MonoBehaviour
     public float rotationSpeed = 1f;
     private float minDist;
     private float maxDist;
+    private float minTemp;
+    private float maxTemp;
+    public static float starTemperature { get; private set; }
     private string planetName = "GeneratedPlanet";
     private bool planetMoved = false;
     private float randomSizeKm;
+    
 
     void Start()
     {
@@ -37,6 +41,8 @@ public class StarGeneration : MonoBehaviour
             maxSizeKm = 14000 / scale;
             minDist = 10;
             maxDist = 50;
+            minTemp = 5000;
+            maxTemp = 100000;
         }
         else if (starType == 2)
         {
@@ -46,6 +52,8 @@ public class StarGeneration : MonoBehaviour
             maxSizeKm = 1680000 / scale;
             minDist = 50;
             maxDist = 100;
+            minTemp = 5000;
+            maxTemp = 6000;
 
         }
         else if (starType == 3)
@@ -56,6 +64,8 @@ public class StarGeneration : MonoBehaviour
             maxSizeKm = 997790000 / scale;
             minDist = 1000;
             maxDist = 3000;
+            maxTemp = 2500;
+            minTemp = 6000;
         }
         else
         {
@@ -65,6 +75,8 @@ public class StarGeneration : MonoBehaviour
             maxSizeKm = 140000000 / scale;
             minDist = 10000;
             maxDist = 20000;
+            minTemp = 10000;
+            maxTemp = 30000;
 
         }
         GenerateYellowDwarf();
@@ -96,6 +108,8 @@ public class StarGeneration : MonoBehaviour
         // Apply the size (localScale) based on the random size
         generatedStar.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
+        starTemperature = Random.Range(minTemp, maxTemp);
+
         // Add a glow effect (emission) to the material of the star
         Renderer starRenderer = generatedStar.GetComponent<Renderer>();
         if (starRenderer != null)
@@ -108,15 +122,11 @@ public class StarGeneration : MonoBehaviour
             starRenderer.material.SetColor("_EmissionColor", Color.yellow * 0.5f); // Adjust intensity with * 2f
         }
 
-        // Optional: Add a Light component to simulate real light emission
-        Light starLight = generatedStar.AddComponent<Light>();
-        starLight.color = Color.white;
-        starLight.intensity = 10f; // Adjust intensity for the glow
-        starLight.range = randomSizeKm * 10f; // Adjust light range based on size
-
         // rename the genereated star
         generatedStar.name = "GeneratedStar";
         generatedStar.tag = "GeneratedStar";
+
+        Debug.Log($"Generated Star Temperature: {starTemperature}K");
     }
     void RotateYellowDwarf()
     {

@@ -69,12 +69,6 @@ public class StarGenerationMenu3DP : MonoBehaviour
             starRenderer.material.SetColor("_EmissionColor", Color.yellow * 0.5f); // Adjust intensity with * 2f
         }
 
-        // Optional: Add a Light component to simulate real light emission
-        Light starLight = generatedStar.AddComponent<Light>();
-        starLight.color = Color.white;
-        starLight.intensity = 10f; // Adjust intensity for the glow
-        starLight.range = starSize * 10f; // Adjust light range based on size
-
         // rename the genereated star
         generatedStar.name = "GeneratedStar";
         generatedStar.tag = "GeneratedStar";
