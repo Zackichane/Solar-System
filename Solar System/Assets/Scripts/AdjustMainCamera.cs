@@ -7,6 +7,8 @@ public class AdjustMainCamera : MonoBehaviour
     private GameObject planet;
     private Vector3 planetPosition;
     private Vector3 starPosition;
+    private float outerHabitableZoneToShow = 0;
+
     void Start()
     {
         GetObjectsPosition();
@@ -14,13 +16,18 @@ public class AdjustMainCamera : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {    
+    {   
+        if (outerHabitableZoneToShow == 0)
+        {
+            outerHabitableZoneToShow = PlayerPrefs.GetInt("outerHabitableZoneToShow");
+            Debug.Log($"Habitable Zone To Show (Outer): {outerHabitableZoneToShow} Km/scale");
+        }
         // if the planet position is 0, 0, 0 retry
-        if (planetPosition == Vector3.zero)
+        if (planetPosition == Vector3.zero & outerHabitableZoneToShow != 0)
         {
             GetObjectsPosition();
         }
-        if (planet == null)
+        if (planet == null & outerHabitableZoneToShow != 0)
         {
             // if the planet or star is not found, try to find them again
             GetObjectsPosition();
@@ -32,7 +39,7 @@ public class AdjustMainCamera : MonoBehaviour
             float dist = (planetZ) / 0.5773502692f;
             dist = dist + planet.transform.localScale.x / 2;
             // set the object position
-            transform.position = new Vector3(0, 0, -dist);
+            transform.position = new Vector3(dist, dist, 0);
         }
     }
 
@@ -54,8 +61,13 @@ public class AdjustMainCamera : MonoBehaviour
             }
         }
 
+        
 
-        if (planet != null)
+        if (outerHabitableZoneToShow >= planet.transform.position.x)
+        {
+            planetPosition = new Vector3(outerHabitableZoneToShow, 0, 0);
+        }
+        else
         {
             planetPosition = planet.transform.position;
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float movementSpeed = 100f;  // Vitesse de déplacement
+    public float movementSpeed = 1000f;  // Vitesse de déplacement
     public float mouseSensitivity = 500f;  // Sensibilité de la souris
     public float verticalSpeed = 100f;  // Vitesse de déplacement vertical (Q et E)
     public float speedMultiplier = 3f;  // Multiplicateur de vitesse lorsque la barre d'espace est enfoncée

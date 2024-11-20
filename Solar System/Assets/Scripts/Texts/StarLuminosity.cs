@@ -15,12 +15,12 @@ public class starLuminosity : MonoBehaviour
     IEnumerator WaitForLuminosity()
     {
         // Wait until starSize is greater than 0 (ensuring it has been set by StarGeneration)
-        while (StarGeneration.Luminosity == 0)
+        while (StarGeneration.LuminosityToShow == 0)
         {
             yield return null; // Wait for the next frame
         }
 
         // Once size is set, display it
-        sizeText.text = $"{StarGeneration.Luminosity} W"; // Multiply by 10,000 for actual size in km
+        sizeText.text = $"{StarGeneration.LuminosityToShow} W"; // Multiply by 10,000 for actual size in km
     }
 }

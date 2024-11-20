@@ -29,6 +29,7 @@ public class StarGeneration : MonoBehaviour
 
     private float starLuminosity;
     public static float Luminosity;
+    public static float LuminosityToShow;
     
 
     void Start()
@@ -119,6 +120,7 @@ public class StarGeneration : MonoBehaviour
 
         // Calculate luminosity in watts
         starLuminosity = 4f * Mathf.PI * Mathf.Pow(starSize * 10000000f / 2f, 2f) * (float)(5.670374419e-8) * Mathf.Pow(starTemperature, 4f);
+        LuminosityToShow = starLuminosity;
 
         // Convert the luminosity to solar units
         float solarLuminosity = starLuminosity / 3.828e26f;  // Sun's luminosity is 3.828 x 10^26 W

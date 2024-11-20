@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class HabitableZoneCalculator : MonoBehaviour
+public class HabitableZone : MonoBehaviour
 {
     public SimpleRingGenerator simpleRingGenerator;  // Reference to the SimpleRingGenerator
 
     private bool luminosityCalculated = false;
+    public static float outerHabitableZone;
 
     void Update()
     {
@@ -19,8 +20,10 @@ public class HabitableZoneCalculator : MonoBehaviour
     void CalculateHabitableZone(float luminosity)
     {
         // Using the formula for the habitable zone
-        float innerHabitableZone = Mathf.Sqrt(luminosity / 1.1f) * 15000;  // Adjusted for solar luminosity
-        float outerHabitableZone = Mathf.Sqrt(luminosity / 0.53f) * 15000; // Adjusted for solar luminosity
+        float innerHabitableZone = Mathf.Sqrt(luminosity / 1.1f) * 1000;  // Adjusted for solar luminosity
+        float outerHabitableZone = Mathf.Sqrt(luminosity / 0.53f) * 1000; // Adjusted for solar luminosity
+
+        PlayerPrefs.SetInt("outerHabitableZoneToShow", (int)outerHabitableZone);
 
         // Log the results for the habitable zone
         Debug.Log($"Habitable Zone (Inner): {innerHabitableZone} Km/scale");
