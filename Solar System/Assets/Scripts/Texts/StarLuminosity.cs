@@ -22,8 +22,5 @@ public class starLuminosity : MonoBehaviour
 
         // Once size is set, display it
         sizeText.text = $"{StarGeneration.Luminosity} W"; // Multiply by 10,000 for actual size in km
-
-        // Log for debugging
-        Debug.Log("Star Size from StarGeneration: " + StarGeneration.Luminosity + " W");
     }
 }

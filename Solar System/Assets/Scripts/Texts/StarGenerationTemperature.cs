@@ -22,8 +22,5 @@ public class StarGenerationTemperature : MonoBehaviour
 
         // Once temperature is set, display it
         temperatureText.text = $"{StarGeneration.starTemperature} K";
-
-        // Log for debugging
-        Debug.Log("Star Temperature from StarGeneration: " + StarGeneration.starTemperature);
     }
 }

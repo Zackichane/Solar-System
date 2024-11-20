@@ -1,21 +1,40 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class SimpleRingGenerator : MonoBehaviour
 {
     public float innerRadius = 1f;  // Inner radius of the ring
     public float outerRadius = 2f;  // Outer radius of the ring
     public int segments = 64;       // Number of segments (higher = smoother)
 
+    private Mesh ringMesh;          // Store the generated mesh
+
     void Start()
     {
+        // Ensure the MeshFilter and MeshRenderer are present
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter == null)
+        {
+            meshFilter = gameObject.AddComponent<MeshFilter>();  // Add if missing
+        }
+
+        // Initialize the ringMesh here if not initialized
+        if (ringMesh == null)
+        {
+            ringMesh = new Mesh();
+        }
+
+        // Generate the initial ring mesh
         GenerateRing();
     }
 
     void GenerateRing()
     {
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        Mesh ringMesh = new Mesh();
+        // Check if ringMesh is properly initialized
+        if (ringMesh == null)
+        {
+            ringMesh = new Mesh();  // Initialize if necessary
+        }
 
         Vector3[] vertices = new Vector3[segments * 4]; // 4 vertices per segment (front & back)
         int[] triangles = new int[segments * 12]; // 6 triangles per segment (front & back)
@@ -90,14 +109,28 @@ public class SimpleRingGenerator : MonoBehaviour
             }
         }
 
+        // Ensure mesh is assigned
+        if (ringMesh == null)
+        {
+            ringMesh = new Mesh();
+        }
+
         ringMesh.vertices = vertices;
         ringMesh.triangles = triangles;
         ringMesh.uv = uvs;  // Assign UVs
 
         ringMesh.RecalculateNormals(); // Ensure normals are calculated for proper lighting
 
-        meshFilter.mesh = ringMesh;
+        // Assign the generated mesh to the MeshFilter
+        MeshFilter meshFilterComponent = GetComponent<MeshFilter>();
+        meshFilterComponent.mesh = ringMesh; // Get the MeshFilter and set the mesh
+    }
 
-        Debug.Log("Ring generated with " + segments + " segments.");
+    // Update the ring's inner and outer radii and regenerate the ring
+    public void UpdateRing(float newInnerRadius, float newOuterRadius)
+    {
+        innerRadius = newInnerRadius;
+        outerRadius = newOuterRadius;
+        GenerateRing();  // Regenerate the ring with the new radii
     }
 }

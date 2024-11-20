@@ -22,8 +22,5 @@ public class StarSize : MonoBehaviour
 
         // Once size is set, display it
         sizeText.text = $"{StarGeneration.starSize * 10000} km"; // Multiply by 10,000 for actual size in km
-
-        // Log for debugging
-        Debug.Log("Star Size from StarGeneration: " + StarGeneration.starSize * 10000 + " km");
     }
 }

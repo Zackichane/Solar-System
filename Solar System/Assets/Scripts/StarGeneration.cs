@@ -123,7 +123,7 @@ public class StarGeneration : MonoBehaviour
         // Convert the luminosity to solar units
         float solarLuminosity = starLuminosity / 3.828e26f;  // Sun's luminosity is 3.828 x 10^26 W
         Luminosity = solarLuminosity;
-
+        
         // Add a glow effect (emission) to the material of the star
         Renderer starRenderer = generatedStar.GetComponent<Renderer>();
         if (starRenderer != null)
