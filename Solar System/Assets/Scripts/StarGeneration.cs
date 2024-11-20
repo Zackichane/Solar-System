@@ -1,7 +1,6 @@
 using UnityEngine;
 using static System.Math;
 
-
 public class StarGeneration : MonoBehaviour
 {
     public GameObject YellowDwarf;  // Prefab of the star
@@ -16,6 +15,7 @@ public class StarGeneration : MonoBehaviour
     // Minimum and maximum sizes in kilometers (scale : 1 unit = 10 000 km)
     private float minSizeKm;
     private float maxSizeKm;
+    public static float starSize { get; private set; }
     private const float scale = 10000f;
     public float rotationSpeed = 1f;
     private float minDist;
@@ -26,6 +26,9 @@ public class StarGeneration : MonoBehaviour
     private string planetName = "GeneratedPlanet";
     private bool planetMoved = false;
     private float randomSizeKm;
+
+    private float starLuminosity;
+    public static float Luminosity;
     
 
     void Start()
@@ -80,6 +83,8 @@ public class StarGeneration : MonoBehaviour
 
         }
         GenerateYellowDwarf();
+
+
     }
 
     void Update()
@@ -102,6 +107,8 @@ public class StarGeneration : MonoBehaviour
     {
         randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
 
+        starSize = randomSizeKm;
+
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         generatedStar = Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
 
@@ -109,6 +116,13 @@ public class StarGeneration : MonoBehaviour
         generatedStar.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
         starTemperature = Random.Range(minTemp, maxTemp);
+
+        // Calculate luminosity in watts
+        starLuminosity = 4f * Mathf.PI * Mathf.Pow(starSize * 10000000f / 2f, 2f) * (float)(5.670374419e-8) * Mathf.Pow(starTemperature, 4f);
+
+        // Convert the luminosity to solar units
+        float solarLuminosity = starLuminosity / 3.828e26f;  // Sun's luminosity is 3.828 x 10^26 W
+        Luminosity = solarLuminosity;
 
         // Add a glow effect (emission) to the material of the star
         Renderer starRenderer = generatedStar.GetComponent<Renderer>();
@@ -127,6 +141,8 @@ public class StarGeneration : MonoBehaviour
         generatedStar.tag = "GeneratedStar";
 
         Debug.Log($"Generated Star Temperature: {starTemperature}K");
+        Debug.Log($"Generated Star Size: {starSize * 10000} km");  // Log the size for debugging
+        Debug.Log($"Generated Star Luminosity: {starLuminosity} W");
     }
     void RotateYellowDwarf()
     {

@@ -55,13 +55,12 @@ public class BTN_CAM_Switcher : MonoBehaviour
         if (forSatellite)
         {
             HideOtherPlanets();
-            Hide(star);
             particles[0].gameObject.SetActive(false);
             Show(satellite);
+            Show(star);
         }
         else if (forStar)
         {
-            HideOtherPlanets();
             Show(satellite);
             Show(star);
             particles[0].gameObject.SetActive(true);
