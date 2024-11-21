@@ -19,7 +19,8 @@ public class AdjustMainCamera : MonoBehaviour
     {   
         if (outerHabitableZoneToShow == 0)
         {
-            outerHabitableZoneToShow = PlayerPrefs.GetInt("outerHabitableZoneToShow");
+            //outerHabitableZoneToShow = PlayerPrefs.GetInt("outerHabitableZoneToShow");
+            outerHabitableZoneToShow = HabitableZone.outerHabitableZone;
             Debug.Log($"Habitable Zone To Show (Outer): {outerHabitableZoneToShow} Km/scale");
         }
         // if the planet position is 0, 0, 0 retry
@@ -36,10 +37,19 @@ public class AdjustMainCamera : MonoBehaviour
         {
             float planetZ = planetPosition.x;
             // use tan to calculate the distance between the planet and the star
-            float dist = (planetZ) / 0.5773502692f;
+            float dist = planetZ / Mathf.Tan(30 * Mathf.Deg2Rad);
             dist = dist + planet.transform.localScale.x / 2;
+            
+            // Ensure the camera is always outside the habitable zone circle
+            float minDistance = outerHabitableZoneToShow * 1.1f; // 10% buffer
+            if (dist < minDistance)
+            {
+                dist = minDistance;
+            }
+
             // set the object position
             transform.position = new Vector3(dist, dist, 0);
+            transform.rotation = Quaternion.Euler(57, -90, 0);
         }
     }
 
@@ -61,15 +71,21 @@ public class AdjustMainCamera : MonoBehaviour
             }
         }
 
-        
-
-        if (outerHabitableZoneToShow >= planet.transform.position.x)
+        // If there are more than 6 planets, use the habitable zone distance
+        if (planets.Length > 6)
         {
-            planetPosition = new Vector3(outerHabitableZoneToShow, 0, 0);
+            planetPosition = new Vector3(outerHabitableZoneToShow * 8, 0, 0);
         }
         else
         {
-            planetPosition = planet.transform.position;
+            if (outerHabitableZoneToShow >= planet.transform.position.x)
+            {
+                planetPosition = new Vector3(outerHabitableZoneToShow * 8, 0, 0);
+            }
+            else
+            {
+                planetPosition = planet.transform.position;
+            }
         }
     }
 }

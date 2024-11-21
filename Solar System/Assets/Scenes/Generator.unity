@@ -2605,8 +2605,8 @@ GameObject:
   - component: {fileID: 1274287747}
   - component: {fileID: 1274287751}
   m_Layer: 0
-  m_Name: SatelliteCam
-  m_TagString: Untagged
+  m_Name: CAM Satellite
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4085,7 +4085,7 @@ GameObject:
   - component: {fileID: 1698858077}
   - component: {fileID: 1698858081}
   m_Layer: 0
-  m_Name: PlanetCam
+  m_Name: CAM Planet
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5025,6 +5025,8 @@ SceneRoots:
   - {fileID: 1986025017}
   - {fileID: 963194228}
   - {fileID: 835988689}
+  - {fileID: 1698858080}
+  - {fileID: 1274287750}
   - {fileID: 1831653902}
   - {fileID: 1246437752}
   - {fileID: 1848068143}
@@ -5034,8 +5036,6 @@ SceneRoots:
   - {fileID: 772673320}
   - {fileID: 2116769545}
   - {fileID: 1691330523}
-  - {fileID: 1698858080}
-  - {fileID: 1274287750}
   - {fileID: 1077823037}
   - {fileID: 884569433}
   - {fileID: 1726288727}

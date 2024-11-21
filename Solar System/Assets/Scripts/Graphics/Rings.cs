@@ -131,6 +131,6 @@ public class SimpleRingGenerator : MonoBehaviour
     {
         innerRadius = newInnerRadius;
         outerRadius = newOuterRadius;
-        GenerateRing();  // Regenerate the ring with the new radii
+        GenerateRing();  // Regenerate the ring with the new radius
     }
 }

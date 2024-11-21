@@ -20,10 +20,13 @@ public class HabitableZone : MonoBehaviour
     void CalculateHabitableZone(float luminosity)
     {
         // Using the formula for the habitable zone
-        float innerHabitableZone = Mathf.Sqrt(luminosity / 1.1f) * 1000;  // Adjusted for solar luminosity
-        float outerHabitableZone = Mathf.Sqrt(luminosity / 0.53f) * 1000; // Adjusted for solar luminosity
+        float innerHabitableZone = (float)(Mathf.Sqrt(luminosity / 1.1f) * 1.496e+8);  // Adjusted for solar luminosity
+        outerHabitableZone = (float)(Mathf.Sqrt(luminosity / 0.53f) * 1.496e+8); // Adjusted for solar luminosity
 
-        PlayerPrefs.SetInt("outerHabitableZoneToShow", (int)outerHabitableZone);
+        innerHabitableZone /= 100000; // Convert to Km/scale
+        outerHabitableZone /= 100000; // Convert to Km/scale
+
+        //PlayerPrefs.SetInt("outerHabitableZoneToShow", (int)outerHabitableZone);
 
         // Log the results for the habitable zone
         Debug.Log($"Habitable Zone (Inner): {innerHabitableZone} Km/scale");
