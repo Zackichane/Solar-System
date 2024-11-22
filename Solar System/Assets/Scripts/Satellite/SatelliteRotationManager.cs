@@ -30,9 +30,9 @@ public class SatelliteRotationManager : MonoBehaviour
         if (centerObject != null && generatedPlanet != null)
         {
             // Ensure the satellite is always at a fixed distance from the planet
-            float distance = transform.localScale.x + generatedPlanet.transform.localScale.x; // Set the desired distance from the planet
-            Vector3 direction = (transform.position - generatedPlanet.transform.position).normalized;
-            transform.position = generatedPlanet.transform.position + direction * distance;
+            //float distance = transform.localScale.x + generatedPlanet.transform.localScale.x; // Set the desired distance from the planet
+            //Vector3 direction = (transform.position - generatedPlanet.transform.position).normalized;
+            //transform.position = generatedPlanet.transform.position + direction * distance;
 
             // Rotate around the Y axis
             transform.RotateAround(centerObject.position, Vector3.up, rotationSpeed * Time.deltaTime);

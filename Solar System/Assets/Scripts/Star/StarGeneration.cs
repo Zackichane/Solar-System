@@ -60,10 +60,10 @@ public class StarGeneration : MonoBehaviour
         }
         else if (starType == 3)
         {
-            starPrefab = RedGiant;
+            starPrefab = RedGiant; // maintenant naine rouge
             // 99 779 000 km to 997 790 000 km
-            minSizeKm = 99779000 / scale;
-            maxSizeKm = 997790000 / scale;
+            minSizeKm = 70000 / scale;
+            maxSizeKm = 500000 / scale;
             minDist = 1000;
             maxDist = 3000;
             maxTemp = 2500;
@@ -71,10 +71,10 @@ public class StarGeneration : MonoBehaviour
         }
         else
         {
-            starPrefab = BlueGiant;
+            starPrefab = BlueGiant; // maintenant naine bleue
             // 14 000 000 km to 140 000 000 km
-            minSizeKm = 14000000 / scale;
-            maxSizeKm = 140000000 / scale;
+            minSizeKm = 50000 / scale;
+            maxSizeKm = 400000 / scale;
             minDist = 10000;
             maxDist = 20000;
             minTemp = 10000;
