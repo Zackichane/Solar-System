@@ -3,7 +3,7 @@ using UnityEngine;
 public class RotationOnAxis : MonoBehaviour
 {
     // Speed of rotation
-    public float rotationSpeed = 50f;
+    public float rotationSpeed = 20f;
 
     void Update()
     {

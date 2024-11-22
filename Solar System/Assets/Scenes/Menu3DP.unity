@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2127528132}
-  rotationSpeed: 20
+  rotationSpeed: 30
   rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!114 &74020257
 MonoBehaviour:
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1 &135006122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 328795886223627971, guid: 6d4510af464bda542845ec9fd8816747, type: 3}
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2127528132}
   rotationSpeed: 20
-  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationAxis: {x: -1, y: 2, z: 0}
 --- !u!114 &135006131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1 &223980954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1 &566234304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 328795886223627971, guid: 6d4510af464bda542845ec9fd8816747, type: 3}
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 527508023}
-  rotationSpeed: 20
+  rotationSpeed: 30
   rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!114 &566234313
 MonoBehaviour:
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 10
 --- !u!1001 &579430745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,8 +1451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 527508023}
-  rotationSpeed: 20
-  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 30
+  rotationAxis: {x: 33, y: 2, z: 34}
 --- !u!114 &595367527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1001 &706002578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2769,8 +2769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2127528132}
-  rotationSpeed: 20
-  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 30
+  rotationAxis: {x: 1, y: 2, z: 0}
 --- !u!114 &1339617943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2783,7 +2783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1 &1576141729
 GameObject:
   m_ObjectHideFlags: 0
@@ -3016,7 +3016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 15
 --- !u!1 &1843217674
 GameObject:
   m_ObjectHideFlags: 0
@@ -3266,7 +3266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2127528132}
   rotationSpeed: 10
-  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationAxis: {x: 15, y: 1, z: 34}
 --- !u!114 &1937145827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3279,7 +3279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 10
 --- !u!1 &1976644049 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 328795886223627971, guid: 6d4510af464bda542845ec9fd8816747, type: 3}
@@ -3311,7 +3311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2127528132}
-  rotationSpeed: 20
+  rotationSpeed: 30
   rotationAxis: {x: 0, y: 1, z: 0}
 --- !u!114 &1976644058
 MonoBehaviour:
@@ -3325,7 +3325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 20
 --- !u!1 &2118353813
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,7 +3495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ce02707c6dd67b4fa085a9094573d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
+  rotationSpeed: 15
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
