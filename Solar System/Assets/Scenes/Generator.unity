@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -159.07608, w: 0}
+  m_margin: {x: 0, y: 0, z: 30.293148, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1873,6 +1873,7 @@ GameObject:
   - component: {fileID: 835988687}
   - component: {fileID: 835988686}
   - component: {fileID: 835988690}
+  - component: {fileID: 835988691}
   m_Layer: 0
   m_Name: CAM Star
   m_TagString: MainCamera
@@ -2015,6 +2016,20 @@ MonoBehaviour:
   targetName: GeneratedStar
   secondTargetNames: []
   uiOffset: {x: 1, y: 0, z: 0}
+--- !u!114 &835988691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835988685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef27a5c90dccb541a4378dda239bea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 10
+  rotateSpeed: 5
 --- !u!1 &859139891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,6 +2353,7 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
+  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2496,6 +2512,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3017b1cf832794997ed77eb81f1410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &963194233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef27a5c90dccb541a4378dda239bea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 1000
+  rotateSpeed: 5
 --- !u!1 &1077823033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,7 +2764,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -159.07608, w: 0}
+  m_margin: {x: 0, y: 0, z: -285.73572, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2847,6 +2877,7 @@ GameObject:
   - component: {fileID: 1274287748}
   - component: {fileID: 1274287747}
   - component: {fileID: 1274287751}
+  - component: {fileID: 1274287752}
   m_Layer: 0
   m_Name: CAM Satellite
   m_TagString: MainCamera
@@ -2989,6 +3020,20 @@ MonoBehaviour:
   targetName: 
   secondTargetNames: []
   uiOffset: {x: 1, y: 0, z: 0}
+--- !u!114 &1274287752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274287746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef27a5c90dccb541a4378dda239bea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 10
+  rotateSpeed: 5
 --- !u!1 &1301930519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,7 +4499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27, y: -466}
+  m_AnchoredPosition: {x: 140, y: -466}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1626400261
@@ -4594,6 +4639,7 @@ GameObject:
   - component: {fileID: 1698858078}
   - component: {fileID: 1698858077}
   - component: {fileID: 1698858081}
+  - component: {fileID: 1698858082}
   m_Layer: 0
   m_Name: CAM Planet
   m_TagString: MainCamera
@@ -4736,6 +4782,20 @@ MonoBehaviour:
   targetName: 
   secondTargetNames: []
   uiOffset: {x: 1, y: 0, z: 0}
+--- !u!114 &1698858082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698858076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef27a5c90dccb541a4378dda239bea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 10
+  rotateSpeed: 5
 --- !u!1 &1705048088
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class ZoomToggle : MonoBehaviour
     public Toggle toggle;
     private Camera activeCamera;
     private Camera oldCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +36,15 @@ public class ZoomToggle : MonoBehaviour
         }
         if (value)
         {
-            if (activeCamera.GetComponent<CameraZoom>() == null)
+            CameraZoom zoomScript = activeCamera.GetComponent<CameraZoom>();
+            if (zoomScript == null)
             {
-                activeCamera.gameObject.AddComponent<CameraZoom>();
+                zoomScript = activeCamera.gameObject.AddComponent<CameraZoom>();
             }
-            activeCamera.GetComponent<CameraZoom>().enabled = true;
+            zoomScript.enabled = true;
+
+            // Allow per-camera zoom speed customization
+            // Example: zoomScript.zoomSpeed = someCustomValueForThisCamera;
             DisableOtherScripts(activeCamera);
         }
         else

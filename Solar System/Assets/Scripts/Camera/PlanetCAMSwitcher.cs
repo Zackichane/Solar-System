@@ -53,72 +53,78 @@ public class PlanetCAMSwitcher : MonoBehaviour
     }
 
     void SwitchCamera()
+{
+    // Deactivate all cameras except the planetCam
+    cameras = GameObject.FindObjectsOfType<Camera>();
+    foreach (Camera c in cameras)
     {
-        // desactiver toutes les cameras
-        cameras = GameObject.FindObjectsOfType<Camera>();
-        foreach (Camera c in cameras)
+        c.enabled = false;
+    }
+    planetCam.enabled = true; // Make sure the planet camera is enabled
+
+    // Get a list of all planets and sort them
+    planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+    planets = planets.OrderBy(p => p.name).ToArray();
+
+    int planetCount = planets.Length;
+
+    // Get a list of all satellites
+    satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
+
+    // Set the planet to track
+    planetToTrack = planets[currentIndex].transform;
+    GameObject[] satellitesToTrack = satellites.Where(s => s.GetComponent<planetTracker>().planet == planetToTrack.gameObject).ToArray();
+
+    // Hide other planets
+    foreach (GameObject p in planets)
+    {
+        if (p != planetToTrack.gameObject)
         {
-            c.enabled = false;
-        }
-        // activer la camera planetCam
-        planetCam.enabled = true;
-
-        // obtenir une liste de toutes les planetes
-        planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-        // mettre les planetes en ordre croissant par rapport a leur numero (GeneratedPlanet1, GeneratedPlanet2, etc.)
-        planets = planets.OrderBy(p => p.name).ToArray();
-        
-        // obtenir le nombre de planetes
-        int planetCount = planets.Length;
-
-        // obtenir une liste de tous les satellites
-        satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
-
-        planetToTrack = planets[currentIndex].transform; // Ensure planetToTrack is assigned correctly
-        GameObject[] satellitesToTrack = satellites.Where(s => s.GetComponent<planetTracker>().planet == planetToTrack.gameObject).ToArray();
-        
-        // cacher les autres planetes
-        foreach (GameObject p in planets)
-        {
-            if (p != planetToTrack.gameObject)
-            {
-                Hide(p);
-            }
-        }
-        // cacher les autres satellites
-        foreach (GameObject s in satellites)
-        {
-            if (!satellitesToTrack.Contains(s))
-            {
-                Hide(s);
-            }
-        }
-        // afficher la planete
-        Show(planetToTrack.gameObject); // Ensure the planet is shown
-        // afficher les satellites
-        foreach (GameObject s in satellitesToTrack)
-        {
-            Show(s);
-        }
-
-        // desactiver l'etoile et ses particules
-        Hide(star);
-        particles[0].gameObject.SetActive(false);
-
-        canvas.worldCamera = planetCam;
-
-
-        // change the planetCam object follower to the current planet
-        planetCam.GetComponent<CamObjFollow>().targetName = planetToTrack.name;
-        // ajouter tous les noms des satellites a suivre
-        planetCam.GetComponent<CamObjFollow>().secondTargetNames = satellitesToTrack.Select(s => s.name).ToList();
-
-        currentIndex++;
-        if (currentIndex >= planetCount)
-        {
-            currentIndex = 0;
+            Hide(p);
         }
     }
+
+    // Hide other satellites
+    foreach (GameObject s in satellites)
+    {
+        if (!satellitesToTrack.Contains(s))
+        {
+            Hide(s);
+        }
+    }
+
+    // Show the selected planet
+    Show(planetToTrack.gameObject);
+    // Show the associated satellites
+    foreach (GameObject s in satellitesToTrack)
+    {
+        Show(s);
+    }
+
+    // Deactivate the star and its particles
+    Hide(star);
+    particles[0].gameObject.SetActive(false);
+
+    // Deactivate redSpheres specifically without affecting UI
+    foreach (GameObject redSphere in GameObject.FindGameObjectsWithTag("RedSphere"))
+    {
+        redSphere.SetActive(false);
+    }
+
+    // Make sure UI Canvas is still active and attached to the correct camera
+    canvas.worldCamera = planetCam;
+
+    // Update the planetCam's follower targets
+    planetCam.GetComponent<CamObjFollow>().targetName = planetToTrack.name;
+    planetCam.GetComponent<CamObjFollow>().secondTargetNames = satellitesToTrack.Select(s => s.name).ToList();
+
+    // Update the current planet index and wrap around if necessary
+    currentIndex++;
+    if (currentIndex >= planetCount)
+    {
+        currentIndex = 0;
+    }
+}
 
     public void Hide(object objectToHide)
     {

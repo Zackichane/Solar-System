@@ -82,24 +82,24 @@ public class SatelliteGenerate : MonoBehaviour
         switch (planetTypeValue)
         {
             case "MercuryPlanets":
-                minSize = 100 / scale;
-                maxSize = 500 / scale;
+                minSize = 1000 / scale;
+                maxSize = 3000 / scale;
                 break;
             case "VenusPlanets":
-                minSize = 500 / scale;
-                maxSize = 1000 / scale;
+                minSize = 3000 / scale;
+                maxSize = 8000 / scale;
                 break;
             case "MarsPlanets":
-                minSize = 300 / scale;
-                maxSize = 1000 / scale;
+                minSize = 2000 / scale;
+                maxSize = 4000 / scale;
                 break;
             case "RockyPlanets":
-                minSize = 400 / scale;
-                maxSize = 1000 / scale;
+                minSize = 5000 / scale;
+                maxSize = 10000 / scale;
                 break;
             case "GasPlanets":
-                minSize = 2000 / scale;
-                maxSize = 7000 / scale;
+                minSize = 5000 / scale;
+                maxSize = 20000 / scale;
                 break;
             default:
                 minSize = 1000 / scale;
