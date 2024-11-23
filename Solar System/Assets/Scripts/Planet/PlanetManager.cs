@@ -119,37 +119,52 @@ public class PlanetManager : MonoBehaviour
     }
 
     void ArrangePlanetsInOrbits()
+{
+    float currentOrbitDistance = starSize * 2;
+    float largestPlanetSize = 0f;
+
+    foreach (float size in planetSizes)
     {
-        float currentOrbitDistance = starSize * 2;
-        float largestPlanetSize = 0f;
-
-        foreach (float size in planetSizes)
+        if (size > largestPlanetSize)
         {
-            if (size > largestPlanetSize)
-            {
-                largestPlanetSize = size;
-            }
-        }
-
-        for (int i = 0; i < generatedPlanets.Length; i++)
-        {
-            GameObject planet = generatedPlanets[i];
-            float planetSize = planetSizes[i];
-
-            if (planet.GetComponent<planetType>().planet_type == "GasPlanet")
-            {
-                currentOrbitDistance += (largestPlanetSize * 3) + (orbitBuffer * 2);
-            }
-            else
-            {
-                currentOrbitDistance += (largestPlanetSize * 2) + orbitBuffer;
-            }
-
-            planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
-
-            GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
-            redSphere.transform.localScale = planet.transform.localScale * 5f; // 5x the size of the planet
-            redSphere.transform.parent = planet.transform; // Make the red sphere follow the planet
+            largestPlanetSize = size;
         }
     }
+
+    for (int i = 0; i < generatedPlanets.Length; i++)
+    {
+        GameObject planet = generatedPlanets[i];
+        float planetSize = planetSizes[i];
+
+        if (planet.GetComponent<planetType>().planet_type == "GasPlanets")
+        {
+            currentOrbitDistance += (largestPlanetSize * 3) + (orbitBuffer * 2);
+        }
+        else
+        {
+            currentOrbitDistance += (largestPlanetSize * 2) + orbitBuffer;
+        }
+
+        planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
+
+        // Instantiate and scale the red sphere
+        GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
+        
+        // Check planet type and apply appropriate scale multiplier
+        if (planet.GetComponent<planetType>().planet_type == "RockyPlanets" ||
+            planet.GetComponent<planetType>().planet_type == "MarsPlanets" ||
+            planet.GetComponent<planetType>().planet_type == "MercuryPlanets" ||
+            planet.GetComponent<planetType>().planet_type == "VenusPlanets")
+        {
+            redSphere.transform.localScale = planet.transform.localScale * 20f; // 10x the size of the planet
+        }
+        else
+        {
+            redSphere.transform.localScale = planet.transform.localScale * 5f; // 5x the size of the planet
+        }
+
+        redSphere.transform.parent = planet.transform; // Make the red sphere follow the planet
+    }
+}
+
 }

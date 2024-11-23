@@ -8,6 +8,8 @@ TagManager:
   - GeneratedSatellite
   - GeneratedStar
   - Star
+  - RedSphere
+  - BlueSphere
   layers:
   - Default
   - TransparentFX

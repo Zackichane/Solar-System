@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RedMarksToggle : MonoBehaviour
+public class BlueMarksToggle : MonoBehaviour
 {
     public Toggle toggle;
-    private List<GameObject> redSpheres = new List<GameObject>(); // Persistent list
+    private List<GameObject> blueSpheres = new List<GameObject>(); // Persistent list
     private bool isActive = true;
 
     void Start()
     {
-        // Find all red spheres initially and store them persistently
-        GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("RedSphere");
-        redSpheres.AddRange(foundSpheres);
+        // Find all blue spheres initially and store them persistently
+        GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("BlueSphere");
+        blueSpheres.AddRange(foundSpheres);
 
-        Debug.Log("Initial RedSpheres Count: " + redSpheres.Count);
+        Debug.Log("Initial BlueSpheres Count: " + blueSpheres.Count);
 
         // Attach the toggle listener
         toggle.isOn = true; // Default toggle state
@@ -30,12 +30,12 @@ public class RedMarksToggle : MonoBehaviour
     {
         while (true)
         {
-            GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("RedSphere");
+            GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("BlueSphere");
             foreach (GameObject sphere in foundSpheres)
             {
-                if (!redSpheres.Contains(sphere))
+                if (!blueSpheres.Contains(sphere))
                 {
-                    redSpheres.Add(sphere);
+                    blueSpheres.Add(sphere);
                     Debug.Log("New Sphere Added: " + sphere.name);
                 }
             }
@@ -53,7 +53,7 @@ public class RedMarksToggle : MonoBehaviour
     // Activate or deactivate the spheres using the persistent list
     void SetSpheresActive(bool isActive)
     {
-        foreach (GameObject sphere in redSpheres)
+        foreach (GameObject sphere in blueSpheres)
         {
             if (sphere != null)
             {

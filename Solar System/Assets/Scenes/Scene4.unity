@@ -7930,6 +7930,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de063d2753e43f644af907672d2d6774, type: 3}
+--- !u!1001 &6613205023407962380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -80.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 70.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779793276469499481, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8995967640726202039, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+      propertyPath: m_Name
+      value: MoonBlueMark
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
 --- !u!1001 &6712091957420868796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11198,3 +11255,4 @@ SceneRoots:
   - {fileID: 870341592}
   - {fileID: 7432770779347099127}
   - {fileID: 5959808611755746552}
+  - {fileID: 6613205023407962380}
