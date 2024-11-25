@@ -44,6 +44,12 @@ public class BTN_CAM_Switcher : MonoBehaviour
             // get the the chlildren of the star that is particles
             particles = star.GetComponentsInChildren<ParticleSystem>();
         }
+
+          // Deactivate redSpheres specifically without affecting UI
+        foreach (GameObject redSphere in GameObject.FindGameObjectsWithTag("RedSphere"))
+        {
+            redSphere.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 
     void SwitchCamera()

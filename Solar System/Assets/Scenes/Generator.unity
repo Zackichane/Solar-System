@@ -2116,7 +2116,7 @@ MonoBehaviour:
   cameraToSwitch: {fileID: 963194227}
   forPlanet: 0
   forSatellite: 0
-  forStar: 0
+  forStar: 1
   canvas: {fileID: 1077823036}
   button: {fileID: 1661849609}
 --- !u!114 &772673331
@@ -3507,7 +3507,7 @@ MonoBehaviour:
   - {fileID: 2487003636282804330, guid: 25e7228468ad5254e9bb9beceda70d4b, type: 3}
   - {fileID: 3188341967830117808, guid: 3af63bf633d63b449ac41065317ad2fe, type: 3}
   - {fileID: 8343381978787246461, guid: 2191fee4fd731684ea912ee59476df8f, type: 3}
-  inspectorAssignedObject: {fileID: 8995967640726202039, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
+  blueSpherePrefab: {fileID: 8995967640726202039, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
 --- !u!1 &1274287746
 GameObject:
   m_ObjectHideFlags: 0
@@ -3933,8 +3933,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d4768ebd06133499c359f1c47fb6e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  innerRadius: 4
-  outerRadius: 3
+  innerRadius: 0
+  outerRadius: 0
   segments: 128
 --- !u!33 &1337227906
 MeshFilter:
@@ -6376,6 +6376,7 @@ MonoBehaviour:
   - {fileID: 2574362147182023770, guid: 844f78ee369a8e74ebb737569c99f890, type: 3}
   - {fileID: 377263800541685404, guid: e1bd514bfbde5e1498262956973b3d1b, type: 3}
   redSpherePrefab: {fileID: 7626456299735804715, guid: 026fb7b2be30ba14d84b8fcf10361b7e, type: 3}
+  habitableZone: {fileID: 1337227903}
 --- !u!4 &2116769545
 Transform:
   m_ObjectHideFlags: 0

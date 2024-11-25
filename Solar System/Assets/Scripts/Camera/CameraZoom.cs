@@ -32,7 +32,7 @@ public class CameraZoom : MonoBehaviour
         if (scrollInput != 0f)
         {
             // Adjust the camera's position based on the scroll input
-            Vector3 move = new Vector3(scrollInput * zoomSpeed, scrollInput * zoomSpeed, 0);
+            Vector3 move = new Vector3(-scrollInput * zoomSpeed, -scrollInput * zoomSpeed, 0);
             transform.Translate(move, Space.World);
         }
     }

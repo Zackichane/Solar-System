@@ -19,7 +19,6 @@ public class AdjustMainCamera : MonoBehaviour
     {   
         if (outerHabitableZoneToShow == 0)
         {
-            //outerHabitableZoneToShow = PlayerPrefs.GetInt("outerHabitableZoneToShow");
             outerHabitableZoneToShow = HabitableZone.outerHabitableZone;
             Debug.Log($"Habitable Zone To Show (Outer): {outerHabitableZoneToShow} Km/scale");
         }
@@ -74,13 +73,13 @@ public class AdjustMainCamera : MonoBehaviour
         // If there are more than 6 planets, use the habitable zone distance
         if (planets.Length > 6)
         {
-            planetPosition = new Vector3(outerHabitableZoneToShow * 1, 0, 0);
+            planetPosition = new Vector3(outerHabitableZoneToShow, 0, 0);
         }
         else
         {
             if (outerHabitableZoneToShow >= planet.transform.position.x)
             {
-                planetPosition = new Vector3(outerHabitableZoneToShow*1, 0, 0);
+                planetPosition = new Vector3(outerHabitableZoneToShow, 0, 0);
             }
             else
             {

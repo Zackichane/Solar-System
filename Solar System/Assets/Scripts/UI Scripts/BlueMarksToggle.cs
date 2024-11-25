@@ -15,8 +15,6 @@ public class BlueMarksToggle : MonoBehaviour
         GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("BlueSphere");
         blueSpheres.AddRange(foundSpheres);
 
-        Debug.Log("Initial BlueSpheres Count: " + blueSpheres.Count);
-
         // Attach the toggle listener
         toggle.isOn = true; // Default toggle state
         toggle.onValueChanged.AddListener(ToggleValueChanged);
@@ -36,10 +34,19 @@ public class BlueMarksToggle : MonoBehaviour
                 if (!blueSpheres.Contains(sphere))
                 {
                     blueSpheres.Add(sphere);
-                    Debug.Log("New Sphere Added: " + sphere.name);
                 }
             }
             yield return new WaitForSeconds(1f); // Adjust frequency as needed
+        }
+    }
+
+    void Update()
+    {
+        // if the main camera is CAM Planet always deactivate the red spheres
+        if (Camera.main.name == "CAM Satellite")
+        {
+            SetSpheresActive(false);
+            toggle.isOn = false;
         }
     }
 
@@ -60,6 +67,5 @@ public class BlueMarksToggle : MonoBehaviour
                 sphere.SetActive(isActive);
             }
         }
-        Debug.Log("Spheres " + (isActive ? "Activated" : "Deactivated"));
     }
 }

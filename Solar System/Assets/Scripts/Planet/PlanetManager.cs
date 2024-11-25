@@ -21,7 +21,7 @@ public class PlanetManager : MonoBehaviour
     private GameObject generatedPlanet;
     private GameObject[] listOfPlanets;
     private float nGeneratedPlanets = 0;
-    private GameObject[] generatedPlanets;
+    private GameObject[] generatedPlanets = null;
     private List<float> planetSizes = new List<float>();
     private List<GameObject> generatedPlanetsList = new List<GameObject>();
     public float starSize;
@@ -38,6 +38,10 @@ public class PlanetManager : MonoBehaviour
     private float minPlanet;
     private float maxPlanet;
     private string randomPlanetType;
+    public GameObject habitableZone;
+    private float habitableZoneInnerRadius;
+    private float habitableZoneOuterRadius;
+    private bool planetsWereGenerated = false;
 
     void Start()
     {
@@ -52,14 +56,97 @@ public class PlanetManager : MonoBehaviour
             starSize = star.transform.localScale.x;
         }
 
-        GeneratePlanet();
-        ArrangePlanetsInOrbits();
+        // Start the coroutine to wait and then check the habitable zone
+        StartCoroutine(CheckHabitableZone());
+    }
+
+    IEnumerator CheckHabitableZone()
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(1);
+
+        // Get the habitable zone inner and outer radius
+        habitableZoneInnerRadius = habitableZone.GetComponent<SimpleRingGenerator>().innerRadius;
+        habitableZoneOuterRadius = habitableZone.GetComponent<SimpleRingGenerator>().outerRadius;
+
+        // If the values are different from 0, generate the planet
+        if (habitableZoneInnerRadius != 0 && habitableZoneOuterRadius != 0 && planetsWereGenerated == false)
+        {
+            GeneratePlanet();
+        }
     }
 
     void GeneratePlanet()
     {
-        float randomType = Random.Range(0, 5);
+        float currentOrbitDistance = starSize * 2;
+        // get the max size of a planet
+        float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
+
+        for (int i = 0; i < numberOfPlanets; i++)
+        {
+            if (nGeneratedPlanets == 0)
+            {
+                currentOrbitDistance += maxSize * 10;
+            }
+            else
+            {
+                currentOrbitDistance += (maxSize * 8) + (orbitBuffer * 30);
+            }
+
+            float randomSizeKm;
+            if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius)
+            {
+                randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
+                listOfPlanets = rockyPlanets;
+                randomPlanetType = "RockyPlanets";
+                Debug.Log("The planet : " + "GeneratedPlanet" + (nGeneratedPlanets + 1).ToString() + " is in the habitable zone");
+            }
+            else
+            {
+                // get a random type of planet and its infos
+                (randomSizeKm, listOfPlanets, randomPlanetType) = GetRandomPlanetType();
+            }
+
+            // get a random prefab from the list of planets
+            GameObject planetPrefab = listOfPlanets[Random.Range(0, listOfPlanets.Length)];
+            generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
+            
+            // set the scale of the planet
+            generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
+
+            // set the position of the planet
+            generatedPlanet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
+
+            // instantiate the red sphere
+            InstantiateRedSpheres(generatedPlanet);
+
+            // set the inclination of the planet
+            float inclination = Random.Range(minInclination, maxInclination);
+            generatedPlanet.transform.Rotate(Vector3.forward, inclination);
+
+            // rename the planet and add some components
+            generatedPlanet.name = "GeneratedPlanet" + (nGeneratedPlanets + 1).ToString();
+            generatedPlanetsList.Add(generatedPlanet);
+            generatedPlanet.AddComponent<PlanetRotationManager>();
+            generatedPlanet.tag = "GeneratedPlanet";
+
+            // save the planet type
+            var planetTypeComponent = generatedPlanet.AddComponent<planetType>();
+            planetTypeComponent.planet_type = randomPlanetType;
+
+            nGeneratedPlanets++;
+        }
+        generatedPlanets = generatedPlanetsList.ToArray();
+        planetsWereGenerated = true;
+    }
+
+    // function to get a random planet type and its infos
+    (float, GameObject[], string) GetRandomPlanetType()
+    {
+        int randomType = Random.Range(0, 4);
         float randomSizeKm;
+        GameObject[] listOfPlanets;
+        string randomPlanetType;
 
         if (randomType == 0)
         {
@@ -79,92 +166,33 @@ public class PlanetManager : MonoBehaviour
             listOfPlanets = MarsPlanets;
             randomPlanetType = "MarsPlanets";
         }
-        else if (randomType == 3)
-        {
-            randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
-            listOfPlanets = rockyPlanets;
-            randomPlanetType = "RockyPlanets";
-        }
         else
         {
             randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
             listOfPlanets = gasPlanets;
             randomPlanetType = "GasPlanets";
         }
-
-        GameObject planetPrefab = listOfPlanets[Random.Range(0, listOfPlanets.Length)];
-        generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
-        generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
-        planetSizes.Add(randomSizeKm);
-
-        float inclination = Random.Range(minInclination, maxInclination);
-        generatedPlanet.transform.Rotate(Vector3.forward, inclination);
-        nGeneratedPlanets++;
-        generatedPlanet.name = "GeneratedPlanet" + nGeneratedPlanets.ToString();
-        generatedPlanetsList.Add(generatedPlanet);
-        generatedPlanet.AddComponent<PlanetRotationManager>();
-        generatedPlanet.tag = "GeneratedPlanet";
-
-        var planet_component = generatedPlanet.AddComponent<planetType>();
-        planet_component.planet_type = randomPlanetType;
-
-        if (nGeneratedPlanets < numberOfPlanets)
-        {
-            GeneratePlanet();
-        }
-        else
-        {
-            generatedPlanets = generatedPlanetsList.ToArray();
-        }
+        return (randomSizeKm, listOfPlanets, randomPlanetType);
     }
 
-    void ArrangePlanetsInOrbits()
-{
-    float currentOrbitDistance = starSize * 2;
-    float largestPlanetSize = 0f;
-
-    foreach (float size in planetSizes)
+    void InstantiateRedSpheres(GameObject planet)
     {
-        if (size > largestPlanetSize)
-        {
-            largestPlanetSize = size;
-        }
-    }
-
-    for (int i = 0; i < generatedPlanets.Length; i++)
-    {
-        GameObject planet = generatedPlanets[i];
-        float planetSize = planetSizes[i];
-
-        if (planet.GetComponent<planetType>().planet_type == "GasPlanets")
-        {
-            currentOrbitDistance += (largestPlanetSize * 3) + (orbitBuffer * 2);
-        }
-        else
-        {
-            currentOrbitDistance += (largestPlanetSize * 2) + orbitBuffer;
-        }
-
-        planet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
-
         // Instantiate and scale the red sphere
         GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
-        
         // Check planet type and apply appropriate scale multiplier
-        if (planet.GetComponent<planetType>().planet_type == "RockyPlanets" ||
-            planet.GetComponent<planetType>().planet_type == "MarsPlanets" ||
-            planet.GetComponent<planetType>().planet_type == "MercuryPlanets" ||
-            planet.GetComponent<planetType>().planet_type == "VenusPlanets")
-        {
-            redSphere.transform.localScale = planet.transform.localScale * 20f; // 10x the size of the planet
-        }
-        else
-        {
-            redSphere.transform.localScale = planet.transform.localScale * 5f; // 5x the size of the planet
-        }
+        //if (planet.GetComponent<planetType>().planet_type == "RockyPlanets" ||
+        //    planet.GetComponent<planetType>().planet_type == "MarsPlanets" ||
+        //    planet.GetComponent<planetType>().planet_type == "MercuryPlanets" ||
+        //    planet.GetComponent<planetType>().planet_type == "VenusPlanets")
+        //{
+        redSphere.transform.localScale = planet.transform.localScale * 40f; // 10x the size of the planet
+        //}
+        //else
+        //{
+        //redSphere.transform.localScale = planet.transform.localScale * 5f; // 5x the size of the planet
+        //}
 
         redSphere.transform.parent = planet.transform; // Make the red sphere follow the planet
     }
-}
 
 }

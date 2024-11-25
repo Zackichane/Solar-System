@@ -16,7 +16,7 @@ public class SatelliteGenerate : MonoBehaviour
     private int satelliteCounter = 0;
 
     public List<GameObject> satellites = new List<GameObject>();
-    public GameObject inspectorAssignedObject; // Object to match position and scale
+    public GameObject blueSpherePrefab; // Object to match position and scale
     private Dictionary<GameObject, GameObject> satelliteObjectMap = new Dictionary<GameObject, GameObject>();
 
     void Start()
@@ -29,6 +29,7 @@ public class SatelliteGenerate : MonoBehaviour
         if (generatedPlanet == null)
         {
             generatedPlanet = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+            if (generatedPlanet.Length == 0) generatedPlanet = null;
 
             if (generatedPlanet != null && generatedPlanet.Length > 0)
             {
@@ -43,21 +44,11 @@ public class SatelliteGenerate : MonoBehaviour
                     {
                         GenerateSatellite(centerObject.gameObject);
                         planetSatellites.Add(generatedSatellite);
-
-                        // Create and manage inspectorAssignedObject
-                        if (inspectorAssignedObject != null)
-                        {
-                            GameObject newObject = Instantiate(inspectorAssignedObject);
-                            newObject.transform.localScale = generatedSatellite.transform.localScale * 6f;
-                            satelliteObjectMap[generatedSatellite] = newObject; // Map the satellite to its assigned object
-                        }
                     }
                     ArrangeSatellitesInOrbits(centerObject.gameObject, planetSatellites);
                 }
             }
         }
-
-        UpdateInspectorAssignedObjects();
     }
 
     void GenerateSatellite(GameObject planetObject)
@@ -84,16 +75,16 @@ public class SatelliteGenerate : MonoBehaviour
         switch (planetTypeValue)
         {
             case "MercuryPlanets":
-                minSize = 1000 / scale;
-                maxSize = 3000 / scale;
+                minSize = 2000 / scale;
+                maxSize = 5000 / scale;
                 break;
             case "VenusPlanets":
                 minSize = 3000 / scale;
-                maxSize = 8000 / scale;
+                maxSize = 10000 / scale;
                 break;
             case "MarsPlanets":
                 minSize = 2000 / scale;
-                maxSize = 4000 / scale;
+                maxSize = 6000 / scale;
                 break;
             case "RockyPlanets":
                 minSize = 5000 / scale;
@@ -124,6 +115,9 @@ public class SatelliteGenerate : MonoBehaviour
 
         generatedSatellite.AddComponent<planetTracker>();
         generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
+
+        // create the blue sphere
+        InstantiateBlueSpheres(generatedSatellite);
     }
 
     void ArrangeSatellitesInOrbits(GameObject planetObject, List<GameObject> satellites)
@@ -145,7 +139,7 @@ public class SatelliteGenerate : MonoBehaviour
         for (int i = 0; i < satellites.Count; i++)
         {
             GameObject satellite = satellites[i];
-            float satelliteOrbitDistance = planetRadius + (i * orbitSpacing);
+            float satelliteOrbitDistance = planetRadius + (i * orbitSpacing/2);
             float randomBuffer = 0f;
             satellite.transform.position = new Vector3(satelliteOrbitDistance + randomBuffer, 0, 0) + planetObject.transform.position;
 
@@ -153,19 +147,11 @@ public class SatelliteGenerate : MonoBehaviour
         }
     }
 
-    void UpdateInspectorAssignedObjects()
+    void InstantiateBlueSpheres(GameObject satellite)
     {
-        foreach (var pair in satelliteObjectMap)
-        {
-            GameObject satellite = pair.Key;
-            GameObject assignedObject = pair.Value;
-
-            if (satellite != null && assignedObject != null)
-            {
-                assignedObject.transform.position = satellite.transform.position;
-                assignedObject.transform.localScale = satellite.transform.localScale * 10f;
-            }
-        }
+        GameObject blueSphere = Instantiate(blueSpherePrefab, satellite.transform.position, Quaternion.identity);
+        blueSphere.transform.localScale = satellite.transform.localScale * 40;
+        blueSphere.transform.parent = satellite.transform;
     }
 
     void ShuffleSatellites()

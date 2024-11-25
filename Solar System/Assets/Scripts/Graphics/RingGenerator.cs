@@ -4,8 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 public class SimpleRingGenerator : MonoBehaviour
 {
-    public float innerRadius = 1f;  // Inner radius of the ring
-    public float outerRadius = 2f;  // Outer radius of the ring
+    public float innerRadius = 0f;  // Inner radius of the ring
+    public float outerRadius = 0f;  // Outer radius of the ring
     public int segments = 64;       // Number of segments (higher = smoother)
 
     private Mesh ringMesh;          // Store the generated mesh

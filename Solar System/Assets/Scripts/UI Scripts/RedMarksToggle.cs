@@ -15,8 +15,6 @@ public class RedMarksToggle : MonoBehaviour
         GameObject[] foundSpheres = GameObject.FindGameObjectsWithTag("RedSphere");
         redSpheres.AddRange(foundSpheres);
 
-        Debug.Log("Initial RedSpheres Count: " + redSpheres.Count);
-
         // Attach the toggle listener
         toggle.isOn = true; // Default toggle state
         toggle.onValueChanged.AddListener(ToggleValueChanged);
@@ -36,10 +34,19 @@ public class RedMarksToggle : MonoBehaviour
                 if (!redSpheres.Contains(sphere))
                 {
                     redSpheres.Add(sphere);
-                    Debug.Log("New Sphere Added: " + sphere.name);
                 }
             }
             yield return new WaitForSeconds(1f); // Adjust frequency as needed
+        }
+    }
+
+    void Update()
+    {
+        // if the main camera is CAM Planet always deactivate the red spheres
+        if (Camera.main.name == "CAM Planet")
+        {
+            SetSpheresActive(false);
+            toggle.isOn = false;
         }
     }
 
@@ -60,6 +67,5 @@ public class RedMarksToggle : MonoBehaviour
                 sphere.SetActive(isActive);
             }
         }
-        Debug.Log("Spheres " + (isActive ? "Activated" : "Deactivated"));
     }
 }

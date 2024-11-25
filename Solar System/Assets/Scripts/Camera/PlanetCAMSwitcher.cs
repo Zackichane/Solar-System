@@ -108,7 +108,10 @@ public class PlanetCAMSwitcher : MonoBehaviour
     // Deactivate redSpheres specifically without affecting UI
     foreach (GameObject redSphere in GameObject.FindGameObjectsWithTag("RedSphere"))
     {
-        redSphere.SetActive(false);
+        if (redSphere != null)
+        {
+            redSphere.SetActive(false);
+        }
     }
 
     // Make sure UI Canvas is still active and attached to the correct camera
