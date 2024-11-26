@@ -70,7 +70,7 @@ public class SatelliteGenerate : MonoBehaviour
         if (satellitePrefab == null) return;
 
         float minSize, maxSize;
-        string planetTypeValue = planetObject.GetComponent<planetType>().planet_type;
+        string planetTypeValue = planetObject.GetComponent<planetInfos>().planetType;
 
         switch (planetTypeValue)
         {
@@ -116,6 +116,9 @@ public class SatelliteGenerate : MonoBehaviour
         generatedSatellite.AddComponent<planetTracker>();
         generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
 
+        // Set the satellite as a child of the planet object
+        generatedSatellite.transform.parent = planetObject.transform;
+
         // create the blue sphere
         InstantiateBlueSpheres(generatedSatellite);
     }
@@ -150,7 +153,7 @@ public class SatelliteGenerate : MonoBehaviour
     void InstantiateBlueSpheres(GameObject satellite)
     {
         GameObject blueSphere = Instantiate(blueSpherePrefab, satellite.transform.position, Quaternion.identity);
-        blueSphere.transform.localScale = satellite.transform.localScale * 40;
+        blueSphere.transform.localScale = new Vector3(60, 60, 60);
         blueSphere.transform.parent = satellite.transform;
     }
 

@@ -20,7 +20,11 @@ public class ZoomToggle : MonoBehaviour
 
     void Update()
     {
-        if (activeCamera.enabled == false)
+        if (activeCamera == null)
+        {
+            GetActiveCamera();
+        }
+        if (activeCamera != null && activeCamera.enabled == false)
         {
             ToggleValueChanged(false);
         }

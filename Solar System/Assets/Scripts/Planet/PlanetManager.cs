@@ -131,8 +131,15 @@ public class PlanetManager : MonoBehaviour
             generatedPlanet.tag = "GeneratedPlanet";
 
             // save the planet type
-            var planetTypeComponent = generatedPlanet.AddComponent<planetType>();
-            planetTypeComponent.planet_type = randomPlanetType;
+            var planetTypeComponent = generatedPlanet.AddComponent<planetInfos>();
+            planetTypeComponent.planetName = (string)generatedPlanet.name;
+            planetTypeComponent.planetType = (string)randomPlanetType;
+            planetTypeComponent.planetRadius = (string)(randomSizeKm/2).ToString();
+            planetTypeComponent.planetTemperature = (string)Random.Range(0, 100).ToString(); // try to get a realistic temperature
+            planetTypeComponent.planetMass = (string)Random.Range(0, 100).ToString(); // try to get a realistic mass
+            planetTypeComponent.distPlanetStar = (string)currentOrbitDistance.ToString();
+            planetTypeComponent.planetHabitable = (string)(habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius).ToString();
+
 
             nGeneratedPlanets++;
         }
@@ -179,20 +186,17 @@ public class PlanetManager : MonoBehaviour
     {
         // Instantiate and scale the red sphere
         GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
-        // Check planet type and apply appropriate scale multiplier
-        //if (planet.GetComponent<planetType>().planet_type == "RockyPlanets" ||
-        //    planet.GetComponent<planetType>().planet_type == "MarsPlanets" ||
-        //    planet.GetComponent<planetType>().planet_type == "MercuryPlanets" ||
-        //    planet.GetComponent<planetType>().planet_type == "VenusPlanets")
-        //{
-        redSphere.transform.localScale = planet.transform.localScale * 40f; // 10x the size of the planet
-        //}
-        //else
-        //{
-        //redSphere.transform.localScale = planet.transform.localScale * 5f; // 5x the size of the planet
-        //}
+        
+        if (planet.transform.localScale.x >= 100)
+        {
+            redSphere.transform.localScale = planet.transform.localScale;
+        }
+        else
+        {
+            redSphere.transform.localScale = new Vector3(100, 100, 100);
+        }
 
-        redSphere.transform.parent = planet.transform; // Make the red sphere follow the planet
+        redSphere.transform.parent = planet.transform;
     }
 
 }

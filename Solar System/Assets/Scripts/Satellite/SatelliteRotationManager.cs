@@ -11,6 +11,11 @@ public class SatelliteRotationManager : MonoBehaviour
     private GameObject generatedPlanet;
     private GameObject star = null;
 
+    private float orbitSpeed = 50f;
+    private float currentAngle = 0f;
+
+    private Vector3 initialPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +23,8 @@ public class SatelliteRotationManager : MonoBehaviour
         centerObject = GetComponent<planetTracker>().planet.transform;
         generatedPlanet = centerObject.gameObject; // Ensure generatedPlanet is assigned
         StartCoroutine(GetStarByName("GeneratedStar")); // Start the coroutine
+        initialPosition = transform.position;
+        Debug.Log("Satellite initial position: " + initialPosition);
     }
 
     // Update is called once per frame
