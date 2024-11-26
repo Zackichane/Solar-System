@@ -47,6 +47,17 @@ public class BlueMarksToggle : MonoBehaviour
         {
             SetSpheresActive(false);
             toggle.isOn = false;
+            toggle.interactable = false;
+        }
+        if (Camera.main.name == "CAM Planet")
+        {
+            SetSpheresActive(true);
+            toggle.isOn = true;
+            toggle.interactable = true;
+        }
+        else
+        {
+            toggle.interactable = true;
         }
     }
 

@@ -20,11 +20,21 @@ public class PlanetCAMSwitcher : MonoBehaviour
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     private Transform planetToTrack; // Change type to Transform
     private Vector3 offset;
+    
 
 
     void Start()
     {
         button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SwitchCamera);
+
+
+        foreach (GameObject redSphere in GameObject.FindGameObjectsWithTag("BlueSphere"))
+        {
+            if (redSphere != null)
+            {
+                redSphere.SetActive(true);
+            }
+        }
     }
 
     void Update()

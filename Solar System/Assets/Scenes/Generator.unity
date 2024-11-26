@@ -1878,7 +1878,7 @@ GameObject:
   - component: {fileID: 735968730}
   - component: {fileID: 735968731}
   m_Layer: 5
-  m_Name: Toggle (3)
+  m_Name: Toggle_SatelliteMarks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2100,7 +2100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83810044df785c040b049d0df66d9c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggle: {fileID: 1181558026}
+  toggle_red: {fileID: 1181558026}
+  toggle_blue: {fileID: 735968731}
 --- !u!114 &772673330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2126,7 +2127,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772673318}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f42b8829c9fbaf340b4f8bd087b4a531, type: 3}
   m_Name: 
@@ -3346,7 +3347,7 @@ GameObject:
   - component: {fileID: 1181558025}
   - component: {fileID: 1181558026}
   m_Layer: 5
-  m_Name: Toggle (2)
+  m_Name: Toggle_PlanetMarks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4164,7 +4165,7 @@ GameObject:
   - component: {fileID: 1437177068}
   - component: {fileID: 1437177069}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: Toggle_HabitableZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5196,7 +5197,7 @@ GameObject:
   - component: {fileID: 1626400260}
   - component: {fileID: 1626400261}
   m_Layer: 5
-  m_Name: Toggle (1)
+  m_Name: Toggle_Zoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
