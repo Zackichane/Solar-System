@@ -12,7 +12,7 @@ public class SatelliteGenerate : MonoBehaviour
     public float rotationSpeed = 50f;
     public bool stopOrbite = false;
     public bool randomPrefab = false;
-    public float orbitBuffer = 10f; // Increased buffer distance to avoid collisions
+    public float orbitBuffer = 0f; // Increased buffer distance to avoid collisions
     private int satelliteCounter = 0;
 
     public List<GameObject> satellites = new List<GameObject>();
@@ -36,8 +36,8 @@ public class SatelliteGenerate : MonoBehaviour
                 for (int i = 0; i < generatedPlanet.Length; i++)
                 {
                     centerObject = generatedPlanet[i].transform;
-                    int minSatellites = 1;
-                    int maxSatellites = 5;
+                    int minSatellites = 0;
+                    int maxSatellites = 3;
                     int numSatellites = Random.Range(minSatellites, maxSatellites + 1);
                     List<GameObject> planetSatellites = new List<GameObject>();
                     for (int j = 0; j < numSatellites; j++)
@@ -75,23 +75,23 @@ public class SatelliteGenerate : MonoBehaviour
         switch (planetTypeValue)
         {
             case "MercuryPlanets":
-                minSize = 2000 / scale;
-                maxSize = 5000 / scale;
+                minSize = 4000 / scale;
+                maxSize = 7000 / scale;
                 break;
             case "VenusPlanets":
-                minSize = 3000 / scale;
-                maxSize = 10000 / scale;
+                minSize = 6000 / scale;
+                maxSize = 12000 / scale;
                 break;
             case "MarsPlanets":
-                minSize = 2000 / scale;
-                maxSize = 6000 / scale;
+                minSize = 4000 / scale;
+                maxSize = 9000 / scale;
                 break;
             case "RockyPlanets":
-                minSize = 5000 / scale;
-                maxSize = 10000 / scale;
+                minSize = 7000 / scale;
+                maxSize = 12000 / scale;
                 break;
             case "GasPlanets":
-                minSize = 5000 / scale;
+                minSize = 8000 / scale;
                 maxSize = 20000 / scale;
                 break;
             default:
@@ -139,9 +139,9 @@ public class SatelliteGenerate : MonoBehaviour
         for (int i = 0; i < satellites.Count; i++)
         {
             GameObject satellite = satellites[i];
-            float satelliteOrbitDistance = planetRadius + (i * orbitSpacing/2);
+            float satelliteOrbitDistance = planetRadius/2 + orbitSpacing/2;
             float randomBuffer = 0f;
-            satellite.transform.position = new Vector3(satelliteOrbitDistance + randomBuffer, 0, 0) + planetObject.transform.position;
+            satellite.transform.position = new Vector3(satelliteOrbitDistance, 0, 0) + planetObject.transform.position;
 
             satellite.AddComponent<SatelliteRotationManager>();
         }

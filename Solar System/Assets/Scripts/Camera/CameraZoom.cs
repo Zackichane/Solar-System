@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
-    public float zoomSpeed = 10f;  // Adjustable zoom speed per camera
-    public float rotateSpeed = 5f; // Speed at which the camera rotates based on mouse movement
+    private float zoomSpeed = 1000f;  // Adjustable zoom speed per camera
+    private float rotateSpeed = 5f; // Speed at which the camera rotates based on mouse movement
 
     private Camera camera;
     private Vector3 lastMousePosition;

@@ -24,6 +24,14 @@ public class ZoomToggle : MonoBehaviour
         {
             ToggleValueChanged(false);
         }
+        if (Camera.main.name != "Main Camera")
+        {
+            toggle.interactable = false;
+        }
+        else
+        {
+            toggle.interactable = true;
+        }
     }
 
     void ToggleValueChanged(bool value)

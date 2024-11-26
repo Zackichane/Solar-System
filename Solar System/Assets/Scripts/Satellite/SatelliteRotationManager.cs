@@ -14,7 +14,7 @@ public class SatelliteRotationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rotationSpeed = Random.Range(1f, 20f);
+        rotationSpeed = Random.Range(10f, 25f);
         centerObject = GetComponent<planetTracker>().planet.transform;
         generatedPlanet = centerObject.gameObject; // Ensure generatedPlanet is assigned
         StartCoroutine(GetStarByName("GeneratedStar")); // Start the coroutine
@@ -28,9 +28,14 @@ public class SatelliteRotationManager : MonoBehaviour
     }
 
     void OrbiteSatellite() 
-    {   if (star == null)
+    {   
+        if (star == null)
         {
             return;
+        }
+        if (centerObject == null)
+        {
+            centerObject = GetComponent<planetTracker>().planet.transform;
         }
         if (centerObject != null && generatedPlanet != null && Camera.main.name != "CAM Satellite")
         {
