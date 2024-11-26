@@ -134,10 +134,10 @@ public class PlanetManager : MonoBehaviour
             var planetTypeComponent = generatedPlanet.AddComponent<planetInfos>();
             planetTypeComponent.planetName = (string)generatedPlanet.name;
             planetTypeComponent.planetType = (string)randomPlanetType;
-            planetTypeComponent.planetRadius = (string)(randomSizeKm/2).ToString();
+            planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
             planetTypeComponent.planetTemperature = (string)Random.Range(0, 100).ToString(); // try to get a realistic temperature
             planetTypeComponent.planetMass = (string)Random.Range(0, 100).ToString(); // try to get a realistic mass
-            planetTypeComponent.distPlanetStar = (string)currentOrbitDistance.ToString();
+            planetTypeComponent.distPlanetStar = (string)(currentOrbitDistance*scale).ToString();
             planetTypeComponent.planetHabitable = (string)(habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius).ToString();
 
 
