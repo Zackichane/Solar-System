@@ -16,6 +16,17 @@ public class PlanetManager : MonoBehaviour
     private const float maxRocheuse = 22500 / scale;
     private const float minGazeuse = 44200 / scale;
     private const float maxGazeuse = 482000 / scale;
+
+    private const double minMassVenus = 2700000000000000000000000d;
+    private const double maxMassVenus = 6500000000000000000000000d;
+    private const double minMassMercure = 110000000000000000000000d;
+    private const double maxMassMercure = 3000000000000000000000000d;
+    private const double minMassMars = 1600000000000000000000000d;
+    private const double maxMassMars = 3500000000000000000000000d;
+    private const double minMassRocheuse = 4800000000000000000000000d;
+    private const double maxMassRocheuse = 10000000000000000000000000d;
+    private double randomMassKg;
+
     private Vector3 spawnPosition;
     private float maxInclination = 40f;
     private float minInclination = 0f;
@@ -95,15 +106,19 @@ public class PlanetManager : MonoBehaviour
                 currentOrbitDistance += (maxSize * 8) + (orbitBuffer * 100);
             }
 
+            float Albedo = Random.Range(0.1f, 1f);
+
             float starTemperature = (StarGeneration.starTemperature);
 
             // Calculate the planet's temperature
-            float planetTemperature = (starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - 0.3f, 0.25f) + 40;
+            float planetTemperature = (starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - Albedo, 0.25f);
             bool isHabitable = false;
             float randomSizeKm;
+
             if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius && planetTemperature >= 273 && planetTemperature <= 388)
             {
                 randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
+                randomMassKg = (double)Random.Range((float)minMassRocheuse, (float)maxMassRocheuse);
                 listOfPlanets = rockyPlanets;
                 randomPlanetType = "RockyPlanets";
                 isHabitable = true;
@@ -142,10 +157,8 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.planetName = (string)generatedPlanet.name;
             planetTypeComponent.planetType = (string)randomPlanetType;
             planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
-
-            
-            planetTypeComponent.planetMass = Random.Range(0, 100).ToString(); // try to get a realistic mass
             planetTypeComponent.distPlanetStar = (currentOrbitDistance*scale).ToString();
+            planetTypeComponent.planetMass = randomMassKg.ToString();
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
             if (isHabitable)
@@ -167,25 +180,29 @@ public class PlanetManager : MonoBehaviour
     (float, GameObject[], string) GetRandomPlanetType()
     {
         int randomType = Random.Range(0, 4);
-        float randomSizeKm;
+        float randomSizeKm = 0f;
+        double randomMassKg = 0d;
         GameObject[] listOfPlanets;
         string randomPlanetType;
 
         if (randomType == 0)
         {
             randomSizeKm = Random.Range(minMercure, maxMercure);
+            randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
             listOfPlanets = MercuryPlanets;
             randomPlanetType = "MercuryPlanets";
         }
         else if (randomType == 1)
         {
             randomSizeKm = Random.Range(minVenus, maxVenus);
+            randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
             listOfPlanets = VenusPlanets;
             randomPlanetType = "VenusPlanets";
         }
         else if (randomType == 2)
         {
             randomSizeKm = Random.Range(minMars, maxMars);
+            randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
             listOfPlanets = MarsPlanets;
             randomPlanetType = "MarsPlanets";
         }

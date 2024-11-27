@@ -4102,7 +4102,6 @@ MonoBehaviour:
   orbiteSpeed: 50
   rotationSpeed: 30
   stopOrbite: 0
-  randomPrefab: 1
   orbitBuffer: 100
   satellites:
   - {fileID: 4688349805820603875, guid: abfc5d3cbba8ca74aa1ebad6681c0bea, type: 3}
@@ -4141,6 +4140,7 @@ MonoBehaviour:
   - {fileID: 2487003636282804330, guid: 25e7228468ad5254e9bb9beceda70d4b, type: 3}
   - {fileID: 3188341967830117808, guid: 3af63bf633d63b449ac41065317ad2fe, type: 3}
   - {fileID: 8343381978787246461, guid: 2191fee4fd731684ea912ee59476df8f, type: 3}
+  satellitesArray: []
   blueSpherePrefab: {fileID: 8995967640726202039, guid: 9e1be628d2c9f3b4d9ab51193ba403f2, type: 3}
 --- !u!1 &1246493832
 GameObject:
@@ -7635,7 +7635,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1698858079}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
