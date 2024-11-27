@@ -12,7 +12,7 @@ public class PlanetRotationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rotationSpeed = Random.Range(1f, 20f);
+        rotationSpeed = Random.Range(5f, 25f);
     }
 
     // Update is called once per frame

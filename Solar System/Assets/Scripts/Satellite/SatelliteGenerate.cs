@@ -11,11 +11,11 @@ public class SatelliteGenerate : MonoBehaviour
     public float orbiteSpeed = 100f;
     public float rotationSpeed = 50f;
     public bool stopOrbite = false;
-    public bool randomPrefab = false;
-    public float orbitBuffer = 0f; // Increased buffer distance to avoid collisions
+    public float orbitBuffer = 2f; // Increased buffer distance to avoid collisions
     private int satelliteCounter = 0;
 
-    public List<GameObject> satellites = new List<GameObject>();
+    public List<GameObject> satellites = new List<GameObject>(); // The satellites prefabs
+    public List<GameObject> satellitesArray; // The satellites prefabs
     public GameObject blueSpherePrefab; // Object to match position and scale
     private Dictionary<GameObject, GameObject> satelliteObjectMap = new Dictionary<GameObject, GameObject>();
 
@@ -37,24 +37,34 @@ public class SatelliteGenerate : MonoBehaviour
                 {
                     centerObject = generatedPlanet[i].transform;
                     int minSatellites = 0;
-                    int maxSatellites = 3;
+                    int maxSatellites = 5;
                     int numSatellites = Random.Range(minSatellites, maxSatellites + 1);
-                    List<GameObject> planetSatellites = new List<GameObject>();
-                    for (int j = 0; j < numSatellites; j++)
-                    {
-                        GenerateSatellite(centerObject.gameObject);
-                        planetSatellites.Add(generatedSatellite);
-                    }
-                    ArrangeSatellitesInOrbits(centerObject.gameObject, planetSatellites);
+                    GenerateSatellites(numSatellites, generatedPlanet[i]);
                 }
             }
         }
     }
 
-    void GenerateSatellite(GameObject planetObject)
+    void GenerateSatellites(int numSatellites, GameObject planetObject)
     {
-        if (randomPrefab)
+        float currentOrbit = 0;
+        float planetRadius = planetObject.transform.localScale.x / 2;
+        float largestSatelliteSize = 0f;
+
+        foreach (GameObject satellite in satellites)
         {
+            float satelliteSize = satellite.transform.localScale.x;
+            if (satelliteSize > largestSatelliteSize)
+            {
+                largestSatelliteSize = satelliteSize;
+            }
+        }
+
+        for (int i = 0; i < numSatellites; i++)
+        {
+            currentOrbit += largestSatelliteSize + orbitBuffer;
+            float randomBuffer = Random.Range(2f, 5f);
+
             if (satellites.Count > 0)
             {
                 int index = Random.Range(0, satellites.Count);
@@ -65,10 +75,39 @@ public class SatelliteGenerate : MonoBehaviour
             {
                 return;
             }
+            float minSize, maxSize;
+            (minSize, maxSize) = GetSatelliteSize(planetObject);
+
+            float sizePlanet = planetObject.transform.localScale.x;
+            float sizeSatellite = Random.Range(minSize, maxSize);
+
+            float distance = sizePlanet * 2f;
+            float angle = satelliteCounter * 30f;
+            Vector3 spawnPosition = planetObject.transform.position + new Vector3(currentOrbit, 0, 0);
+
+            generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
+            // add the satellite to the list of satellites
+            satellitesArray.Add(generatedSatellite);
+            generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
+
+            generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
+            generatedSatellite.tag = "GeneratedSatellite";
+
+            generatedSatellite.AddComponent<planetTracker>();
+            generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
+
+            generatedSatellite.AddComponent<SatelliteRotationManager>();
+
+            // Set the satellite as a child of the planet object
+            generatedSatellite.transform.parent = planetObject.transform;
+
+            // create the blue sphere
+            InstantiateBlueSpheres(generatedSatellite);
         }
+    }
 
-        if (satellitePrefab == null) return;
-
+    (float, float) GetSatelliteSize(GameObject planetObject)
+    {
         float minSize, maxSize;
         string planetTypeValue = planetObject.GetComponent<planetInfos>().planetType;
 
@@ -99,61 +138,13 @@ public class SatelliteGenerate : MonoBehaviour
                 maxSize = 5000 / scale;
                 break;
         }
-
-        float sizePlanet = planetObject.transform.localScale.x;
-        float sizeSatellite = Random.Range(minSize, maxSize);
-
-        float distance = sizePlanet * 2f;
-        float angle = satelliteCounter * 30f;
-        Vector3 spawnPosition = planetObject.transform.position + new Vector3(distance * Mathf.Cos(angle), 0, distance * Mathf.Sin(angle));
-
-        generatedSatellite = Instantiate(satellitePrefab, spawnPosition, Quaternion.identity);
-        generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
-
-        generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
-        generatedSatellite.tag = "GeneratedSatellite";
-
-        generatedSatellite.AddComponent<planetTracker>();
-        generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
-
-        // Set the satellite as a child of the planet object
-        generatedSatellite.transform.parent = planetObject.transform;
-
-        // create the blue sphere
-        InstantiateBlueSpheres(generatedSatellite);
-    }
-
-    void ArrangeSatellitesInOrbits(GameObject planetObject, List<GameObject> satellites)
-    {
-        float planetRadius = planetObject.transform.localScale.x;
-        float largestSatelliteSize = 0f;
-
-        foreach (GameObject satellite in satellites)
-        {
-            float satelliteSize = satellite.transform.localScale.x;
-            if (satelliteSize > largestSatelliteSize)
-            {
-                largestSatelliteSize = satelliteSize;
-            }
-        }
-
-        float orbitSpacing = largestSatelliteSize + orbitBuffer;
-
-        for (int i = 0; i < satellites.Count; i++)
-        {
-            GameObject satellite = satellites[i];
-            float satelliteOrbitDistance = planetRadius/2 + orbitSpacing/2;
-            float randomBuffer = 0f;
-            satellite.transform.position = new Vector3(satelliteOrbitDistance, 0, 0) + planetObject.transform.position;
-
-            satellite.AddComponent<SatelliteRotationManager>();
-        }
+        return (minSize, maxSize);
     }
 
     void InstantiateBlueSpheres(GameObject satellite)
     {
         GameObject blueSphere = Instantiate(blueSpherePrefab, satellite.transform.position, Quaternion.identity);
-        blueSphere.transform.localScale = new Vector3(60, 60, 60);
+        blueSphere.transform.localScale = new Vector3(20, 20, 20);
         blueSphere.transform.parent = satellite.transform;
     }
 

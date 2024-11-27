@@ -83,6 +83,7 @@ public class PlanetManager : MonoBehaviour
         // get the max size of a planet
         float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
 
+
         for (int i = 0; i < numberOfPlanets; i++)
         {
             if (nGeneratedPlanets == 0)
@@ -91,16 +92,21 @@ public class PlanetManager : MonoBehaviour
             }
             else
             {
-                currentOrbitDistance += (maxSize * 8) + (orbitBuffer * 30);
+                currentOrbitDistance += (maxSize * 8) + (orbitBuffer * 100);
             }
 
+            float starTemperature = (StarGeneration.starTemperature);
+
+            // Calculate the planet's temperature
+            float planetTemperature = (starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - 0.3f, 0.25f) + 40;
+            bool isHabitable = false;
             float randomSizeKm;
-            if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius)
+            if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius && planetTemperature >= 273 && planetTemperature <= 388)
             {
                 randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
                 listOfPlanets = rockyPlanets;
                 randomPlanetType = "RockyPlanets";
-                Debug.Log("The planet : " + "GeneratedPlanet" + (nGeneratedPlanets + 1).ToString() + " is in the habitable zone");
+                isHabitable = true;
             }
             else
             {
@@ -137,16 +143,20 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.planetType = (string)randomPlanetType;
             planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
 
-            float starTemperature = float.Parse(StarGeneration.starTemperature); // If starTemperature is a string
-
-            // Calculate the planet's temperature
-            float planetTemperature = starTemperature * Mathf.Pow(StarGeneration.starSize / (2f * currentOrbitDistance), 0.5f) * Mathf.Pow(1f - 0.5f, 0.25f);
-
-            planetTypeComponent.planetMass = (string)Random.Range(0, 100).ToString(); // try to get a realistic mass
-            planetTypeComponent.distPlanetStar = (string)(currentOrbitDistance*scale).ToString();
-            planetTypeComponent.planetHabitable = (string)(habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius).ToString();
-
-
+            
+            planetTypeComponent.planetMass = Random.Range(0, 100).ToString(); // try to get a realistic mass
+            planetTypeComponent.distPlanetStar = (currentOrbitDistance*scale).ToString();
+            // convert habitableZoneInnerRadius to float
+            habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
+            if (isHabitable)
+            {
+                planetTypeComponent.planetHabitable = "yes";
+            }
+            else
+            {
+                planetTypeComponent.planetHabitable = "no";
+            } 
+            planetTypeComponent.planetTemperature = planetTemperature.ToString();
             nGeneratedPlanets++;
         }
         generatedPlanets = generatedPlanetsList.ToArray();

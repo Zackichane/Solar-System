@@ -23,8 +23,8 @@ public class HabitableZone : MonoBehaviour
         float innerHabitableZone = (float)(Mathf.Sqrt(luminosity / 1.1f) * 1.496e+8);  // Adjusted for solar luminosity
         outerHabitableZone = (float)(Mathf.Sqrt(luminosity / 0.53f) * 1.496e+8); // Adjusted for solar luminosity
 
-        innerHabitableZone /= 50000; // Convert to Km/scale
-        outerHabitableZone /= 50000; // Convert to Km/scale
+        innerHabitableZone /= 10000; // Convert to Km/scale
+        outerHabitableZone /= 10000; // Convert to Km/scale
 
         //PlayerPrefs.SetInt("outerHabitableZoneToShow", (int)outerHabitableZone);
 

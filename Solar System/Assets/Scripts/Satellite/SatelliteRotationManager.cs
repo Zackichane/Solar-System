@@ -32,6 +32,7 @@ public class SatelliteRotationManager : MonoBehaviour
     {
         OrbiteSatellite();
         RotateSatellite();
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     void OrbiteSatellite() 
