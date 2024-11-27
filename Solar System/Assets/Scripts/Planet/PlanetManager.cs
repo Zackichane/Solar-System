@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static System.Math;
 
 public class PlanetManager : MonoBehaviour
 {
@@ -135,7 +136,12 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.planetName = (string)generatedPlanet.name;
             planetTypeComponent.planetType = (string)randomPlanetType;
             planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
-            planetTypeComponent.planetTemperature = (string)Random.Range(0, 100).ToString(); // try to get a realistic temperature
+
+            float starTemperature = float.Parse(StarGeneration.starTemperature); // If starTemperature is a string
+
+            // Calculate the planet's temperature
+            float planetTemperature = starTemperature * Mathf.Pow(StarGeneration.starSize / (2f * currentOrbitDistance), 0.5f) * Mathf.Pow(1f - 0.5f, 0.25f);
+
             planetTypeComponent.planetMass = (string)Random.Range(0, 100).ToString(); // try to get a realistic mass
             planetTypeComponent.distPlanetStar = (string)(currentOrbitDistance*scale).ToString();
             planetTypeComponent.planetHabitable = (string)(habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius).ToString();
