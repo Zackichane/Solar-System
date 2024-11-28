@@ -18,8 +18,6 @@ public class StarGeneration : MonoBehaviour
     public static float starSize { get; private set; }
     private const float scale = 10000f;
     public float rotationSpeed = 1f;
-    private float minDist;
-    private float maxDist;
     private float minTemp;
     private float maxTemp;
     public static float starTemperature { get; private set; }
@@ -41,8 +39,6 @@ public class StarGeneration : MonoBehaviour
             // 7000 km to 14000 km
             minSizeKm = 7000 / scale;
             maxSizeKm = 14000 / scale;
-            minDist = 10;
-            maxDist = 50;
             minTemp = 5000;
             maxTemp = 100000;
         }
@@ -52,8 +48,6 @@ public class StarGeneration : MonoBehaviour
             // 1 120 000 km to 1 680 000 km
             minSizeKm = 1120000 / scale;
             maxSizeKm = 1680000 / scale;
-            minDist = 50;
-            maxDist = 100;
             minTemp = 5000;
             maxTemp = 6000;
 
@@ -64,8 +58,6 @@ public class StarGeneration : MonoBehaviour
             // 99 779 000 km to 997 790 000 km
             minSizeKm = 70000 / scale;
             maxSizeKm = 500000 / scale;
-            minDist = 1000;
-            maxDist = 3000;
             maxTemp = 2500;
             minTemp = 6000;
         }
@@ -75,8 +67,6 @@ public class StarGeneration : MonoBehaviour
             // 14 000 000 km to 140 000 000 km
             minSizeKm = 50000 / scale;
             maxSizeKm = 400000 / scale;
-            minDist = 10000;
-            maxDist = 20000;
             minTemp = 10000;
             maxTemp = 30000;
 
@@ -129,10 +119,6 @@ public class StarGeneration : MonoBehaviour
         // rename the genereated star
         generatedStar.name = "GeneratedStar";
         generatedStar.tag = "GeneratedStar";
-
-        Debug.Log($"Generated Star Temperature: {starTemperature}K");
-        Debug.Log($"Generated Star Size: {starSize * 10000} km");  // Log the size for debugging
-        Debug.Log($"Generated Star Luminosity: {starLuminosity} W");
     }
     void RotateYellowDwarf()
     {

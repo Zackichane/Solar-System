@@ -39,7 +39,10 @@ public class SatelliteGenerate : MonoBehaviour
                     int minSatellites = 0;
                     int maxSatellites = 5;
                     int numSatellites = Random.Range(minSatellites, maxSatellites + 1);
-                    GenerateSatellites(numSatellites, generatedPlanet[i]);
+                    if (numSatellites > 0)
+                    {
+                        GenerateSatellites(numSatellites, generatedPlanet[i]);
+                    }
                 }
             }
         }
@@ -95,14 +98,13 @@ public class SatelliteGenerate : MonoBehaviour
 
             generatedSatellite.AddComponent<planetTracker>();
             generatedSatellite.GetComponent<planetTracker>().planet = planetObject;
+            
+            generatedSatellite.GetComponent<planetTracker>().blueSphere = InstantiateBlueSpheres(generatedSatellite);
 
             generatedSatellite.AddComponent<SatelliteRotationManager>();
 
             // Set the satellite as a child of the planet object
             generatedSatellite.transform.parent = planetObject.transform;
-
-            // create the blue sphere
-            InstantiateBlueSpheres(generatedSatellite);
         }
     }
 
@@ -141,11 +143,12 @@ public class SatelliteGenerate : MonoBehaviour
         return (minSize, maxSize);
     }
 
-    void InstantiateBlueSpheres(GameObject satellite)
+    GameObject InstantiateBlueSpheres(GameObject satellite)
     {
         GameObject blueSphere = Instantiate(blueSpherePrefab, satellite.transform.position, Quaternion.identity);
         blueSphere.transform.localScale = new Vector3(20, 20, 20);
         blueSphere.transform.parent = satellite.transform;
+        return blueSphere;
     }
 
     void ShuffleSatellites()

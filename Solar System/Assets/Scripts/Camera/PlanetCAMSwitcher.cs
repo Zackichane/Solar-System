@@ -2,10 +2,13 @@
 
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlanetCAMSwitcher : MonoBehaviour
 {
     public Canvas canvas;
+    public Button satelliteButton;
     public GameObject button;
     private GameObject planet;
     private GameObject satellite;
@@ -20,6 +23,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     private Transform planetToTrack; // Change type to Transform
     private Vector3 offset;
+
     
 
 
@@ -84,6 +88,14 @@ public class PlanetCAMSwitcher : MonoBehaviour
     // Set the planet to track
     planetToTrack = planets[currentIndex].transform;
     GameObject[] satellitesToTrack = satellites.Where(s => s.GetComponent<planetTracker>().planet == planetToTrack.gameObject).ToArray();
+    if (satellitesToTrack.Length == 0)
+    {
+        satelliteButton.interactable = false;
+    }
+    else
+    {
+        satelliteButton.interactable = true;
+    }
 
     // Hide other planets
     foreach (GameObject p in planets)

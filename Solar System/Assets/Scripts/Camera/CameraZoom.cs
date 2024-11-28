@@ -5,15 +5,13 @@ public class CameraZoom : MonoBehaviour
     private float zoomSpeed = 1000f;  // Adjustable zoom speed per camera
     private float rotateSpeed = 5f; // Speed at which the camera rotates based on mouse movement
 
-    private Camera camera;
+    private new Camera camera;
     private Vector3 lastMousePosition;
-    private float currentXRotation = 0f; // Track the camera's current rotation along the X-axis
-    private float currentYRotation = 0f; // Track the camera's current rotation along the Y-axis
-    private bool isRightClicking = false;
+    private float currentXRotation = 0f;
+    private float currentYRotation = 0f;
 
     void Start()
     {
-        // Get the Camera component attached to the object
         camera = GetComponent<Camera>();
     }
 
@@ -42,7 +40,6 @@ public class CameraZoom : MonoBehaviour
         // Check if the right mouse button is held down
         if (Input.GetMouseButtonDown(1)) // Right mouse button down
         {
-            isRightClicking = true;
             lastMousePosition = Input.mousePosition; // Store initial mouse position
         }
 
@@ -63,11 +60,6 @@ public class CameraZoom : MonoBehaviour
 
             // Update the last mouse position for continuous rotation
             lastMousePosition = Input.mousePosition;
-        }
-
-        if (Input.GetMouseButtonUp(1)) // Right mouse button released
-        {
-            isRightClicking = false;
         }
     }
 }

@@ -11,7 +11,7 @@ public class AdjustMainCamera : MonoBehaviour
 
     void Start()
     {
-        GetObjectsPosition();
+        StartCoroutine(WaitForHabitableZone());
     }
 
     // Update is called once per frame
@@ -19,15 +19,15 @@ public class AdjustMainCamera : MonoBehaviour
     {   
         if (outerHabitableZoneToShow == 0)
         {
-            outerHabitableZoneToShow = HabitableZone.outerHabitableZone;
-            Debug.Log($"Habitable Zone To Show (Outer): {outerHabitableZoneToShow} Km/scale");
+            return;
         }
+
         // if the planet position is 0, 0, 0 retry
-        if (planetPosition == Vector3.zero & outerHabitableZoneToShow != 0)
+        if (planetPosition == Vector3.zero)
         {
             GetObjectsPosition();
         }
-        if (planet == null & outerHabitableZoneToShow != 0)
+        if (planet == null)
         {
             // if the planet or star is not found, try to find them again
             GetObjectsPosition();
@@ -52,11 +52,15 @@ public class AdjustMainCamera : MonoBehaviour
         }
     }
 
+    private IEnumerator WaitForHabitableZone()
+    {
+        yield return new WaitForSeconds(2);
+        outerHabitableZoneToShow = HabitableZone.outerHabitableZone;
+        GetObjectsPosition();
+    }
+
     void GetObjectsPosition()
     {
-        // Assuming you have tags assigned to your planet and star objects
-        //planet = GameObject.Find("GeneratedPlanet");
-
         // get all objects with the tag "GeneratedPlanet"
         GameObject[] planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         // get the farthest planet

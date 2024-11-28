@@ -7,7 +7,7 @@ public class SpiningWheel : MonoBehaviour
     public float rotationSpeed = 200f;
     public Camera mainCamera;
     public Camera loadingScreenCamera;
-    public Light light;
+    public new Light light;
 
     // start a coroutine for 3 s
     void Start()

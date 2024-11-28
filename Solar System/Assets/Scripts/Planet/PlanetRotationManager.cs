@@ -21,7 +21,7 @@ public class PlanetRotationManager : MonoBehaviour
         // if the satellite is inactive, stop the planet orbit
         GameObject generatedStar = GameObject.Find("GeneratedStar");
         // stop the orbite only when on the planet camera
-        if (Camera.main.name == "CAM Planet" || Camera.main.name == "CAM Satellite")
+        if (Camera.main.name == "CAM Planet")
         {
             stopOrbite = true;
         }

@@ -29,8 +29,6 @@ public class HabitableZone : MonoBehaviour
         //PlayerPrefs.SetInt("outerHabitableZoneToShow", (int)outerHabitableZone);
 
         // Log the results for the habitable zone
-        Debug.Log($"Habitable Zone (Inner): {innerHabitableZone} Km/scale");
-        Debug.Log($"Habitable Zone (Outer): {outerHabitableZone} Km/scale");
 
         // Call UpdateRing on the SimpleRingGenerator to update the ring
         if (simpleRingGenerator != null)

@@ -2,6 +2,9 @@
 
 using UnityEngine;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class BTN_CAM_Switcher : MonoBehaviour
 {
@@ -23,33 +26,23 @@ public class BTN_CAM_Switcher : MonoBehaviour
     void Start()
     {
         button.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SwitchCamera);
+
+        // start coroutine of 2s to wait for the objects to be generated
+        StartCoroutine(WaitForObjects());
     }
-
-
 
     void Update()
     {
-        if (planets == null)
-        {
-            // get all the objects with the tag "GeneratedPlanet"
-            planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-        }
-        if (satellite == null)
-        {
-            satellite = GameObject.Find("GeneratedSatellite");
-        }
-        if (star == null)
-        {
-            star = GameObject.Find("GeneratedStar");
-            // get the the chlildren of the star that is particles
-            particles = star.GetComponentsInChildren<ParticleSystem>();
-        }
 
-          // Deactivate redSpheres specifically without affecting UI
-        foreach (GameObject redSphere in GameObject.FindGameObjectsWithTag("RedSphere"))
-        {
-            redSphere.GetComponent<MeshRenderer>().enabled = true;
-        }
+    }
+
+    IEnumerator WaitForObjects()
+    {
+        yield return new WaitForSeconds(2);
+        planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
+        satellite = GameObject.Find("GeneratedSatellite");
+        star = GameObject.Find("GeneratedStar");
+        particles = star.GetComponentsInChildren<ParticleSystem>();
     }
 
     void SwitchCamera()
@@ -69,6 +62,10 @@ public class BTN_CAM_Switcher : MonoBehaviour
         {
             Show(satellite);
             Show(star);
+            for (int i = 0; i < planets.Length; i++)
+            {
+                Show(planets[i]);
+            }
             particles[0].gameObject.SetActive(true);
         }
         canvas.worldCamera = cameraToSwitch;

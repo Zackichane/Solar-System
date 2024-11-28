@@ -11,4 +11,5 @@ public class planetInfos : MonoBehaviour
     public string planetMass;
     public string distPlanetStar;
     public string planetHabitable;
+    public GameObject redSphere;
 }

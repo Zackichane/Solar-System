@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static System.Math;
 
+
 public class PlanetManager : MonoBehaviour
 {
     private const float scale = 10000f;
@@ -93,17 +94,18 @@ public class PlanetManager : MonoBehaviour
         float currentOrbitDistance = starSize * 2;
         // get the max size of a planet
         float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
-
+        float randomOrbitDistance = Random.Range(5, 13);
+        float randomOrbitOtherPlanets = Random.Range(70, 180);
 
         for (int i = 0; i < numberOfPlanets; i++)
         {
             if (nGeneratedPlanets == 0)
             {
-                currentOrbitDistance += maxSize * 10;
+                currentOrbitDistance += maxSize * randomOrbitDistance;
             }
             else
             {
-                currentOrbitDistance += (maxSize * 8) + (orbitBuffer * 100);
+                currentOrbitDistance += (maxSize * 8) + (orbitBuffer * randomOrbitOtherPlanets);
             }
 
             float Albedo = Random.Range(0.1f, 1f);
@@ -126,7 +128,7 @@ public class PlanetManager : MonoBehaviour
             else
             {
                 // get a random type of planet and its infos
-                (randomSizeKm, listOfPlanets, randomPlanetType) = GetRandomPlanetType();
+                (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg) = GetRandomPlanetType();
             }
 
             // get a random prefab from the list of planets
@@ -138,9 +140,6 @@ public class PlanetManager : MonoBehaviour
 
             // set the position of the planet
             generatedPlanet.transform.position = new Vector3(currentOrbitDistance, 0, 0);
-
-            // instantiate the red sphere
-            InstantiateRedSpheres(generatedPlanet);
 
             // set the inclination of the planet
             float inclination = Random.Range(minInclination, maxInclination);
@@ -157,8 +156,9 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.planetName = (string)generatedPlanet.name;
             planetTypeComponent.planetType = (string)randomPlanetType;
             planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
-            planetTypeComponent.distPlanetStar = (currentOrbitDistance*scale).ToString();
-            planetTypeComponent.planetMass = randomMassKg.ToString();
+            planetTypeComponent.distPlanetStar = (currentOrbitDistance*scale).ToString("E3");
+            planetTypeComponent.planetMass = randomMassKg.ToString("E2");
+            planetTypeComponent.redSphere = InstantiateRedSpheres(generatedPlanet);
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
             if (isHabitable)
@@ -177,7 +177,7 @@ public class PlanetManager : MonoBehaviour
     }
 
     // function to get a random planet type and its infos
-    (float, GameObject[], string) GetRandomPlanetType()
+    (float, GameObject[], string, double) GetRandomPlanetType()
     {
         int randomType = Random.Range(0, 4);
         float randomSizeKm = 0f;
@@ -212,10 +212,12 @@ public class PlanetManager : MonoBehaviour
             listOfPlanets = gasPlanets;
             randomPlanetType = "GasPlanets";
         }
-        return (randomSizeKm, listOfPlanets, randomPlanetType);
+        // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
+        randomMassKg = System.Math.Round(randomMassKg, 2);
+        return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg);
     }
 
-    void InstantiateRedSpheres(GameObject planet)
+    GameObject InstantiateRedSpheres(GameObject planet)
     {
         // Instantiate and scale the red sphere
         GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
@@ -230,6 +232,7 @@ public class PlanetManager : MonoBehaviour
         }
 
         redSphere.transform.parent = planet.transform;
+        return redSphere;
     }
 
 }

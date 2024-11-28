@@ -9,7 +9,6 @@ public class RedMarksToggle : MonoBehaviour
     public Toggle toggle_blue;
     private List<GameObject> redSpheres = new List<GameObject>(); // Persistent list
     private List<GameObject> blueSpheres = new List<GameObject>();
-    private bool isActive = true;
     private Camera currentCamera;
 
     void Start()

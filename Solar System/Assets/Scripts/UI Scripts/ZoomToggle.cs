@@ -85,7 +85,6 @@ public class ZoomToggle : MonoBehaviour
 
     void DisableOtherScripts(Camera camera)
     {
-        Debug.Log(camera.name);
         if (camera.name == "Main Camera")
         {
             camera.GetComponent<AdjustMainCamera>().enabled = false;
@@ -98,7 +97,6 @@ public class ZoomToggle : MonoBehaviour
 
     void EnableOtherScripts(Camera camera)
     {
-        Debug.Log(camera.name);
         if (camera.name == "Main Camera")
         {
             camera.GetComponent<AdjustMainCamera>().enabled = true;

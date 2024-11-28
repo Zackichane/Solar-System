@@ -17,11 +17,13 @@ public class SatelliteCAMSwitcher : MonoBehaviour
     private GameObject[] satellites;
     public Camera satelliteCam;
     private Camera[] cameras;
-    private int currentIndex = 0;
     public Vector3 offset;    // Offset from the target
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
-    private Transform planetToTrack; // Change type to Transform
-    private Transform satelliteToTrack; // Add this line
+    private Transform planetToTrack;
+    private Transform satelliteToTrack;
+    private int satelliteIndex = 0;
+    private GameObject currentPlanetTracked = null;
+    private GameObject oldPlanetTracked = null;
 
     void Start()
     {
@@ -52,30 +54,54 @@ public class SatelliteCAMSwitcher : MonoBehaviour
 
     void SwitchCamera()
     {
-        // desactiver toutes les cameras
-        cameras = GameObject.FindObjectsOfType<Camera>();
-        foreach (Camera c in cameras)
-        {
-            c.enabled = false;
-        }
-        // activer la camera satelliteCam
-        satelliteCam.enabled = true;
 
         // obtenir une liste de toutes les planetes
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-        // mettre les planetes en ordre croissant par rapport a leur numero (GeneratedPlanet1, GeneratedPlanet2, etc.)
-        planets = planets.OrderBy(p => p.name).ToArray();
+        GameObject currentPlanet = null;
+
+        for (int i = 0; i < planets.Length; i++)
+        {
+            if (planets[i].GetComponent<MeshRenderer>().enabled)
+            {
+                currentPlanet = planets[i];
+                break;
+            }
+        }
+        if (currentPlanetTracked == null)
+        {
+            currentPlanetTracked = currentPlanet;
+        }
+        else
+        {
+            oldPlanetTracked = currentPlanetTracked;
+            currentPlanetTracked = currentPlanet;
+            if (oldPlanetTracked != currentPlanetTracked)
+            {
+                satelliteIndex = 0;
+            }
+        }
         
-        // obtenir le nombre de planetes
-        int planetCount = planets.Length;
 
         // obtenir une liste de tous les satellites
         satellites = GameObject.FindGameObjectsWithTag("GeneratedSatellite");
 
-        // obtenir la planete actuelle
-        GameObject currentPlanet = planets[currentIndex % planetCount];
         // obtenir les satellites de la planete actuelle
         GameObject[] satellitesOfCurrentPlanet = satellites.Where(s => s.GetComponent<planetTracker>().planet == currentPlanet).ToArray();
+        if (satellitesOfCurrentPlanet.Length == 0)
+        {
+            return;
+        }
+        else
+        {
+            // desactiver toutes les cameras
+            cameras = GameObject.FindObjectsOfType<Camera>();
+            foreach (Camera c in cameras)
+            {
+                c.enabled = false;
+            }
+            // activer la camera satelliteCam
+            satelliteCam.enabled = true;
+        }
 
         // cacher toutes les planetes sauf la planete actuelle
         foreach (GameObject p in planets)
@@ -92,15 +118,16 @@ public class SatelliteCAMSwitcher : MonoBehaviour
             {
                 Hide(s);
             }
+            else
+            {
+                Show(s);
+            }
         }
         // afficher la planete actuelle
         Show(currentPlanet);
 
-        // obtenir le satellite actuel de la planete actuelle
-        satelliteToTrack = satellitesOfCurrentPlanet[currentIndex / planetCount % satellitesOfCurrentPlanet.Length].transform;
-
-        // afficher le satellite actuel
-        Show(satelliteToTrack.gameObject);
+        // obtenir le satellite a suivre
+        satelliteToTrack = satellitesOfCurrentPlanet[satelliteIndex].transform;
 
         // desactiver l'etoile et ses particules
         Hide(star);
@@ -110,13 +137,14 @@ public class SatelliteCAMSwitcher : MonoBehaviour
 
         // change the satelliteCam object follower to the current satellite
         satelliteCam.GetComponent<CamObjFollow>().targetName = satelliteToTrack.name;
-        // ajouter le nom de la planete a suivre
+        // ajouter le nom de la planete a suivre et les noms des satellites de la planete a suivre
         satelliteCam.GetComponent<CamObjFollow>().secondTargetNames = new List<string> { currentPlanet.name };
+        satelliteCam.GetComponent<CamObjFollow>().secondTargetNames.AddRange(satellitesOfCurrentPlanet.Select(s => s.name).ToList());
 
-        currentIndex++;
-        if (currentIndex >= planetCount)
+        satelliteIndex++;
+        if (satelliteIndex >= satellitesOfCurrentPlanet.Length)
         {
-            currentIndex = 0;
+            satelliteIndex = 0;
         }
     }
 
