@@ -56,6 +56,34 @@ public class PlanetManager : MonoBehaviour
     private float habitableZoneOuterRadius;
     private bool planetsWereGenerated = false;
 
+    private static readonly string[] prefixes = {
+        "Kepler", "Gliese", "Proxima", "Eris", "Atlas", "Hydra", 
+        "Lyra", "Draconis", "Orion", "Nyx", "Helios", "Chronos", 
+        "Aquila", "Pegasus", "Vega", "Rigel", "Triton", "Altair", 
+        "Cygnus", "Nova", "Zenith", "Aurora", "Titan", "Arcturus"
+    };
+
+    private static readonly string[] suffixes = {
+        "-A", "-B", "-C", "-D", "-E", "-F", "-G", "-H", "-I", "-J", 
+        "-X", "-Y", "-Z", "-1a", "-1b", "-1c", "-2a", "-2b", "-2c", 
+        "-10", "-11", "-12", "-20", "-30", "-100", "-200", "-300", "-400"
+    };
+
+    private string planetName;
+
+    void Awake()
+    {
+        // Generate a random planet name by combining a random prefix and suffix
+        planetName = GenerateRandomName();
+    }
+
+    private string GenerateRandomName()
+    {
+        string prefix = prefixes[Random.Range(0, prefixes.Length)];
+        string suffix = suffixes[Random.Range(0, suffixes.Length)];
+        return prefix + suffix;
+    }
+
     void Start()
     {
         spawnPosition = new Vector3(0, 0, 0);
@@ -145,22 +173,30 @@ public class PlanetManager : MonoBehaviour
             float inclination = Random.Range(minInclination, maxInclination);
             generatedPlanet.transform.Rotate(Vector3.forward, inclination);
 
-            // rename the planet and add some components
-            generatedPlanet.name = "GeneratedPlanet" + (nGeneratedPlanets + 1).ToString();
+            // Generate a unique name for each planet
+            string uniquePlanetName = GenerateRandomName();
+
+            // rename the planet with the unique name
+            generatedPlanet.name = uniquePlanetName;
+
+            // add components to the planet
             generatedPlanetsList.Add(generatedPlanet);
             generatedPlanet.AddComponent<PlanetRotationManager>();
             generatedPlanet.tag = "GeneratedPlanet";
 
             // save the planet type
             var planetTypeComponent = generatedPlanet.AddComponent<planetInfos>();
-            planetTypeComponent.planetName = (string)generatedPlanet.name;
-            planetTypeComponent.planetType = (string)randomPlanetType;
-            planetTypeComponent.planetRadius = (string)(randomSizeKm/2 * scale).ToString();
-            planetTypeComponent.distPlanetStar = (currentOrbitDistance*scale).ToString("E3");
+
+            planetTypeComponent.planetName = uniquePlanetName; // Assign the unique name
+            planetTypeComponent.planetType = randomPlanetType;
+            planetTypeComponent.planetRadius = (randomSizeKm / 2 * scale).ToString();
+            planetTypeComponent.distPlanetStar = (currentOrbitDistance * scale).ToString("E3");
             planetTypeComponent.planetMass = randomMassKg.ToString("E2");
             planetTypeComponent.redSphere = InstantiateRedSpheres(generatedPlanet);
+
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
+
             if (isHabitable)
             {
                 planetTypeComponent.planetHabitable = "yes";
@@ -168,7 +204,8 @@ public class PlanetManager : MonoBehaviour
             else
             {
                 planetTypeComponent.planetHabitable = "no";
-            } 
+            }
+
             planetTypeComponent.planetTemperature = planetTemperature.ToString();
             nGeneratedPlanets++;
         }
