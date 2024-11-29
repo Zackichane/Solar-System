@@ -140,7 +140,8 @@ public class SatelliteCAMSwitcher : MonoBehaviour
         // ajouter le nom de la planete a suivre et les noms des satellites de la planete a suivre
         satelliteCam.GetComponent<CamObjFollow>().secondTargetNames = new List<string> { currentPlanet.name };
         satelliteCam.GetComponent<CamObjFollow>().secondTargetNames.AddRange(satellitesOfCurrentPlanet.Select(s => s.name).ToList());
-
+        satelliteCam.GetComponent<CamObjFollow>().enabled = false;
+        satelliteCam.GetComponent<CamObjFollow>().enabled = true;
         satelliteIndex++;
         if (satelliteIndex >= satellitesOfCurrentPlanet.Length)
         {

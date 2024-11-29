@@ -24,7 +24,7 @@ public class SpiningWheel : MonoBehaviour
 
     IEnumerator WaitForSeconds()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         mainCamera.enabled = true;
         loadingScreenCamera.enabled = false;

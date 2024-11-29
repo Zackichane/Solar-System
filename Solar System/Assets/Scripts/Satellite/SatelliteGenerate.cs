@@ -93,7 +93,7 @@ public class SatelliteGenerate : MonoBehaviour
             satellitesArray.Add(generatedSatellite);
             generatedSatellite.transform.localScale = new Vector3(sizeSatellite, sizeSatellite, sizeSatellite);
 
-            generatedSatellite.name = "GeneratedSatellite" + planetObject.name.Substring(15) + "_" + satelliteCounter++;
+            generatedSatellite.name = "GeneratedSatellite" + satelliteCounter++;
             generatedSatellite.tag = "GeneratedSatellite";
 
             generatedSatellite.AddComponent<planetTracker>();

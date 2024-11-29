@@ -5,7 +5,7 @@ using UnityEngine;
 public class SatelliteRotationManager : MonoBehaviour
 {
     // set the centerobject position to 0,0,0
-    private Transform centerObject;
+    private Transform centerObject = null;
     private float rotationSpeed = 1f;
     private string number;
     private GameObject generatedPlanet;
