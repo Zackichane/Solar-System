@@ -17,11 +17,7 @@ public class RedSphereMasking : MonoBehaviour
         {
             for (int i = 0; i < planets.Length; i++)
             {
-                if (planets[i].GetComponent<MeshRenderer>().enabled && Camera.main.name != "CAM Planet")
-                {
-                    planets[i].GetComponent<planetInfos>().redSphere.SetActive(true);
-                }
-                else
+                if (planets[i].GetComponent<MeshRenderer>().enabled == false)
                 {
                     planets[i].GetComponent<planetInfos>().redSphere.SetActive(false);
                 }
