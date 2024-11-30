@@ -2770,7 +2770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d310eab05fb27234284a42fb8ced0471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satelliteButton: {fileID: 1742393682}
+  satelliteButton: {fileID: 303365317}
 --- !u!1 &801232260
 GameObject:
   m_ObjectHideFlags: 0
@@ -7909,7 +7909,6 @@ MonoBehaviour:
   - {fileID: 138804821747004864, guid: 277ef422acae5e94497f27d181189f60, type: 3}
   - {fileID: 2986577204569377523, guid: 085fc26f9fd90754f940b29396613e8d, type: 3}
   - {fileID: 4047271568207478868, guid: 79604c24bb34e6c47a159507233d00f1, type: 3}
-  - {fileID: 6835598935527039314, guid: de71c1eff08646943a7d7e5c19f5a010, type: 3}
   - {fileID: 6665734095428291174, guid: 21a7a8cfa2a7f4e499a276d2574f3728, type: 3}
   gasPlanets:
   - {fileID: 8020566277409878106, guid: 5fee33facfd7e8448b0feb856cf11211, type: 3}

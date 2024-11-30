@@ -140,12 +140,14 @@ public class PlanetManager : MonoBehaviour
 
             float starTemperature = (StarGeneration.starTemperature);
 
+            float AtmTemperature = Random.Range(1f, 1.99f);
+
             // Calculate the planet's temperature
-            float planetTemperature = (starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - Albedo, 0.25f);
+            float planetTemperature = ((starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - Albedo, 0.25f)) * AtmTemperature;
             bool isHabitable = false;
             float randomSizeKm;
 
-            if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius && planetTemperature >= 273 && planetTemperature <= 388)
+            if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius && planetTemperature >= 273 && planetTemperature <= 350)
             {
                 randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
                 randomMassKg = (double)Random.Range((float)minMassRocheuse, (float)maxMassRocheuse);
@@ -156,13 +158,19 @@ public class PlanetManager : MonoBehaviour
             else
             {
                 // get a random type of planet and its infos
-                (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg) = GetRandomPlanetType();
+                (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg) = GetRandomPlanetType(planetTemperature);
             }
 
             // get a random prefab from the list of planets
-            GameObject planetPrefab = listOfPlanets[Random.Range(0, listOfPlanets.Length)];
+            int randomIndex = Random.Range(0, listOfPlanets.Length);
+            GameObject planetPrefab = listOfPlanets[randomIndex];
             generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
-            
+
+            // Remove the used prefab from the list
+            List<GameObject> tempList = new List<GameObject>(listOfPlanets);
+            tempList.RemoveAt(randomIndex);
+            listOfPlanets = tempList.ToArray();
+
             // set the scale of the planet
             generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
 
@@ -193,6 +201,7 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.distPlanetStar = (currentOrbitDistance * scale).ToString("E3");
             planetTypeComponent.planetMass = randomMassKg.ToString("E2");
             planetTypeComponent.redSphere = InstantiateRedSpheres(generatedPlanet);
+            planetTypeComponent.id = nGeneratedPlanets;
 
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
@@ -214,7 +223,7 @@ public class PlanetManager : MonoBehaviour
     }
 
     // function to get a random planet type and its infos
-    (float, GameObject[], string, double) GetRandomPlanetType()
+    (float, GameObject[], string, double) GetRandomPlanetType(float planetTemperature)
     {
         int randomType = Random.Range(0, 4);
         float randomSizeKm = 0f;
@@ -227,27 +236,27 @@ public class PlanetManager : MonoBehaviour
             randomSizeKm = Random.Range(minMercure, maxMercure);
             randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
             listOfPlanets = MercuryPlanets;
-            randomPlanetType = "MercuryPlanets";
+            randomPlanetType = "Rocky Planet";
         }
-        else if (randomType == 1)
+        else if (randomType == 1 && planetTemperature >= 380)
         {
             randomSizeKm = Random.Range(minVenus, maxVenus);
             randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
             listOfPlanets = VenusPlanets;
-            randomPlanetType = "VenusPlanets";
+            randomPlanetType = "Rocky Planet";
         }
         else if (randomType == 2)
         {
             randomSizeKm = Random.Range(minMars, maxMars);
             randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
             listOfPlanets = MarsPlanets;
-            randomPlanetType = "MarsPlanets";
+            randomPlanetType = "Rocky Planet";
         }
         else
         {
             randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
             listOfPlanets = gasPlanets;
-            randomPlanetType = "GasPlanets";
+            randomPlanetType = "Gas Planet";
         }
         // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
         randomMassKg = System.Math.Round(randomMassKg, 2);

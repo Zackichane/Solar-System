@@ -78,7 +78,7 @@ public class PlanetCAMSwitcher : MonoBehaviour
 
     // Get a list of all planets and sort them
     planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
-    planets = planets.OrderBy(p => p.name).ToArray();
+    planets = planets.OrderBy(p => p.GetComponent<planetInfos>().id).ToArray();
 
     int planetCount = planets.Length;
 
