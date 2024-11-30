@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static System.Math;
 
 
@@ -60,6 +61,8 @@ public class PlanetManager : MonoBehaviour
     private float habitableZoneInnerRadius;
     private float habitableZoneOuterRadius;
     private bool planetsWereGenerated = false;
+
+    public Slider sizeSlider;
 
     private static readonly string[] prefixes = {
         "Kepler", "Gliese", "Proxima", "Eris", "Atlas", "Hydra", 
@@ -275,24 +278,52 @@ public class PlanetManager : MonoBehaviour
         // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
         randomMassKg = System.Math.Round(randomMassKg, 2);
         return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg);
+        
+        if (sizeSlider != null)
+            {
+                AdjustRedSphereSize(sizeSlider.value);
+            }
     }
 
     GameObject InstantiateRedSpheres(GameObject planet)
     {
-        // Instantiate and scale the red sphere
+        // Instantiate the red sphere
         GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
-        
-        if (planet.transform.localScale.x >= 150)
-        {
-            redSphere.transform.localScale = planet.transform.localScale;
-        }
-        else
-        {
-            redSphere.transform.localScale = new Vector3(150, 150, 150);
-        }
 
-        redSphere.transform.parent = planet.transform;
+        // Set the red sphere's parent to be the planet, so it moves with the planet
+        redSphere.transform.SetParent(planet.transform);
+
+        redSphere.transform.localPosition = Vector3.zero;
+        redSphere.transform.localScale = new Vector3(1f, 1f, 1f);
+
         return redSphere;
     }
 
+
+    void AdjustRedSphereSize(float sliderValue)
+    {
+        // Find all red spheres associated with planets
+        foreach (var planet in generatedPlanetsList)
+        {
+            // Check if the red sphere exists for the current planet
+            planetInfos planetInfo = planet.GetComponent<planetInfos>();
+            if (planetInfo != null && planetInfo.redSphere != null)
+            {
+                // Adjust the size of the red sphere only (scale it based on slider)
+                float newSize = sliderValue;
+                planetInfo.redSphere.transform.localScale = new Vector3(newSize, newSize, newSize);
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (sizeSlider != null)
+        {
+            // Update the red sphere size based on the slider's value
+            AdjustRedSphereSize(sizeSlider.value);
+        }  
+    }
+
 }
+
