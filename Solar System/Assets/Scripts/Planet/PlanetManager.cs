@@ -17,6 +17,8 @@ public class PlanetManager : MonoBehaviour
     private const float maxRocheuse = 22500 / scale;
     private const float minGazeuse = 44200 / scale;
     private const float maxGazeuse = 482000 / scale;
+    private const float minIceGas = 44200 / scale;
+    private const float maxIceGas = 482000 / scale;
 
     private const double minMassVenus = 2700000000000000000000000d;
     private const double maxMassVenus = 6500000000000000000000000d;
@@ -26,6 +28,8 @@ public class PlanetManager : MonoBehaviour
     private const double maxMassMars = 3500000000000000000000000d;
     private const double minMassRocheuse = 4800000000000000000000000d;
     private const double maxMassRocheuse = 10000000000000000000000000d;
+    private const double minMassGas = 189000000000000000000000d;
+    private const double maxMassGas = 189000000000000000000000000d;
     private double randomMassKg;
 
     private Vector3 spawnPosition;
@@ -46,6 +50,7 @@ public class PlanetManager : MonoBehaviour
     public GameObject[] MarsPlanets;
     public GameObject[] rockyPlanets;
     public GameObject[] gasPlanets;
+    public GameObject[] IceGasPlanets;
     public GameObject redSpherePrefab; // Prefab for the red spheres
     private float numberOfPlanets;
     private float minPlanet;
@@ -123,7 +128,7 @@ public class PlanetManager : MonoBehaviour
         // get the max size of a planet
         float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
         float randomOrbitDistance = Random.Range(5, 13);
-        float randomOrbitOtherPlanets = Random.Range(70, 180);
+        float randomOrbitOtherPlanets = Random.Range(80, 300);
 
         for (int i = 0; i < numberOfPlanets; i++)
         {
@@ -152,7 +157,7 @@ public class PlanetManager : MonoBehaviour
                 randomSizeKm = Random.Range(minRocheuse, maxRocheuse);
                 randomMassKg = (double)Random.Range((float)minMassRocheuse, (float)maxMassRocheuse);
                 listOfPlanets = rockyPlanets;
-                randomPlanetType = "RockyPlanets";
+                randomPlanetType = "Telluric planet";
                 isHabitable = true;
             }
             else
@@ -225,7 +230,7 @@ public class PlanetManager : MonoBehaviour
     // function to get a random planet type and its infos
     (float, GameObject[], string, double) GetRandomPlanetType(float planetTemperature)
     {
-        int randomType = Random.Range(0, 4);
+        int randomType = Random.Range(0, 5);
         float randomSizeKm = 0f;
         double randomMassKg = 0d;
         GameObject[] listOfPlanets;
@@ -236,28 +241,37 @@ public class PlanetManager : MonoBehaviour
             randomSizeKm = Random.Range(minMercure, maxMercure);
             randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
             listOfPlanets = MercuryPlanets;
-            randomPlanetType = "Rocky Planet";
+            randomPlanetType = "Telluric planet";
         }
         else if (randomType == 1 && planetTemperature >= 380)
         {
             randomSizeKm = Random.Range(minVenus, maxVenus);
             randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
             listOfPlanets = VenusPlanets;
-            randomPlanetType = "Rocky Planet";
+            randomPlanetType = "Telluric planet";
         }
         else if (randomType == 2)
         {
             randomSizeKm = Random.Range(minMars, maxMars);
             randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
             listOfPlanets = MarsPlanets;
-            randomPlanetType = "Rocky Planet";
+            randomPlanetType = "Telluric planet";
+        }
+        else if (randomType == 3 && planetTemperature <= 272)
+        {
+            randomSizeKm = Random.Range(minIceGas, maxIceGas);
+            randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
+            listOfPlanets = IceGasPlanets;
+            randomPlanetType = "Gas Giant";
         }
         else
         {
             randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
+            randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
             listOfPlanets = gasPlanets;
-            randomPlanetType = "Gas Planet";
+            randomPlanetType = "Gas Giant";
         }
+
         // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
         randomMassKg = System.Math.Round(randomMassKg, 2);
         return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg);
@@ -268,13 +282,13 @@ public class PlanetManager : MonoBehaviour
         // Instantiate and scale the red sphere
         GameObject redSphere = Instantiate(redSpherePrefab, planet.transform.position, Quaternion.identity);
         
-        if (planet.transform.localScale.x >= 100)
+        if (planet.transform.localScale.x >= 150)
         {
             redSphere.transform.localScale = planet.transform.localScale;
         }
         else
         {
-            redSphere.transform.localScale = new Vector3(100, 100, 100);
+            redSphere.transform.localScale = new Vector3(150, 150, 150);
         }
 
         redSphere.transform.parent = planet.transform;

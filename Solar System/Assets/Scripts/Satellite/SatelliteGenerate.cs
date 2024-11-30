@@ -37,7 +37,7 @@ public class SatelliteGenerate : MonoBehaviour
                 {
                     centerObject = generatedPlanet[i].transform;
                     int minSatellites = 0;
-                    int maxSatellites = 5;
+                    int maxSatellites = 3;
                     int numSatellites = Random.Range(minSatellites, maxSatellites + 1);
                     if (numSatellites > 0)
                     {
@@ -66,7 +66,7 @@ public class SatelliteGenerate : MonoBehaviour
         for (int i = 0; i < numSatellites; i++)
         {
             currentOrbit += largestSatelliteSize + orbitBuffer;
-            float randomBuffer = Random.Range(2f, 5f);
+            float randomBuffer = Random.Range(2f, 4f);
 
             if (satellites.Count > 0)
             {
