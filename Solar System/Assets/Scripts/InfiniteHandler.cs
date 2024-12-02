@@ -10,20 +10,11 @@ public class InfiniteHandler : MonoBehaviour
     void Start()
     {
         // set a player pref for the infinite mode
-        PlayerPrefs.SetInt("infinite", 1);
-        PlayerPrefs.SetInt("nInfinite", 0);
+        
         if (PlayerPrefs.GetInt("infinite") == 1)
         {
             // start a coroutine of 4 seconds to wait the assets to generate
-            StartCoroutine(WaitAssets());
-
-            if (stopInfinite)
-            {
-                // load the Generator scene
-                int nInfinite = PlayerPrefs.GetInt("nInfinite");
-                nInfinite++;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Generator");
-            }
+            StartCoroutine(HandleInfiniteMode());
         }
     }
 
@@ -33,7 +24,7 @@ public class InfiniteHandler : MonoBehaviour
         
     }
 
-    IEnumerator WaitAssets()
+    IEnumerator HandleInfiniteMode()
     {
         yield return new WaitForSeconds(4);
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
@@ -43,13 +34,18 @@ public class InfiniteHandler : MonoBehaviour
             if (isHabitable == "yes")
             {
                 stopInfinite = true;
-            }
-            else
-            // load the Generator scene
-            {
-                stopInfinite = false;
+                Debug.Log("Habitable planet found");
+                yield break;
             }
         }
 
+        if (!stopInfinite)
+        {
+            Debug.Log("No habitable planet found : Try no" + PlayerPrefs.GetInt("nInfinite"));
+            int nInfinite = PlayerPrefs.GetInt("nInfinite");
+            nInfinite++;
+            PlayerPrefs.SetInt("nInfinite", nInfinite);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Generator");
+        }
     }
 }
