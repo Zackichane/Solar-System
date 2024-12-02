@@ -61,6 +61,8 @@ public class PlanetManager : MonoBehaviour
     private float habitableZoneInnerRadius;
     private float habitableZoneOuterRadius;
     private bool planetsWereGenerated = false;
+    private int previousRandomType = 0;
+    private float currentOrbitDistance;
 
     public Slider sizeSlider;
 
@@ -127,7 +129,7 @@ public class PlanetManager : MonoBehaviour
 
     void GeneratePlanet()
     {
-        float currentOrbitDistance = starSize * 2;
+        currentOrbitDistance = starSize * 2;
         // get the max size of a planet
         float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
         float randomOrbitDistance = Random.Range(5, 13);
@@ -162,6 +164,7 @@ public class PlanetManager : MonoBehaviour
                 listOfPlanets = rockyPlanets;
                 randomPlanetType = "Telluric planet";
                 isHabitable = true;
+                previousRandomType = 0;
             }
             else
             {
@@ -239,40 +242,54 @@ public class PlanetManager : MonoBehaviour
         GameObject[] listOfPlanets;
         string randomPlanetType;
 
-        if (randomType == 0)
+        if (randomType == 0 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
         {
             randomSizeKm = Random.Range(minMercure, maxMercure);
             randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
             listOfPlanets = MercuryPlanets;
             randomPlanetType = "Telluric planet";
+            previousRandomType = 0;
         }
-        else if (randomType == 1 && planetTemperature >= 380)
+        else if (randomType == 1 && planetTemperature >= 380 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
         {
             randomSizeKm = Random.Range(minVenus, maxVenus);
             randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
             listOfPlanets = VenusPlanets;
             randomPlanetType = "Telluric planet";
+            previousRandomType = 1;
         }
-        else if (randomType == 2)
+        else if (randomType == 2 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
         {
             randomSizeKm = Random.Range(minMars, maxMars);
             randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
             listOfPlanets = MarsPlanets;
             randomPlanetType = "Telluric planet";
+            previousRandomType = 2;
         }
-        else if (randomType == 3 && planetTemperature <= 272)
+        else if (randomType == 3 && planetTemperature <= 272 && (currentOrbitDistance >= habitableZoneOuterRadius))
         {
             randomSizeKm = Random.Range(minIceGas, maxIceGas);
             randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
             listOfPlanets = IceGasPlanets;
             randomPlanetType = "Gas Giant";
+            previousRandomType = 3;
         }
-        else
+        else if (currentOrbitDistance >= habitableZoneOuterRadius)
         {
             randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
             randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
             listOfPlanets = gasPlanets;
             randomPlanetType = "Gas Giant";
+            previousRandomType = 4; // Add this line to ensure previousRandomType is set
+        }
+        else
+        {
+            // Default assignment to avoid unassigned variable error
+            randomSizeKm = Random.Range(minMercure, maxMercure);
+            randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
+            listOfPlanets = MercuryPlanets;
+            randomPlanetType = "Telluric planet";
+            previousRandomType = 0;
         }
 
         // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
@@ -280,9 +297,9 @@ public class PlanetManager : MonoBehaviour
         return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg);
         
         if (sizeSlider != null)
-            {
-                AdjustRedSphereSize(sizeSlider.value);
-            }
+        {
+            AdjustRedSphereSize(sizeSlider.value);
+        }
     }
 
     GameObject InstantiateRedSpheres(GameObject planet)
@@ -310,7 +327,7 @@ public class PlanetManager : MonoBehaviour
             if (planetInfo != null && planetInfo.redSphere != null)
             {
                 // Adjust the size of the red sphere only (scale it based on slider)
-                float newSize = sliderValue;
+                float newSize = sliderValue/planet.transform.localScale.x;
                 planetInfo.redSphere.transform.localScale = new Vector3(newSize, newSize, newSize);
             }
         }
