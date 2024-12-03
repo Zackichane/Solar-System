@@ -3008,6 +3008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab2955df7d6ce048a623ba19a288183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteToggle: {fileID: 1294377496}
 --- !u!4 &1040275984
 Transform:
   m_ObjectHideFlags: 0
@@ -3800,7 +3801,7 @@ GameObject:
   - component: {fileID: 1294377495}
   - component: {fileID: 1294377496}
   m_Layer: 5
-  m_Name: Toggle_HabitableZone
+  m_Name: Toggle_infinite_mode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4997,7 +4998,7 @@ GameObject:
   - component: {fileID: 1828515478}
   - component: {fileID: 1828515477}
   m_Layer: 5
-  m_Name: TextContainer (2)
+  m_Name: infinite_mode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
