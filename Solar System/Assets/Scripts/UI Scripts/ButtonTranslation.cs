@@ -21,11 +21,18 @@ public class ButtonTranslation : MonoBehaviour
     private float positionThreshold = 0.05f;
     private float rotationThreshold = 2.0f;
 
+    private Transform oldPosition;
+    private Transform currentPosition;
+
+    public GameObject[] buttons;
+
     void Start()
     {
         // Save the initial position and rotation of the camera
         initialPosition = mainCamera.transform.position;
         initialRotation = mainCamera.transform.rotation;
+
+        oldPosition = mainCamera.transform;
     }
 
     void Update()
@@ -33,10 +40,22 @@ public class ButtonTranslation : MonoBehaviour
         if (moveCamera)
         {
             MoveToPosition(targetPosition, Quaternion.Euler(targetRotation));
+            Debug.Log("Moving camera forward");
         }
         else if (moveBack)
         {
             MoveToPosition(initialPosition, initialRotation);
+            Debug.Log("Moving camera back");
+        }
+
+        if (oldPosition != mainCamera.transform)
+        {
+            ButtonsActivation(false);
+            oldPosition = mainCamera.transform;
+        }
+        else
+        {
+            ButtonsActivation(true);
         }
     }
 
@@ -82,5 +101,13 @@ public class ButtonTranslation : MonoBehaviour
         #else
             Application.Quit();  // Quit the game
         #endif
+    }
+
+    void ButtonsActivation(bool state)
+    {
+        foreach (GameObject button in buttons)
+        {
+            button.GetComponent<UnityEngine.UI.Button>().interactable = state;
+        }
     }
 }

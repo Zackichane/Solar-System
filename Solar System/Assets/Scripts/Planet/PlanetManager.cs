@@ -156,6 +156,7 @@ public class PlanetManager : MonoBehaviour
             float planetTemperature = ((starTemperature) * Mathf.Pow((StarGeneration.starSize * 10000 / 2f) / (2 *   currentOrbitDistance * 10000), 0.5f) * Mathf.Pow(1f - Albedo, 0.25f)) * AtmTemperature;
             bool isHabitable = false;
             float randomSizeKm;
+            string planetPrefabCategory;
 
             if (habitableZoneInnerRadius <= currentOrbitDistance && currentOrbitDistance <= habitableZoneOuterRadius && planetTemperature >= 273 && planetTemperature <= 350)
             {
@@ -165,11 +166,12 @@ public class PlanetManager : MonoBehaviour
                 randomPlanetType = "Telluric planet";
                 isHabitable = true;
                 previousRandomType = 0;
+                planetPrefabCategory = "Rocky";
             }
             else
             {
                 // get a random type of planet and its infos
-                (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg) = GetRandomPlanetType(planetTemperature);
+                (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg, planetPrefabCategory) = GetRandomPlanetType(planetTemperature);
             }
 
             // get a random prefab from the list of planets
@@ -234,72 +236,75 @@ public class PlanetManager : MonoBehaviour
     }
 
     // function to get a random planet type and its infos
-    (float, GameObject[], string, double) GetRandomPlanetType(float planetTemperature)
+    (float, GameObject[], string, double, string) GetRandomPlanetType(float planetTemperature)
     {
-        int randomType = Random.Range(0, 5);
+        int randomType;
         float randomSizeKm = 0f;
         double randomMassKg = 0d;
         GameObject[] listOfPlanets;
         string randomPlanetType;
+        string planetPrefab = null;
 
-        if (randomType == 0 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
+        do
         {
-            randomSizeKm = Random.Range(minMercure, maxMercure);
-            randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
-            listOfPlanets = MercuryPlanets;
-            randomPlanetType = "Telluric planet";
-            previousRandomType = 0;
-        }
-        else if (randomType == 1 && planetTemperature >= 380 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
-        {
-            randomSizeKm = Random.Range(minVenus, maxVenus);
-            randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
-            listOfPlanets = VenusPlanets;
-            randomPlanetType = "Telluric planet";
-            previousRandomType = 1;
-        }
-        else if (randomType == 2 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
-        {
-            randomSizeKm = Random.Range(minMars, maxMars);
-            randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
-            listOfPlanets = MarsPlanets;
-            randomPlanetType = "Telluric planet";
-            previousRandomType = 2;
-        }
-        else if (randomType == 3 && planetTemperature <= 272 && (currentOrbitDistance >= habitableZoneOuterRadius))
-        {
-            randomSizeKm = Random.Range(minIceGas, maxIceGas);
-            randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
-            listOfPlanets = IceGasPlanets;
-            randomPlanetType = "Gas Giant";
-            previousRandomType = 3;
-        }
-        else if (currentOrbitDistance >= habitableZoneOuterRadius)
-        {
-            randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
-            randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
-            listOfPlanets = gasPlanets;
-            randomPlanetType = "Gas Giant";
-            previousRandomType = 4; // Add this line to ensure previousRandomType is set
-        }
-        else
-        {
-            // Default assignment to avoid unassigned variable error
-            randomSizeKm = Random.Range(minMercure, maxMercure);
-            randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
-            listOfPlanets = MercuryPlanets;
-            randomPlanetType = "Telluric planet";
-            previousRandomType = 0;
-        }
+            randomType = Random.Range(0, 5);
 
-        // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
-        randomMassKg = System.Math.Round(randomMassKg, 2);
-        return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg);
-        
-        if (sizeSlider != null)
-        {
-            AdjustRedSphereSize(sizeSlider.value);
-        }
+            if (randomType == 0 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
+            {
+                randomSizeKm = Random.Range(minMercure, maxMercure);
+                randomMassKg = (double)Random.Range((float)minMassMercure, (float)maxMassMercure);
+                listOfPlanets = MercuryPlanets;
+                randomPlanetType = "Telluric planet";
+                previousRandomType = 0;
+                planetPrefab = "Mercury";
+            }
+            else if (randomType == 1 && planetTemperature >= 380 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
+            {
+                randomSizeKm = Random.Range(minVenus, maxVenus);
+                randomMassKg = (double)Random.Range((float)minMassVenus, (float)maxMassVenus);
+                listOfPlanets = VenusPlanets;
+                randomPlanetType = "Telluric planet";
+                previousRandomType = 1;
+                planetPrefab = "Venus";
+            }
+            else if (randomType == 2 && previousRandomType == 0 || previousRandomType == 1 || previousRandomType == 2)
+            {
+                randomSizeKm = Random.Range(minMars, maxMars);
+                randomMassKg = (double)Random.Range((float)minMassMars, (float)maxMassMars);
+                listOfPlanets = MarsPlanets;
+                randomPlanetType = "Telluric planet";
+                previousRandomType = 2;
+                planetPrefab = "Mars";
+            }
+            else if (randomType == 3 && planetTemperature <= 272 && (currentOrbitDistance >= habitableZoneOuterRadius))
+            {
+                randomSizeKm = Random.Range(minIceGas, maxIceGas);
+                randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
+                listOfPlanets = IceGasPlanets;
+                randomPlanetType = "Gas Giant";
+                previousRandomType = 3;
+                planetPrefab = "IceGas";
+            }
+            else if (currentOrbitDistance >= habitableZoneOuterRadius)
+            {
+                randomSizeKm = Random.Range(minGazeuse, maxGazeuse);
+                randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
+                listOfPlanets = gasPlanets;
+                randomPlanetType = "Gas Giant";
+                previousRandomType = 4;
+                planetPrefab = "Gas";
+            }
+            else
+            {
+                // Retry if no conditions are met
+                continue;
+            }
+
+            // round the randomMassKg to 2 decimals so it will be like : 2.00 E24
+            randomMassKg = System.Math.Round(randomMassKg, 2);
+            return (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg, planetPrefab);
+
+        } while (true);
     }
 
     GameObject InstantiateRedSpheres(GameObject planet)

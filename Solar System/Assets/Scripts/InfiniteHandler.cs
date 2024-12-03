@@ -10,6 +10,12 @@ public class InfiniteHandler : MonoBehaviour
     public GameObject canvas;
 
     public TextMeshProUGUI text;
+
+    public TextMeshProUGUI message;
+
+    public Camera mainCamera;
+    public Camera loadingScreenCamera;
+    public new Light light;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +25,7 @@ public class InfiniteHandler : MonoBehaviour
         {
             // start a coroutine of 4 seconds to wait the assets to generate
             StartCoroutine(HandleInfiniteMode());
+            SetText();
         }
         else
         {
@@ -29,7 +36,11 @@ public class InfiniteHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (message.enabled)
+        {
+            // wait 5 seconds then disable the message
+            StartCoroutine(DisableMessage());
+        }
     }
 
     IEnumerator HandleInfiniteMode()
@@ -42,7 +53,12 @@ public class InfiniteHandler : MonoBehaviour
             if (isHabitable == "yes")
             {
                 stopInfinite = true;
-                Debug.Log("Habitable planet found");
+                message.enabled = true;
+                message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
+                
+                loadingScreenCamera.enabled = false;
+                mainCamera.enabled = true;
+                light.enabled = true;
                 canvas.GetComponent<Canvas>().enabled = false;
                 yield break;
             }
@@ -50,21 +66,31 @@ public class InfiniteHandler : MonoBehaviour
 
         if (!stopInfinite)
         {
-            Debug.Log("No habitable planet found : Try no" + PlayerPrefs.GetInt("nInfinite"));
-            text.text = "No habitable planet found : Try no " + PlayerPrefs.GetInt("nInfinite");
             int nInfinite = PlayerPrefs.GetInt("nInfinite");
             nInfinite++;
             PlayerPrefs.SetInt("nInfinite", nInfinite);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Generator");
-            canvas.GetComponent<Canvas>().enabled = false;
+            yield break;
         }
     }
 
     IEnumerator NormalLoadingScreen()
     {
         yield return new WaitForSeconds(3);
-        Camera.main.GetComponent<Camera>().enabled = false;
-        GameObject.Find("Main Camera").GetComponent<Camera>().enabled = true;
+        loadingScreenCamera.enabled = false;
+        mainCamera.enabled = true;
+        light.enabled = true;
         canvas.GetComponent<Canvas>().enabled = false;
+    }
+
+    void SetText()
+    {
+        text.text = "Generating Solar System... \n Try # " + PlayerPrefs.GetInt("nInfinite");
+    }
+
+    IEnumerator DisableMessage()
+    {
+        yield return new WaitForSeconds(15);
+        message.enabled = false;
     }
 }

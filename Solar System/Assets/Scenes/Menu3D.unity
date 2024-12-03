@@ -1043,6 +1043,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 15, y: 45, z: 15}
   transitionSpeed: 3
+  buttons: []
 --- !u!1 &204903966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3241,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   targetRotation: {x: 0, y: 0, z: 0}
   transitionSpeed: 3
+  buttons: []
 --- !u!114 &1072674685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5710,6 +5712,10 @@ MonoBehaviour:
   targetPosition: {x: 0.04, y: 1.447, z: -15}
   targetRotation: {x: 8.747, y: -180, z: -7.577}
   transitionSpeed: 3
+  buttons:
+  - {fileID: 136387314}
+  - {fileID: 490495096}
+  - {fileID: 1788534082}
 --- !u!1 &2051940128
 GameObject:
   m_ObjectHideFlags: 0

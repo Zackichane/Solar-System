@@ -13,5 +13,5 @@ public class planetInfos : MonoBehaviour
     public string planetHabitable;
     public GameObject redSphere;
     public float id;
-
+    public string planetPrefab;
 }
