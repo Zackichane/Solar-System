@@ -27,6 +27,11 @@ public class RandomTextGenerator : MonoBehaviour
         // Select a random text from the array
         string randomText = predefinedTexts[Random.Range(0, predefinedTexts.Length)];
 
+        if (PlayerPrefs.GetInt("starType") >= 5)
+        {
+            randomText = PlayerPrefs.GetString("starName");
+        }
+
         // Display the random text in the TextMeshPro box
         textMesh.text = randomText;
     }

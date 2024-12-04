@@ -35,12 +35,14 @@ public class StarGeneration : MonoBehaviour
     private float starLuminosity;
     public static float Luminosity;
     public static float LuminosityToShow;
+    private int starType;
     
 
     void Start()
     {
         // get the starType in the playerprefs that is an int
-        int starType = PlayerPrefs.GetInt("starType");
+        starType = PlayerPrefs.GetInt("starType");
+        Debug.Log("Star type: " + starType);
 
         if (starType == 1)
         {
@@ -147,17 +149,28 @@ public class StarGeneration : MonoBehaviour
 
     void GenerateYellowDwarf()
     {
-        randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
+        if (starType < 5)
+        {
+            randomSizeKm = Random.Range(minSizeKm, maxSizeKm);
 
-        starSize = randomSizeKm;
+            starSize = randomSizeKm;
+        }
+        else
+        {
+            randomSizeKm = starSize;
+        }
+        
 
         // Instantiate the star (yellow dwarf) at a position (0, 0, 0) with random size
         generatedStar = Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
 
         // Apply the size (localScale) based on the random size
         generatedStar.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
-
-        starTemperature = Random.Range(minTemp, maxTemp);
+        if (starType < 5)
+        {
+            starTemperature = Random.Range(minTemp, maxTemp);
+        }
+        
 
         // Calculate luminosity in watts
         starLuminosity = 4f * Mathf.PI * Mathf.Pow(starSize * 10000000f / 2f, 2f) * (float)(5.670374419e-8) * Mathf.Pow(starTemperature, 4f);

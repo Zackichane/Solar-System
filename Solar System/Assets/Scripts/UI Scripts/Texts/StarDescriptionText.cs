@@ -21,10 +21,37 @@ public class StarTypeDisplay : MonoBehaviour
                 starName = "Yellow Dwarf";
                 break;
             case 3:
-                starName = "Red Giant";
+                starName = "Red Dwarf";
                 break;
             case 4:
-                starName = "Blue Giant";
+                starName = "Blue Dwarf";
+                break;
+            case 5:
+                starName = "White Dwarf";
+                break;
+            case 6:
+                starName = "White Dwarf";
+                break;
+            case 7:
+                starName = "Red Dwarf";
+                break;
+            case 8:
+                starName = "Red Dwarf";
+                break;
+            case 9:
+                starName = "Red Dwarf";
+                break;
+            case 10:
+                starName = "Yellow Dwarf";
+                break;
+            case 11:
+                starName = "Yellow Dwarf";
+                break;
+            case 12:
+                starName = "Yellow Dwarf";
+                break;
+            case 13:
+                starName = "Black Hole";
                 break;
             default:
                 starName = "Unknown";
