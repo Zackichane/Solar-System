@@ -7966,6 +7966,15 @@ MonoBehaviour:
   WhiteDwarf: {fileID: 2951996512996849068, guid: 8acedbf79a93ea941a79bf059f096776, type: 3}
   RedGiant: {fileID: 447678872616417870, guid: b9a7cd4af62aa674ba1948a80abae988, type: 3}
   BlueGiant: {fileID: 974575123707857853, guid: cb37a7418012f6a46a082d16adb1f614, type: 3}
+  SiriusB: {fileID: 6509622000475679704, guid: 7c265fed18c0fe94f9cfce9d29f9a030, type: 3}
+  VanMaanen: {fileID: 4185256782596559314, guid: 2667d251b81b58a498ae8c924d6a3a31, type: 3}
+  ProximaCentauri: {fileID: 1543457084639755588, guid: d6c238b8327d96c4bad778a7d7f6a217, type: 3}
+  Wolf359: {fileID: 9074490511707566951, guid: 7fbfca02532d7c84a8f71fcdcf6e2573, type: 3}
+  Gilese581: {fileID: 7339717628900051732, guid: 66216920352568e4da3be09b2019b7c8, type: 3}
+  TauCeti: {fileID: 8172469549973007012, guid: b50b5eed2158e2342953f0ab148c15a8, type: 3}
+  TheSun: {fileID: 3124930519687933856, guid: 9db11331eaf11e843b11335f3cf7f76e, type: 3}
+  AlphaCentauri: {fileID: 720935546233538074, guid: e9332a6b121cb394bb13b053bfffecba, type: 3}
+  Ton618: {fileID: 659184374887829795, guid: 4898952c8c3820f4bb35ce96122caf75, type: 3}
   mainCamera: {fileID: 963194227}
   rotationSpeed: 0.01
 --- !u!4 &1831653902

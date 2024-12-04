@@ -7,6 +7,15 @@ public class StarGeneration : MonoBehaviour
     public GameObject WhiteDwarf;
     public GameObject RedGiant;
     public GameObject BlueGiant;
+    public GameObject SiriusB;
+    public GameObject VanMaanen;
+    public GameObject ProximaCentauri;
+    public GameObject Wolf359;
+    public GameObject Gilese581;
+    public GameObject TauCeti;
+    public GameObject TheSun;
+    public GameObject AlphaCentauri;
+    public GameObject Ton618;
     public Camera mainCamera;
     private GameObject generatedStar;
     private GameObject starPrefab;
@@ -61,7 +70,7 @@ public class StarGeneration : MonoBehaviour
             maxTemp = 2500;
             minTemp = 6000;
         }
-        else
+        else if (starType == 4)
         {
             starPrefab = BlueGiant; // maintenant naine bleue
             // 14 000 000 km to 140 000 000 km
@@ -70,6 +79,60 @@ public class StarGeneration : MonoBehaviour
             minTemp = 10000;
             maxTemp = 30000;
 
+        }
+        else if (starType == 5)
+        {
+            starPrefab = SiriusB;
+            starSize = 12000 / scale;
+            starTemperature = 25200;
+        }
+        else if (starType == 6)
+        {
+            starPrefab = VanMaanen;
+            starSize = 15300 / scale;
+            starTemperature = 6200;
+        }
+        else if (starType == 7)
+        {
+            starPrefab = ProximaCentauri;
+            starSize = 214000 / scale;
+            starTemperature = 3050;
+        }
+        else if (starType == 8)
+        {
+            starPrefab = Wolf359;
+            starSize = 222620 / scale;
+            starTemperature = 2800;
+        }
+        else if (starType == 9)
+        {
+            starPrefab = Gilese581;
+            starSize = 416000 / scale;
+            starTemperature = 3400;
+        }
+        else if (starType == 10)
+        {
+            starPrefab = TauCeti;
+            starSize = 1100000 / scale;
+            starTemperature = 5350;
+        }
+        else if (starType == 11)
+        {
+            starPrefab = TheSun;
+            starSize = 1390000 / scale;
+            starTemperature = 5770;
+        }
+        else if (starType == 12)
+        {
+            starPrefab = AlphaCentauri;
+            starSize = 1700000 / scale;
+            starTemperature = 5260;
+        }
+        else
+        {
+            starPrefab = Ton618;
+            starSize = 390000000000;
+            starTemperature = 0;
         }
         GenerateYellowDwarf();
 
