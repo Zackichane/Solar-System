@@ -85,7 +85,7 @@ public class InfiniteHandler : MonoBehaviour
 
     void SetText()
     {
-        text.text = "Generating Solar System... \n Try # " + PlayerPrefs.GetInt("nInfinite");
+        text.text = " Attempt # " + PlayerPrefs.GetInt("nInfinite");
     }
 
     IEnumerator DisableMessage()
