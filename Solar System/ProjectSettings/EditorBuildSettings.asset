@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu3DC.unity
     guid: 28003c1ea70845b4582b9691e36c5bde
+  - enabled: 1
+    path: Assets/Scenes/Museum.unity
+    guid: 756cc98210fd0d84e99200b02a10a351
   m_configObjects: {}

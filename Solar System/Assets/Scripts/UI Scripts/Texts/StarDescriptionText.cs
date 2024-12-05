@@ -50,9 +50,6 @@ public class StarTypeDisplay : MonoBehaviour
             case 12:
                 starName = "Yellow Dwarf";
                 break;
-            case 13:
-                starName = "Black Hole";
-                break;
             default:
                 starName = "Unknown";
                 break;

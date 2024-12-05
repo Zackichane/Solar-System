@@ -1,22 +1,45 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicManager : MonoBehaviour
 {
     private static MusicManager instance;
 
+    // Add the names of scenes where the music manager should NOT persist
+    [SerializeField]
+    private string[] excludedScenes;
+
     void Awake()
     {
-        // Check if an instance already exists
         if (instance == null)
         {
-            // If not, set this as the instance and don't destroy it on load
             instance = this;
-            DontDestroyOnLoad(gameObject);  // Keep this object alive across scenes
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to scene changes
         }
         else
         {
-            // If an instance already exists, destroy the duplicate
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from scene changes to avoid memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Check if the current scene is in the excluded list
+        foreach (string excludedScene in excludedScenes)
+        {
+            if (scene.name == excludedScene)
+            {
+                Destroy(gameObject); // Destroy the music manager
+                instance = null;     // Clear the static instance
+                return;
+            }
         }
     }
 }

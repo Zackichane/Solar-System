@@ -7974,7 +7974,7 @@ MonoBehaviour:
   TauCeti: {fileID: 8172469549973007012, guid: b50b5eed2158e2342953f0ab148c15a8, type: 3}
   TheSun: {fileID: 3124930519687933856, guid: 9db11331eaf11e843b11335f3cf7f76e, type: 3}
   AlphaCentauri: {fileID: 720935546233538074, guid: e9332a6b121cb394bb13b053bfffecba, type: 3}
-  Ton618: {fileID: 659184374887829795, guid: 4898952c8c3820f4bb35ce96122caf75, type: 3}
+  Ton618: {fileID: 0}
   mainCamera: {fileID: 963194227}
   rotationSpeed: 0.01
 --- !u!4 &1831653902

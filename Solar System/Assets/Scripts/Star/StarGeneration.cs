@@ -58,7 +58,7 @@ public class StarGeneration : MonoBehaviour
             starPrefab = YellowDwarf;
             // 1 120 000 km to 1 680 000 km
             minSizeKm = 1120000 / scale;
-            maxSizeKm = 1680000 / scale;
+            maxSizeKm = 1700000 / scale;
             minTemp = 5000;
             maxTemp = 6000;
 
@@ -124,17 +124,11 @@ public class StarGeneration : MonoBehaviour
             starSize = 1390000 / scale;
             starTemperature = 5770;
         }
-        else if (starType == 12)
+        else
         {
             starPrefab = AlphaCentauri;
             starSize = 1700000 / scale;
             starTemperature = 5260;
-        }
-        else
-        {
-            starPrefab = Ton618;
-            starSize = 390000000000;
-            starTemperature = 0;
         }
         GenerateYellowDwarf();
 
