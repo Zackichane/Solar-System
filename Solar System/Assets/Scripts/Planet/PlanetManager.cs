@@ -66,6 +66,8 @@ public class PlanetManager : MonoBehaviour
 
     public Slider sizeSlider;
 
+    public GameObject habitableZonePrefab;
+
     private static readonly string[] prefixes = {
         "Kepler", "Gliese", "Proxima", "Eris", "Atlas", "Hydra", 
         "Lyra", "Draconis", "Orion", "Nyx", "Helios", "Chronos", 
@@ -99,7 +101,11 @@ public class PlanetManager : MonoBehaviour
         spawnPosition = new Vector3(0, 0, 0);
         minPlanet = PlayerPrefs.GetInt("minPlanet");
         maxPlanet = PlayerPrefs.GetInt("maxPlanet");
+        
         numberOfPlanets = Mathf.Round(Random.Range(minPlanet, maxPlanet));
+        //////////////
+        numberOfPlanets = numberOfPlanets;
+        //////////////
 
         GameObject star = GameObject.FindGameObjectWithTag("GeneratedStar");
         if (star != null)
@@ -215,6 +221,11 @@ public class PlanetManager : MonoBehaviour
             planetTypeComponent.planetMass = randomMassKg.ToString("E2");
             planetTypeComponent.redSphere = InstantiateRedSpheres(generatedPlanet);
             planetTypeComponent.id = nGeneratedPlanets;
+
+            // create empty object
+            GameObject empty = Instantiate(habitableZonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            empty.GetComponent<SimpleRingGenerator>().innerRadius = currentOrbitDistance;
+            empty.GetComponent<SimpleRingGenerator>().outerRadius = currentOrbitDistance + 10;
 
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());

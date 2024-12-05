@@ -23,19 +23,19 @@ public class StarGenerationMenu3DP : MonoBehaviour
         // get the starType in the playerprefs that is an int
         int starType = PlayerPrefs.GetInt("starType");
 
-        if (starType == 1)
+        if (starType == 1 || starType == 5 || starType == 6)
         {
             starPrefab = WhiteDwarf;
         }
-        else if (starType == 2)
+        else if (starType == 2 || starType == 10 || starType == 11 || starType == 12)
         {
             starPrefab = YellowDwarf;
         }
-        else if (starType == 3)
+        else if (starType == 3 || starType == 7 || starType == 8 || starType == 9)
         {
             starPrefab = RedGiant;
         }
-        else
+        else if (starType == 4)
         {
             starPrefab = BlueGiant;
         }

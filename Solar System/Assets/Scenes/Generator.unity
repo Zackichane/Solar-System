@@ -8869,6 +8869,7 @@ MonoBehaviour:
   redSpherePrefab: {fileID: 7626456299735804715, guid: 026fb7b2be30ba14d84b8fcf10361b7e, type: 3}
   habitableZone: {fileID: 1337227903}
   sizeSlider: {fileID: 1979344830}
+  habitableZonePrefab: {fileID: 2255465655992034728, guid: 5a1c56e66ce1c8d4193786813c8737db, type: 3}
 --- !u!4 &2116769545
 Transform:
   m_ObjectHideFlags: 0
