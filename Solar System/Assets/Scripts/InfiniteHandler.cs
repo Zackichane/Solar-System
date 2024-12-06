@@ -24,7 +24,7 @@ public class InfiniteHandler : MonoBehaviour
     {
         // set a player pref for the infinite mode
         
-        if (PlayerPrefs.GetInt("infinite") == 1)
+        if (PlayerPrefs.GetInt("infinite") == 10)
         {
             // start a coroutine of 4 seconds to wait the assets to generate
             StartCoroutine(HandleInfiniteMode());
