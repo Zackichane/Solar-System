@@ -601,7 +601,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180194407}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -696,7 +696,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180194407}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &180194411
 Transform:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217250564}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1019,7 +1019,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217250564}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &217250568
 Transform:
   m_ObjectHideFlags: 0
@@ -2243,6 +2243,7 @@ MonoBehaviour:
   objectsToToggle:
   - {fileID: 464471414}
   - {fileID: 6455381145665342997}
+  mainCamera: {fileID: 771123731}
 --- !u!114 &429710527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2267,6 +2268,7 @@ MonoBehaviour:
   - {fileID: 6455381145665342997}
   - {fileID: 1074874285}
   - {fileID: 1044769945}
+  mainCamera: {fileID: 771123731}
 --- !u!114 &429710528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8947,7 +8949,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119899346}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2119899349
 Camera:
   m_ObjectHideFlags: 0
@@ -8955,7 +8957,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119899346}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}

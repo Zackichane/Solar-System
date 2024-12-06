@@ -703,6 +703,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   loadingScreenCamera: {fileID: 1246493835}
   light: {fileID: 1541131524}
+  nTriesToMake: 1
 --- !u!1 &129310489
 GameObject:
   m_ObjectHideFlags: 0
@@ -3187,6 +3188,7 @@ GameObject:
   - component: {fileID: 772673328}
   - component: {fileID: 772673329}
   - component: {fileID: 772673332}
+  - component: {fileID: 772673333}
   m_Layer: 0
   m_Name: BTN_Handler
   m_TagString: Untagged
@@ -3350,6 +3352,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   satelliteButton: {fileID: 303365317}
+--- !u!114 &772673333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772673318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9951597c335c469429b0d8d229b002ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: {fileID: 1194997254}
 --- !u!1 &801232260
 GameObject:
   m_ObjectHideFlags: 0

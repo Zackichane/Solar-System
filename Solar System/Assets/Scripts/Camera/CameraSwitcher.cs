@@ -6,6 +6,7 @@ public class CameraSwitcher : MonoBehaviour
     public Canvas[] canvas; // List of all canvases
     public GameObject[] objectsToToggle; // List of objects whose mesh renderers we want to toggle
     private int currentCameraIndex = 0; // Index of the currently active camera
+    public Camera mainCamera;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class CameraSwitcher : MonoBehaviour
             }
         }
 
-        if (cameras.Length > 0)
+        if (cameras.Length > 0 && mainCamera.enabled == false)
         {
             cameras[currentCameraIndex].enabled = true; // Enable the first camera
             canvas[currentCameraIndex].enabled = true; // Enable the first canvas

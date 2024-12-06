@@ -17,7 +17,8 @@ public class InfiniteHandler : MonoBehaviour
     public Camera loadingScreenCamera;
     public new Light light;
 
-    public int nTriesToMake = 20;
+    public int nTriesToMake = 15;
+    private bool statsMode = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,17 +48,13 @@ public class InfiniteHandler : MonoBehaviour
 
     IEnumerator HandleInfiniteMode()
     {
-        if (PlayerPrefs.GetInt("nInfinite") >= nTriesToMake)
+        if (PlayerPrefs.GetInt("nInfinite") >= nTriesToMake && statsMode == true)
         {
             stopInfinite = true;
-            //message.enabled = true;
-            //message.text = "No Habitable Planets Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
-            Debug.Log(PlayerPrefs.GetInt("nHabitable") + " Habitable Planets Found!" + " It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!");
-            loadingScreenCamera.enabled = false;
-            mainCamera.enabled = true;
-            light.enabled = true;
-            canvas.GetComponent<Canvas>().enabled = false;
-            stopInfinite = true;
+            
+            Debug.Log("Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + PlayerPrefs.GetInt("nInfinite"));
+            text.text = "Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + PlayerPrefs.GetInt("nInfinite");
+            
             yield break;
         }
         yield return new WaitForSeconds(2);
@@ -65,27 +62,32 @@ public class InfiniteHandler : MonoBehaviour
         foreach (GameObject planet in planets)
         {
             string isHabitable = planet.GetComponent<planetInfos>().planetHabitable;
-            //if (isHabitable == "yes")
-            //{
-            //    stopInfinite = true;
-            //    message.enabled = true;
-            //    message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
-            //    
-            //    loadingScreenCamera.enabled = false;
-            //    mainCamera.enabled = true;
-            //    light.enabled = true;
-            //    canvas.GetComponent<Canvas>().enabled = false;
-            //    yield break;
-            //}
-            //////////////////////////////////
-            if (isHabitable == "yes")
+            if (statsMode == false)
             {
-                Debug.Log("habitable planet found");
-                int nHabitable = PlayerPrefs.GetInt("nHabitable");
-                nHabitable++;
-                PlayerPrefs.SetInt("nHabitable", nHabitable);
+                Debug.Log("checking for habitable planets");
+                if (isHabitable == "yes")
+                {
+                    stopInfinite = true;
+                    message.enabled = true;
+                    message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
+
+                    loadingScreenCamera.enabled = false;
+                    mainCamera.enabled = true;
+                    light.enabled = true;
+                    canvas.GetComponent<Canvas>().enabled = false;
+                    yield break;
+                }
             }
-            //////////////////////////////////
+            else if (statsMode == true)
+            {
+                if (isHabitable == "yes")
+                {
+                    Debug.Log("habitable planet found");
+                    int nHabitable = PlayerPrefs.GetInt("nHabitable");
+                    nHabitable++;
+                    PlayerPrefs.SetInt("nHabitable", nHabitable);
+                }
+            }
         }
 
         if (!stopInfinite)
@@ -108,8 +110,14 @@ public class InfiniteHandler : MonoBehaviour
     }
 
     void SetText()
-    {
-        text.text = " Attempt # " + PlayerPrefs.GetInt("nInfinite");
+    {   if (!stopInfinite)
+        {
+            text.text = " Attempt # " + PlayerPrefs.GetInt("nInfinite");
+        }
+        else if (statsMode == true)
+        {
+            text.text = "Habitable Planet : " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + PlayerPrefs.GetInt("nInfinite");
+        }
     }
 
     IEnumerator DisableMessage()

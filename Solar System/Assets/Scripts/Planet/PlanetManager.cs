@@ -173,22 +173,65 @@ public class PlanetManager : MonoBehaviour
                 isHabitable = true;
                 previousRandomType = 0;
                 planetPrefabCategory = "Rocky";
+
+                // get a random prefab from the list of planets
+                int randomIndex = Random.Range(0, listOfPlanets.Length);
+                GameObject planetPrefab = listOfPlanets[randomIndex];
+
+                // remove the used prefab from the rockyPlanets list
+                List<GameObject> rockyPlanetsList = new List<GameObject>(rockyPlanets);
+                rockyPlanetsList.Remove(planetPrefab);
+                rockyPlanets = rockyPlanetsList.ToArray();
             }
             else
             {
                 // get a random type of planet and its infos
                 (randomSizeKm, listOfPlanets, randomPlanetType, randomMassKg, planetPrefabCategory) = GetRandomPlanetType(planetTemperature);
+                // get a random prefab from the list of planets
+                int randomIndex = Random.Range(0, listOfPlanets.Length);
+                GameObject planetPrefab = listOfPlanets[randomIndex];
+
+                generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
+                if (planetPrefabCategory == "Mercury")
+                {
+                    // remove the used prefab from the MercuryPlanets list
+                    List<GameObject> mercuryPlanetsList = new List<GameObject>(MercuryPlanets);
+                    mercuryPlanetsList.Remove(planetPrefab);
+                    MercuryPlanets = mercuryPlanetsList.ToArray();
+                }
+                else if (planetPrefabCategory == "Venus")
+                {
+                    // remove the used prefab from the VenusPlanets list
+                    List<GameObject> venusPlanetsList = new List<GameObject>(VenusPlanets);
+                    venusPlanetsList.Remove(planetPrefab);
+                    VenusPlanets = venusPlanetsList.ToArray();
+                }
+                else if (planetPrefabCategory == "Mars")
+                {
+                    // remove the used prefab from the MarsPlanets list
+                    List<GameObject> marsPlanetsList = new List<GameObject>(MarsPlanets);
+                    marsPlanetsList.Remove(planetPrefab);
+                    MarsPlanets = marsPlanetsList.ToArray();
+                }
+                else if (planetPrefabCategory == "IceGas")
+                {
+                    // remove the used prefab from the IceGasPlanets list
+                    List<GameObject> iceGasPlanetsList = new List<GameObject>(IceGasPlanets);
+                    iceGasPlanetsList.Remove(planetPrefab);
+                    IceGasPlanets = iceGasPlanetsList.ToArray();
+                }
+                else if (planetPrefabCategory == "Gas")
+                {
+                    // remove the used prefab from the gasPlanets list
+                    List<GameObject> gasPlanetsList = new List<GameObject>(gasPlanets);
+                    gasPlanetsList.Remove(planetPrefab);
+                    gasPlanets = gasPlanetsList.ToArray();
+                }
             }
 
-            // get a random prefab from the list of planets
-            int randomIndex = Random.Range(0, listOfPlanets.Length);
-            GameObject planetPrefab = listOfPlanets[randomIndex];
-            generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
+            
 
-            // Remove the used prefab from the list
-            List<GameObject> tempList = new List<GameObject>(listOfPlanets);
-            tempList.RemoveAt(randomIndex);
-            listOfPlanets = tempList.ToArray();
+            
 
             // set the scale of the planet
             generatedPlanet.transform.localScale = new Vector3(randomSizeKm, randomSizeKm, randomSizeKm);
