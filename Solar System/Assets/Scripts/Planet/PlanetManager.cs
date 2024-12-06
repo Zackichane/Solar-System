@@ -120,7 +120,7 @@ public class PlanetManager : MonoBehaviour
     IEnumerator CheckHabitableZone()
     {
         // Wait for 2 seconds
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         // Get the habitable zone inner and outer radius
         habitableZoneInnerRadius = habitableZone.GetComponent<SimpleRingGenerator>().innerRadius;

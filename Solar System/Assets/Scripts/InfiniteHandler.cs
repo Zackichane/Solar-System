@@ -16,6 +16,8 @@ public class InfiniteHandler : MonoBehaviour
     public Camera mainCamera;
     public Camera loadingScreenCamera;
     public new Light light;
+
+    public int nTriesToMake = 20;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,23 +47,45 @@ public class InfiniteHandler : MonoBehaviour
 
     IEnumerator HandleInfiniteMode()
     {
-        yield return new WaitForSeconds(4);
+        if (PlayerPrefs.GetInt("nInfinite") >= nTriesToMake)
+        {
+            stopInfinite = true;
+            //message.enabled = true;
+            //message.text = "No Habitable Planets Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
+            Debug.Log(PlayerPrefs.GetInt("nHabitable") + " Habitable Planets Found!" + " It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!");
+            loadingScreenCamera.enabled = false;
+            mainCamera.enabled = true;
+            light.enabled = true;
+            canvas.GetComponent<Canvas>().enabled = false;
+            stopInfinite = true;
+            yield break;
+        }
+        yield return new WaitForSeconds(2);
         planets = GameObject.FindGameObjectsWithTag("GeneratedPlanet");
         foreach (GameObject planet in planets)
         {
             string isHabitable = planet.GetComponent<planetInfos>().planetHabitable;
+            //if (isHabitable == "yes")
+            //{
+            //    stopInfinite = true;
+            //    message.enabled = true;
+            //    message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
+            //    
+            //    loadingScreenCamera.enabled = false;
+            //    mainCamera.enabled = true;
+            //    light.enabled = true;
+            //    canvas.GetComponent<Canvas>().enabled = false;
+            //    yield break;
+            //}
+            //////////////////////////////////
             if (isHabitable == "yes")
             {
-                stopInfinite = true;
-                message.enabled = true;
-                message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
-                
-                loadingScreenCamera.enabled = false;
-                mainCamera.enabled = true;
-                light.enabled = true;
-                canvas.GetComponent<Canvas>().enabled = false;
-                yield break;
+                Debug.Log("habitable planet found");
+                int nHabitable = PlayerPrefs.GetInt("nHabitable");
+                nHabitable++;
+                PlayerPrefs.SetInt("nHabitable", nHabitable);
             }
+            //////////////////////////////////
         }
 
         if (!stopInfinite)
@@ -76,7 +100,7 @@ public class InfiniteHandler : MonoBehaviour
 
     IEnumerator NormalLoadingScreen()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         loadingScreenCamera.enabled = false;
         mainCamera.enabled = true;
         light.enabled = true;

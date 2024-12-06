@@ -42,7 +42,6 @@ public class StarGeneration : MonoBehaviour
     {
         // get the starType in the playerprefs that is an int
         starType = PlayerPrefs.GetInt("starType");
-        Debug.Log("Star type: " + starType);
 
         if (starType == 1)
         {
