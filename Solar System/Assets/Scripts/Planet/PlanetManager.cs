@@ -224,8 +224,8 @@ public class PlanetManager : MonoBehaviour
 
             // create empty object
             GameObject empty = Instantiate(habitableZonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            empty.GetComponent<SimpleRingGenerator>().innerRadius = currentOrbitDistance;
-            empty.GetComponent<SimpleRingGenerator>().outerRadius = currentOrbitDistance + 10;
+            empty.GetComponent<SimpleRingGenerator>().innerRadius = currentOrbitDistance - 6;
+            empty.GetComponent<SimpleRingGenerator>().outerRadius = currentOrbitDistance + 6;
 
             // convert habitableZoneInnerRadius to float
             habitableZoneInnerRadius = float.Parse(habitableZoneInnerRadius.ToString());
