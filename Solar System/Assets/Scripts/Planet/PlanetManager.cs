@@ -182,6 +182,8 @@ public class PlanetManager : MonoBehaviour
                 List<GameObject> rockyPlanetsList = new List<GameObject>(rockyPlanets);
                 rockyPlanetsList.Remove(planetPrefab);
                 rockyPlanets = rockyPlanetsList.ToArray();
+
+                generatedPlanet = Instantiate(planetPrefab, spawnPosition, Quaternion.identity);
             }
             else
             {

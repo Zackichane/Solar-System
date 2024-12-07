@@ -17,14 +17,14 @@ public class InfiniteHandler : MonoBehaviour
     public Camera loadingScreenCamera;
     public new Light light;
 
-    public int nTriesToMake = 15;
-    private bool statsMode = true;
+    private int nTriesToMake = 20; // Nombre d'essais pour trouver une planète habitable en mode stats
+    private bool statsMode = true; // Si statsMode est true, on essai de trouver le nombre de planètes habitables en nTriesToMake essais
     // Start is called before the first frame update
     void Start()
     {
         // set a player pref for the infinite mode
         
-        if (PlayerPrefs.GetInt("infinite") == 10)
+        if (PlayerPrefs.GetInt("infinite") == 1)
         {
             // start a coroutine of 4 seconds to wait the assets to generate
             StartCoroutine(HandleInfiniteMode());
@@ -48,13 +48,18 @@ public class InfiniteHandler : MonoBehaviour
 
     IEnumerator HandleInfiniteMode()
     {
-        if (PlayerPrefs.GetInt("nInfinite") >= nTriesToMake && statsMode == true)
+        int nInfinite = PlayerPrefs.GetInt("nInfinite");
+        Debug.Log("nInfinite : " + nInfinite);
+        Debug.Log("nTriesToMake : " + nTriesToMake);
+        Debug.Log("statsMode : " + statsMode);
+
+        if (nInfinite >= nTriesToMake && statsMode == true)
         {
             stopInfinite = true;
-            
-            Debug.Log("Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + PlayerPrefs.GetInt("nInfinite"));
-            text.text = "Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + PlayerPrefs.GetInt("nInfinite");
-            
+
+            Debug.Log("Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + nInfinite);
+            text.text = "Habitable Planets Found: " + PlayerPrefs.GetInt("nHabitable") + " Tries: " + nInfinite;
+
             yield break;
         }
         yield return new WaitForSeconds(2);
@@ -69,7 +74,7 @@ public class InfiniteHandler : MonoBehaviour
                 {
                     stopInfinite = true;
                     message.enabled = true;
-                    message.text = "Habitable Planet Found! \n It took " + PlayerPrefs.GetInt("nInfinite") + " tries to find it!";
+                    message.text = "Habitable Planet Found! \n It took " + nInfinite + " tries to find it!";
 
                     loadingScreenCamera.enabled = false;
                     mainCamera.enabled = true;
@@ -92,9 +97,9 @@ public class InfiniteHandler : MonoBehaviour
 
         if (!stopInfinite)
         {
-            int nInfinite = PlayerPrefs.GetInt("nInfinite");
-            nInfinite++;
-            PlayerPrefs.SetInt("nInfinite", nInfinite);
+            int currentNInfinite = PlayerPrefs.GetInt("nInfinite");
+            currentNInfinite++;
+            PlayerPrefs.SetInt("nInfinite", currentNInfinite);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Generator");
             yield break;
         }
