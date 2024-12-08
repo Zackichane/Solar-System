@@ -19,11 +19,7 @@ public class CameraSwitcher : MonoBehaviour
             // Disable the mesh renderer for all objects initially
             if (objectsToToggle.Length > i)
             {
-                MeshRenderer meshRenderer = objectsToToggle[i].GetComponent<MeshRenderer>();
-                if (meshRenderer != null)
-                {
-                    meshRenderer.enabled = false;
-                }
+                DisableMeshRenderers(objectsToToggle[i]);
             }
         }
 
@@ -35,11 +31,7 @@ public class CameraSwitcher : MonoBehaviour
             // Enable the mesh renderer of the object related to the first camera
             if (objectsToToggle.Length > currentCameraIndex)
             {
-                MeshRenderer meshRenderer = objectsToToggle[currentCameraIndex].GetComponent<MeshRenderer>();
-                if (meshRenderer != null)
-                {
-                    meshRenderer.enabled = true;
-                }
+                EnableMeshRenderers(objectsToToggle[currentCameraIndex]);
             }
         }
     }
@@ -51,14 +43,10 @@ public class CameraSwitcher : MonoBehaviour
         cameras[currentCameraIndex].enabled = false;
         canvas[currentCameraIndex].enabled = false;
 
-        // Disable the mesh renderer of the current object
+        // Disable the mesh renderer of the current object and its children
         if (objectsToToggle.Length > currentCameraIndex)
         {
-            MeshRenderer meshRenderer = objectsToToggle[currentCameraIndex].GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
-            {
-                meshRenderer.enabled = false;
-            }
+            DisableMeshRenderers(objectsToToggle[currentCameraIndex]);
         }
 
         // Update the camera index, cycling back to the first camera if necessary
@@ -68,14 +56,10 @@ public class CameraSwitcher : MonoBehaviour
         cameras[currentCameraIndex].enabled = true;
         canvas[currentCameraIndex].enabled = true;
 
-        // Enable the mesh renderer of the new object
+        // Enable the mesh renderer of the new object and its children
         if (objectsToToggle.Length > currentCameraIndex)
         {
-            MeshRenderer meshRenderer = objectsToToggle[currentCameraIndex].GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
-            {
-                meshRenderer.enabled = true;
-            }
+            EnableMeshRenderers(objectsToToggle[currentCameraIndex]);
         }
     }
 
@@ -86,14 +70,10 @@ public class CameraSwitcher : MonoBehaviour
         cameras[currentCameraIndex].enabled = false;
         canvas[currentCameraIndex].enabled = false;
 
-        // Disable the mesh renderer of the current object
+        // Disable the mesh renderer of the current object and its children
         if (objectsToToggle.Length > currentCameraIndex)
         {
-            MeshRenderer meshRenderer = objectsToToggle[currentCameraIndex].GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
-            {
-                meshRenderer.enabled = false;
-            }
+            DisableMeshRenderers(objectsToToggle[currentCameraIndex]);
         }
 
         // Update the camera index, cycling back to the last camera if necessary
@@ -103,14 +83,30 @@ public class CameraSwitcher : MonoBehaviour
         cameras[currentCameraIndex].enabled = true;
         canvas[currentCameraIndex].enabled = true;
 
-        // Enable the mesh renderer of the new object
+        // Enable the mesh renderer of the new object and its children
         if (objectsToToggle.Length > currentCameraIndex)
         {
-            MeshRenderer meshRenderer = objectsToToggle[currentCameraIndex].GetComponent<MeshRenderer>();
-            if (meshRenderer != null)
-            {
-                meshRenderer.enabled = true;
-            }
+            EnableMeshRenderers(objectsToToggle[currentCameraIndex]);
+        }
+    }
+
+    // Function to disable mesh renderers for an object and all its children
+    private void DisableMeshRenderers(GameObject obj)
+    {
+        MeshRenderer[] renderers = obj.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers)
+        {
+            renderer.enabled = false;
+        }
+    }
+
+    // Function to enable mesh renderers for an object and all its children
+    private void EnableMeshRenderers(GameObject obj)
+    {
+        MeshRenderer[] renderers = obj.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers)
+        {
+            renderer.enabled = true;
         }
     }
 }

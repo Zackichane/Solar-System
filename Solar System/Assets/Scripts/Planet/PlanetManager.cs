@@ -138,8 +138,8 @@ public class PlanetManager : MonoBehaviour
         currentOrbitDistance = starSize * 2;
         // get the max size of a planet
         float maxSize = Mathf.Max(maxVenus, maxMercure, maxMars, maxRocheuse, maxGazeuse);
-        float randomOrbitDistance = Random.Range(5, 13);
-        float randomOrbitOtherPlanets = Random.Range(80, 300);
+        float randomOrbitDistance = Random.Range(4, 15);
+        float randomOrbitOtherPlanets = Random.Range(40, 300);
 
         for (int i = 0; i < numberOfPlanets; i++)
         {
@@ -337,7 +337,7 @@ public class PlanetManager : MonoBehaviour
                 randomSizeKm = Random.Range(minIceGas, maxIceGas);
                 randomMassKg = (double)Random.Range((float)minMassGas, (float)maxMassGas);
                 listOfPlanets = IceGasPlanets;
-                randomPlanetType = "Gas Giant";
+                randomPlanetType = "Ice Giant";
                 previousRandomType = 3;
                 planetPrefab = "IceGas";
             }
@@ -404,4 +404,3 @@ public class PlanetManager : MonoBehaviour
     }
 
 }
-
