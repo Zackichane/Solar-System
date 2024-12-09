@@ -9,9 +9,7 @@ public class CreateInfinitePlayerPref : MonoBehaviour
     void Start()
     {
         infiniteToggle.isOn = false;
-        ////////////////
-        infiniteToggle.isOn = true;
-        ////////////////
+
         PlayerPrefs.SetInt("nInfinite", 0);
         PlayerPrefs.SetInt("infinite", 0);
         PlayerPrefs.SetInt("nHabitable", 0);

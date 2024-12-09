@@ -103,9 +103,6 @@ public class PlanetManager : MonoBehaviour
         maxPlanet = PlayerPrefs.GetInt("maxPlanet");
         
         numberOfPlanets = Mathf.Round(Random.Range(minPlanet, maxPlanet));
-        //////////////
-        numberOfPlanets = numberOfPlanets;
-        //////////////
 
         GameObject star = GameObject.FindGameObjectWithTag("GeneratedStar");
         if (star != null)

@@ -18,7 +18,7 @@ public class InfiniteHandler : MonoBehaviour
     public new Light light;
 
     private int nTriesToMake = 2000; // Nombre d'essais pour trouver une planète habitable en mode stats
-    private bool statsMode = true; // Si statsMode est true, on essai de trouver le nombre de planètes habitables en nTriesToMake essais
+    private bool statsMode = false; // Si statsMode est true, on essai de trouver le nombre de planètes habitables en nTriesToMake essais
     // Start is called before the first frame update
     void Start()
     {
