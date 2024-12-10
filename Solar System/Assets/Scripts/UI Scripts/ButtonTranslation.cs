@@ -40,12 +40,10 @@ public class ButtonTranslation : MonoBehaviour
         if (moveCamera)
         {
             MoveToPosition(targetPosition, Quaternion.Euler(targetRotation));
-            Debug.Log("Moving camera forward");
         }
         else if (moveBack)
         {
             MoveToPosition(initialPosition, initialRotation);
-            Debug.Log("Moving camera back");
         }
 
         if (oldPosition != mainCamera.transform)

@@ -9,7 +9,7 @@ public class CamObjFollow : MonoBehaviour
     public float smoothSpeed = 0.125f; // Smoothness factor for movement
     public string targetName;
     public List<string> secondTargetNames; // List of second target names
-    public Vector3 uiOffset;
+    private Vector3 uiOffset = new Vector3(5, 0, 0); // Offset for UI elements
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +47,15 @@ public class CamObjFollow : MonoBehaviour
             if (offset.x < 1)
             {
                 offset = new Vector3(1f, 0, 0);
+            }
+            var planetInfo = targetObject.GetComponent<planetInfos>();
+            if (planetInfo != null && (planetInfo.planetType == "Gas Giant" || planetInfo.planetType == "Ice Giant"))
+            {
+                uiOffset = new Vector3(5f, 0, 0);
+            }
+            else
+            {
+                uiOffset = new Vector3(1f, 0, 0);
             }
         }
 

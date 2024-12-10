@@ -1306,7 +1306,8 @@ PrefabInstance:
       value: Imported (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8305235798794767765, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8459366985213176103, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
@@ -2734,7 +2735,8 @@ PrefabInstance:
       value: Imported (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8305235798794767765, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8459366985213176103, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
@@ -3546,7 +3548,8 @@ PrefabInstance:
       value: Imported (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8305235798794767765, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8459366985213176103, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
@@ -3998,7 +4001,8 @@ PrefabInstance:
       value: Imported (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8305235798794767765, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8459366985213176103, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
@@ -4489,7 +4493,8 @@ PrefabInstance:
       value: Imported
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8305235798794767765, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8459366985213176103, guid: 2c0a5917f7f0065459505cec40cbc6c4, type: 3}
