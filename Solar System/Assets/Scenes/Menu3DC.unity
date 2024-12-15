@@ -10479,6 +10479,8 @@ MonoBehaviour:
   - {fileID: 1479554941}
   - {fileID: 792071356}
   - {fileID: 0}
+  objectsToToggle: []
+  mainCamera: {fileID: 1907001563}
 --- !u!114 &1511864461
 MonoBehaviour:
   m_ObjectHideFlags: 0
