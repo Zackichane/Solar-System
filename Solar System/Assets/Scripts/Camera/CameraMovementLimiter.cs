@@ -7,6 +7,8 @@ public class CameraMovementLimiter : MonoBehaviour
     public float rightLimit = 10f;
     private float initialX;
 
+    public Vector3 initialPosition;
+
     void Start()
     {
         initialX = transform.position.x;

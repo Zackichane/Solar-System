@@ -1658,6 +1658,7 @@ GameObject:
   - component: {fileID: 23808763}
   - component: {fileID: 23808765}
   - component: {fileID: 23808766}
+  - component: {fileID: 23808767}
   m_Layer: 0
   m_Name: ButtonHandlerTimeline
   m_TagString: Untagged
@@ -1742,6 +1743,21 @@ MonoBehaviour:
   - {fileID: 326309780}
   objectsToToggle: []
   mainCamera: {fileID: 771123731}
+--- !u!114 &23808767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23808762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39644131824072d42bbe2911e89fd400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameras:
+  - {fileID: 932430286}
+  - {fileID: 878038546}
 --- !u!1 &33408927
 GameObject:
   m_ObjectHideFlags: 0
@@ -55936,6 +55952,7 @@ MonoBehaviour:
   moveSpeed: 4
   leftLimit: 0
   rightLimit: 193.31
+  initialPosition: {x: -441.3, y: 1, z: 158.26}
 --- !u!114 &878038548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59326,6 +59343,7 @@ MonoBehaviour:
   moveSpeed: 4
   leftLimit: 0
   rightLimit: 62
+  initialPosition: {x: -549, y: 1, z: 158.26}
 --- !u!1 &933956260
 GameObject:
   m_ObjectHideFlags: 0
